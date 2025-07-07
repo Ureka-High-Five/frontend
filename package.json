@@ -11,8 +11,16 @@
 		"prepare": "husky install"
 	},
 	"dependencies": {
+		"@tanstack/react-query": "^5.81.5",
+		"axios": "^1.10.0",
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"lucide-react": "^0.525.0",
 		"react": "^19.1.0",
-		"react-dom": "^19.1.0"
+		"react-dom": "^19.1.0",
+		"tailwind-merge": "^3.3.1",
+		"tailwindcss-animate": "^1.0.7",
+		"zustand": "^5.0.6"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^19.8.1",
@@ -22,6 +30,7 @@
 		"@typescript-eslint/eslint-plugin": "^7.6.0",
 		"@typescript-eslint/parser": "^7.6.0",
 		"@vitejs/plugin-react": "^4.5.2",
+		"autoprefixer": "^10.4.21",
 		"eslint": "^8.57.0",
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-prettier": "^9.1.0",
@@ -33,7 +42,9 @@
 		"eslint-plugin-react-refresh": "^0.4.6",
 		"globals": "^16.2.0",
 		"husky": "^9.1.7",
+		"postcss": "^8.5.6",
 		"prettier": "^3.5.3",
+		"tailwindcss": "^3.4.17",
 		"typescript": "~5.8.3",
 		"vite": "^7.0.0"
 	}
