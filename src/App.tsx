@@ -1,7 +1,14 @@
+import { Outlet } from "react-router-dom";
 import "./index.css";
 
 function App() {
-	return <div className="text-center text-blue-500 p-4">Tailwind CSS 확인</div>;
+	return (
+		<div>
+			<main>
+				<Outlet />
+			</main>
+		</div>
+	);
 }
 
 export default App;
