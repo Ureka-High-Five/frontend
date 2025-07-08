@@ -1,3 +1,3 @@
 export const PATH = {
-	ROOT: "/",
+  ROOT: "/",
 } as const;

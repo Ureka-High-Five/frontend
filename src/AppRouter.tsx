@@ -4,20 +4,20 @@ import LandingPage from "@/pages/LandingPage";
 import App from "./App";
 
 const AppRouter = () => {
-	const router = createBrowserRouter([
-		{
-			path: PATH.ROOT,
-			element: <App />,
-			children: [
-				{
-					path: "",
-					element: <LandingPage />,
-				},
-			],
-		},
-	]);
+  const router = createBrowserRouter([
+    {
+      path: PATH.ROOT,
+      element: <App />,
+      children: [
+        {
+          path: "",
+          element: <LandingPage />,
+        },
+      ],
+    },
+  ]);
 
-	return <RouterProvider router={router} />;
+  return <RouterProvider router={router} />;
 };
 
 export default AppRouter;
