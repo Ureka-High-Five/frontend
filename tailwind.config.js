@@ -50,6 +50,12 @@ export default {
 					4: "hsl(var(--chart-4))",
 					5: "hsl(var(--chart-5))",
 				},
+				custom: {
+					black: "#141516",
+					point: "#40FEA4",
+					gray: "#A1A1A1",
+					darkgray: "#4A4949",
+				},
 			},
 		},
 	},
