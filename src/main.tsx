@@ -6,9 +6,9 @@ import AppRouter from "./AppRouter";
 import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
-	<StrictMode>
-		<QueryClientProvider client={queryClient}>
-			<AppRouter />
-		</QueryClientProvider>
-	</StrictMode>
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <AppRouter />
+    </QueryClientProvider>
+  </StrictMode>
 );
