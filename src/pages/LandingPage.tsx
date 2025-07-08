@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import logoImg from "@/assets/logo.png";
 import AnimatedLogo from "@/components/landing/AnimatedLogo";
 import AnimatedSubText from "@/components/landing/AnimatedSubText";
-import SocialLoginButton from "@/components/landing/SocialLoginButton";
 import LandingLayout from "@/components/landing/LandingLayout";
+import SocialLoginButton from "@/components/landing/SocialLoginButton";
 
 const MESSAGES = ["콘텐츠의 바다를 헤매는 당신을 위해", "Read Me & Lead Me"];
 
