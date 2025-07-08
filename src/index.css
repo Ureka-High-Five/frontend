@@ -83,3 +83,60 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .heading-h1-dohyeon {
+    @apply text-heading-h1 font-bmDohyeon;
+  }
+  .heading-h1-pretendard {
+    @apply text-heading-h1 font-pretendard;
+  }
+
+  .heading-h2-pretendard {
+    @apply text-heading-h2 font-pretendard;
+  }
+
+  .body-lg-dohyeon {
+    @apply text-body-lg font-bmDohyeon;
+  }
+  .body-lg-pretendard {
+    @apply text-body-lg font-pretendard;
+  }
+
+  .body-md-dohyeon {
+    @apply text-body-md font-bmDohyeon;
+  }
+  .body-md-pretendard {
+    @apply text-body-md font-pretendard;
+  }
+
+  .body-sm-dohyeon {
+    @apply text-body-sm font-bmDohyeon;
+  }
+  .body-sm-pretendard {
+    @apply text-body-sm font-pretendard;
+  }
+
+  .body-xs-dohyeon {
+    @apply text-body-xs font-bmDohyeon;
+  }
+  .body-xs-pretendard {
+    @apply text-body-xs font-pretendard;
+  }
+}
+
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BMDOHYEON";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMDOHYEON.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}

@@ -51,6 +51,19 @@ export default {
           5: "hsl(var(--chart-5))",
         },
       },
+
+      fontSize: {
+        "heading-h1": "24px",
+        "heading-h2": "20px",
+        "body-lg": "16px",
+        "body-md": "14px",
+        "body-sm": "12px",
+        "body-xs": "10px",
+      },
+      fontFamily: {
+        pretendard: ["Pretendard-Regular", "sans-serif"],
+        bmDohyeon: ["BMDOHYEON", "sans-serif"],
+      },
     },
   },
   // eslint-disable-next-line global-require
