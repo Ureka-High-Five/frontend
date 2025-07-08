@@ -1,13 +1,13 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { PATH } from "@/constants/path";
 import LandingPage from "@/pages/LandingPage";
-import App from "./App";
+import BaseLayout from "./components/layout/base/BaseLayout";
 
 const AppRouter = () => {
 	const router = createBrowserRouter([
 		{
 			path: PATH.ROOT,
-			element: <App />,
+			element: <BaseLayout />,
 			children: [
 				{
 					path: "",
