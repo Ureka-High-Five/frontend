@@ -3,8 +3,8 @@ import "./index.css";
 
 function App() {
 	return (
-		<div>
-			<main>
+		<div className="flex flex-col min-h-screen w-full">
+			<main className="flex-1 w-full max-w-[700px] mx-auto overflow-hidden">
 				<Outlet />
 			</main>
 		</div>
