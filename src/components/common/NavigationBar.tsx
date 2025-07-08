@@ -12,7 +12,7 @@ const NavigationBar = () => {
 	const active = (path: string) => location.pathname === path;
 
 	return (
-		<div className="flex max-w-[700px] h-[83px] w-full mx-auto py-6 px-[30px] bg-[#434141]/80">
+		<div className="flex max-w-[700px] h-[82px] w-full mx-auto py-6 px-[30px] bg-[#434141]/80">
 			<Button
 				className="flex flex-col flex-1 hover:bg-transparent"
 				variant="ghost"
