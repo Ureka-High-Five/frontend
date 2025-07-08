@@ -8,7 +8,7 @@ interface LandingLayoutProps {
 
 const LandingLayout = ({ logo, subText, action }: LandingLayoutProps) => {
   return (
-    <main className="flex flex-col items-center justify-center h-full bg-gradient-to-b from-[rgba(64,254,164,0.2)] to-transparent overflow-hidden">
+    <main className="flex flex-col items-center justify-center h-full bg-gradient-to-b from-[rgba(64,254,164,0.12)] to-transparent overflow-hidden">
       <section className="flex flex-col items-center justify-start pb-20">
         {logo}
         <div className="h-8 flex items-center justify-center">{subText}</div>
