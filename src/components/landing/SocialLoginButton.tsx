@@ -1,10 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 
-interface KakaoButtonProps {
+interface SocialLoginButtonProps {
 	isVisible: boolean;
 }
 
-const KakaoButton = ({ isVisible }: KakaoButtonProps) => (
+const SocialLoginButton = ({ isVisible }: SocialLoginButtonProps) => (
 	<AnimatePresence>
 		{isVisible && (
 			<motion.button
@@ -20,4 +20,4 @@ const KakaoButton = ({ isVisible }: KakaoButtonProps) => (
 	</AnimatePresence>
 );
 
-export default KakaoButton;
+export default SocialLoginButton;

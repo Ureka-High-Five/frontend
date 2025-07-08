@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import logoImg from "@/assets/logo.png";
 import AnimatedLogo from "@/components/landing/AnimatedLogo";
 import AnimatedSubText from "@/components/landing/AnimatedSubText";
-import KakaoButton from "@/components/landing/KakaoButton";
+import SocialLoginButton from "@/components/landing/SocialLoginButton";
 import LandingLayout from "@/components/landing/LandingLayout";
 
 const MESSAGES = ["콘텐츠의 바다를 헤매는 당신을 위해", "Read Me & Lead Me"];
@@ -10,22 +10,22 @@ const MESSAGES = ["콘텐츠의 바다를 헤매는 당신을 위해", "Read Me 
 const LandingPage = () => {
 	const [isLogoVisible, setIsLogoVisible] = useState(false);
 	const [isSubTextVisible, setIsSubTextVisible] = useState(false);
-	const [isKakaoButtonVisible, setIsKakaoButtonVisible] = useState(false);
+	const [isSocialButtonVisible, setIsSocialButtonVisible] = useState(false);
 	const [messageIndex, setMessageIndex] = useState(0);
 
 	useEffect(() => {
 		setIsLogoVisible(true);
 		const subTextTimer = setTimeout(() => setIsSubTextVisible(true), 900);
 		const messageTimer = setTimeout(() => setMessageIndex(1), 900 + 1500);
-		const kakaoTimer = setTimeout(
-			() => setIsKakaoButtonVisible(true),
+		const socialBtnTimer = setTimeout(
+			() => setIsSocialButtonVisible(true),
 			900 + 1500 + 1400
 		);
 
 		return () => {
 			clearTimeout(subTextTimer);
 			clearTimeout(messageTimer);
-			clearTimeout(kakaoTimer);
+			clearTimeout(socialBtnTimer);
 		};
 	}, []);
 
@@ -39,7 +39,7 @@ const LandingPage = () => {
 					keyVal={messageIndex}
 				/>
 			}
-			action={<KakaoButton isVisible={isKakaoButtonVisible} />}
+			action={<SocialLoginButton isVisible={isSocialButtonVisible} />}
 		/>
 	);
 };
