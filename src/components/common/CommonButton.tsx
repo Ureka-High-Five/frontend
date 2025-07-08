@@ -25,7 +25,8 @@ const CommonButton = ({
   size = "default",
   disabled = false,
   className,
-}: CommonButtonProps) => {
+  ...rest
+}: CommonButtonProps & React.ComponentPropsWithoutRef<"button">) => {
   return (
     <Button
       onClick={onClick}
@@ -33,11 +34,11 @@ const CommonButton = ({
       size={size}
       disabled={disabled}
       className={cn(
-        "h-12 w-80 text-base font-medium",
-        variant === "default" &&
-          "bg-custom-point text-custom-black hover:bg-custom-point/90",
+        "w-[90%] max-w-sm h-14 text-custom-black body-lg-dohyeon",
+        variant === "default" && "bg-custom-point hover:bg-custom-point/90",
         className
-      )}>
+      )}
+      {...rest}>
       {emoji && <span className="mr-2">{emoji}</span>}
       {text}
     </Button>

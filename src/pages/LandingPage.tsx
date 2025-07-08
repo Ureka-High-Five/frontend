@@ -19,7 +19,7 @@ const LandingPage = () => {
     const messageTimer = setTimeout(() => setMessageIndex(1), 900 + 1500);
     const socialBtnTimer = setTimeout(
       () => setIsSocialButtonVisible(true),
-      900 + 1500 + 1400
+      900 + 1500 + 1000
     );
 
     return () => {

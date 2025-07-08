@@ -1,23 +1,25 @@
 import { motion, AnimatePresence } from "framer-motion";
+import CommonButton from "@/components/common/CommonButton";
 
 interface SocialLoginButtonProps {
-	isVisible: boolean;
+  isVisible: boolean;
 }
 
+const MotionCommonButton = motion(CommonButton);
+
 const SocialLoginButton = ({ isVisible }: SocialLoginButtonProps) => (
-	<AnimatePresence>
-		{isVisible && (
-			<motion.button
-				type="button"
-				className="w-[90%] max-w-sm h-14 bg-[#FEE500] text-black text-xl font-bold rounded-xl shadow-md"
-				initial={{ opacity: 0, y: 60 }}
-				animate={{ opacity: 1, y: 0 }}
-				exit={{ opacity: 0, y: 60 }}
-				transition={{ duration: 0.7, ease: "easeOut" }}>
-				카카오로 시작하기
-			</motion.button>
-		)}
-	</AnimatePresence>
+  <AnimatePresence>
+    {isVisible && (
+      <MotionCommonButton
+        className="bg-[#FEE500]"
+        initial={{ opacity: 0, y: 60 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 60 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        text="카카오로 시작하기"
+      />
+    )}
+  </AnimatePresence>
 );
 
 export default SocialLoginButton;
