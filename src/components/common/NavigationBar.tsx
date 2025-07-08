@@ -9,22 +9,22 @@ const NavigationBar = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const isActive = (path: string) => location.pathname === path;
+	const active = (path: string) => location.pathname === path;
 
 	return (
-		<div className="flex max-w-[700px] w-full mx-auto border-t border-gray-400 py-6 px-[30px] bg-[#434141]/80">
+		<div className="flex max-w-[700px] h-[83px] w-full mx-auto py-6 px-[30px] bg-[#434141]/80">
 			<Button
 				className="flex flex-col flex-1 hover:bg-transparent"
 				variant="ghost"
 				size="lg"
 				onClick={() => navigate(PATH.HOME)}>
 				<Tv
-					className={isActive(PATH.HOME) ? "stroke-blue-500" : "stroke-white"}
+					className={active(PATH.HOME) ? "stroke-blue-500" : "stroke-white"}
 				/>
 				<span
 					className={cn(
 						"text-sm font-medium",
-						isActive(PATH.HOME) ? "text-blue-500" : "text-white"
+						active(PATH.HOME) ? "text-blue-500" : "text-white"
 					)}>
 					HOME
 				</span>
@@ -36,12 +36,12 @@ const NavigationBar = () => {
 				size="lg"
 				onClick={() => navigate(PATH.SHORTS)}>
 				<Zap
-					className={isActive(PATH.SHORTS) ? "stroke-blue-500" : "stroke-white"}
+					className={active(PATH.SHORTS) ? "stroke-blue-500" : "stroke-white"}
 				/>
 				<span
 					className={cn(
 						"text-sm font-medium",
-						isActive(PATH.SHORTS) ? "text-blue-500" : "text-white"
+						active(PATH.SHORTS) ? "text-blue-500" : "text-white"
 					)}>
 					SHORTS
 				</span>
@@ -56,7 +56,7 @@ const NavigationBar = () => {
 					size="sm"
 					variant="circle"
 					className={cn(
-						isActive(PATH.MYPAGE) ? "border-blue-500" : "border-gray-300"
+						active(PATH.MYPAGE) ? "border-blue-500" : "border-gray-300"
 					)}>
 					<AvatarImage src="src/assets/react.svg" alt="사용자 이미지" />
 					<AvatarFallback>나</AvatarFallback>
@@ -65,7 +65,7 @@ const NavigationBar = () => {
 				<span
 					className={cn(
 						"text-sm font-medium",
-						isActive(PATH.MYPAGE) ? "text-blue-500" : "text-white"
+						active(PATH.MYPAGE) ? "text-blue-500" : "text-white"
 					)}>
 					MY
 				</span>
