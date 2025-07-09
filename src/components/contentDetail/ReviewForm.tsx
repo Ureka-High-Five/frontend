@@ -18,16 +18,20 @@ const ReviewForm = () => {
   const [isInputVisible, setIsInputVisible] = useState(false);
 
   useEffect(() => {
+    let messageTimer: ReturnType<typeof setTimeout>;
+    let inputTimer: ReturnType<typeof setTimeout>;
     if (rating > 0) {
       setIsMessageVisible(true);
       setIsInputVisible(false);
-      const timer = setTimeout(() => {
+      messageTimer = setTimeout(() => {
         setIsMessageVisible(false);
-        setTimeout(() => setIsInputVisible(true), 300);
+        inputTimer = setTimeout(() => setIsInputVisible(true), 300);
       }, 1000);
-      return () => clearTimeout(timer);
     }
-    return undefined;
+    return () => {
+      clearTimeout(messageTimer);
+      clearTimeout(inputTimer);
+    };
   }, [rating]);
 
   return (
