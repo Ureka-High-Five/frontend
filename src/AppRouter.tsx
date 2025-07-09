@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { PATH } from "@/constants/path";
+import ContentDetailPage from "@/pages/ContentDetailPage";
 import LandingPage from "@/pages/LandingPage";
 import App from "./App";
 
@@ -12,6 +13,10 @@ const AppRouter = () => {
         {
           path: "",
           element: <LandingPage />,
+        },
+        {
+          path: PATH.CONTENT_DETAIL,
+          element: <ContentDetailPage />,
         },
       ],
     },
