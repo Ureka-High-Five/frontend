@@ -1,98 +1,39 @@
-[config]
-model = "gpt-4o-mini"
-model_turbo = "gpt-4o-mini"
-language = "ko"
-verbosity_level = 0
-publish_output_progress = false
+[general]
+language = "korean"
+code_style = "high_five"
 
 [pr_reviewer]
-auto_review = true
-num_code_suggestions = 2
-inline_code_comments = true
-require_focused_review = false
-require_score_review = false
-require_tests = false
-require_security_review = false
-require_can_be_split_review = false
-enable_help_text = true
-persistent_comment = true
+review_summary = true
+comment_mode = "diff"
+extra_instructions = """\
+High-Five 프론트엔드 팀의 코드 컨벤션을 반드시 따르세요. 주요 기준은 다음과 같습니다:
 
-extra_instructions = """
-답변은 반드시 한국어로 작성해주세요.
-
-프로젝트는 React + TypeScript 기반이며 다음 항목을 검토해주세요:
-
-[함수 네이밍 규칙]
-- 이벤트 핸들러: `handle` 접두어 (예: handleLoginClick)
+[함수 네이밍]
+- 이벤트 핸들러: handle + 동작명 (예: handleLoginButtonClick)
 - 일반 함수: 동사로 시작 (예: calculateAverage)
-- API 요청: `get`, `post` 등으로 시작 (예: getUserList)
-- Hook: `use` 접두어 사용 (예: useAuth, useLoginMutation)
+- HTTP 요청: get/post/delete + 의미 (예: getUserInformation)
+- 훅: use로 시작, 예: useAuth, useUserStatusQuery
 
 [변수 네이밍]
-- Boolean: `is`, `has` 접두어 사용 (예: isModalOpen)
-- 리스트/객체 등: 명확한 의미를 전달하는 이름 (예: userList)
+- Boolean: is/has 접두어 사용 (예: isModalOpen)
+- 나머지: 의미가 명확하게 드러나는 이름 사용 (예: userList)
 
 [파일 네이밍]
-- 컴포넌트/페이지: PascalCase
-- util/api/hook: camelCase
-- 이미지 등 정적 파일: kebab-case
+- 컴포넌트, 페이지: PascalCase (예: LoginPage)
+- hooks, utils, api: camelCase (예: useAuth, formatDate)
+- 이미지 파일: kebab-case (예: together-logo.svg)
 
 [코드 작성 순서]
-- import 순서: 라이브러리 → 컴포넌트/로직 → 스타일
-- 내부 선언 순서: hook → 변수 → useEffect → 함수
+- import 순서: React → 컴포넌트/함수 → 스타일
+- 컴포넌트 내부 선언 순서: hook → 변수 → useEffect → 함수
 
-[스타일 가이드]
-- 들여쓰기 최대 2단계
-- return 전에 줄바꿈
-- 불필요한 else 지양
-- 삼항 연산자 중첩 금지
-- Props가 2개 이상이면 `interface`로 정의
+[스타일 규칙]
+- 중첩(depth): 최대 2단계
+- return 문 앞에 줄바꿈 추가
+- 불필요한 else 문 제거
+- 이중 if문 대신 조건 결합
+- props가 2개 이상이면 interface 사용
+- 중첩 삼항 연산자 금지
 
-이 컨벤션을 기반으로 모든 리뷰 코멘트를 **한국어**로 작성해주세요.
+이 기준에 위배되는 부분이 있다면 리뷰에서 명확히 지적해 주세요.
 """
-
-relevant_file_extensions = [".ts", ".tsx", ".js", ".jsx"]
-
-[pr_description]
-publish_description = true
-add_original_user_description = true
-keep_original_user_title = true
-publish_labels = false
-use_bullet_points = true
-include_generated_by_tag = false
-
-extra_instructions = """
-반드시 한국어로 작성해주세요.
-
-간단하게 다음 내용을 포함:
-- 주요 변경사항
-- 테스트 방법 (해당시)
-
-모든 내용은 한국어로 작성해주세요.
-"""
-
-[pr_code_suggestions]
-auto_improve = false
-summarize = true
-num_code_suggestions = 2
-commitable_code_suggestions = false
-enable_help_text = false
-
-[pr_questions]
-enable_pr_questions = false
-
-[pr_similar_issue]
-skip_comments = true
-
-[pr_update_changelog]
-publish_changelog = false
-
-[github]
-publish_inline_comments = true
-publish_review_comments = true
-publish_description_as_comment = false
-add_pr_commands_text = false
-
-[litellm]
-drop_params = true
-request_timeout = 120
