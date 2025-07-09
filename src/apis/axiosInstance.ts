@@ -1,5 +1,8 @@
 import axios from "axios";
-import { setAuthorizedRequest } from "@/apis/axiosInterceptors";
+import {
+  setAuthorizedRequest,
+  handleTokenError,
+} from "@/apis/axiosInterceptors";
 import { BASE_URL, NETWORK_TIMEOUT } from "@/constants/api";
 
 export const axiosInstance = axios.create({
@@ -10,3 +13,8 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(setAuthorizedRequest);
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  handleTokenError
+);
