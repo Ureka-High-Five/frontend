@@ -1,9 +1,9 @@
 import type { Content, Review, MyReview } from "@/types/content";
-import ContentDescription from "./ContentDescription";
-import ContentMainInfo from "./ContentMainInfo";
-import ContentPoster from "./ContentPoster";
-import ReviewForm from "./ReviewForm";
-import ReviewList from "./ReviewList";
+import ContentDescription from "./organism/ContentDescription";
+import ContentMainInfo from "./organism/ContentMainInfo";
+import ContentPoster from "./organism/ContentPoster";
+import ReviewForm from "./organism/ReviewForm";
+import ReviewList from "./organism/ReviewList";
 
 interface ContentDetailLayoutProps {
   content: Content;
