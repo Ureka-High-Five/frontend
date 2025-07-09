@@ -1,4 +1,4 @@
-import ContentDetailLayout from "@/components/contentDetail/organism/ContentDetailLayout";
+import ContentDetailLayout from "@/components/contentDetail/ContentDetailLayout";
 
 // UI 구성용 임시 데이터
 const mockContentData = {

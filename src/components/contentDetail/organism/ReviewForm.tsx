@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Send } from "lucide-react";
-import { Card } from "../ui/card";
-import { Input } from "../ui/input";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 const RATING_MESSAGES = [
   "내 취향은 아니었어요",

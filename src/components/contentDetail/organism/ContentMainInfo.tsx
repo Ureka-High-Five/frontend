@@ -1,6 +1,6 @@
 import { Play } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import type { Content } from "@/types/content";
-import { Button } from "../ui/button";
 
 type ContentMainInfoProps = Pick<
   Content,
