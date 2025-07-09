@@ -23,7 +23,7 @@ const ContentMainInfo = ({
         <li>{contentGenres.join(", ")}</li>
         <li>{contentRunningTime}분</li>
       </ul>
-      <Button className="w-full bg-custom-point text-custom-black flex items-center justify-center gap-2">
+      <Button className="w-full bg-custom-point text-custom-black flex items-center justify-center gap-2 max-w-[350px]">
         <Play className="w-5 h-5 text-black" />
         미리보기
       </Button>

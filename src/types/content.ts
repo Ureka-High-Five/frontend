@@ -17,3 +17,8 @@ export interface Review {
   userRating: number;
   userReview: string;
 }
+
+export interface MyReview {
+  rating: number;
+  review: string;
+}

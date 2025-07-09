@@ -16,6 +16,11 @@ const mockContentData = {
   openDate: "2025-04-05",
 };
 
+// const mockMyReviewData = {
+//   rating: 5,
+//   review: "작품 꿀잼",
+// };
+
 // API 응답 형식에 맞는 mock 리뷰 데이터
 const mockReviewsData = {
   contentReviews: [
@@ -106,6 +111,7 @@ const ContentDetailPage = () => {
     <ContentDetailLayout
       content={mockContentData}
       reviews={mockReviewsData.contentReviews}
+      // myReview={mockMyReviewData}
     />
   );
 };
