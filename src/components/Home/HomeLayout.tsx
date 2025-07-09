@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
-import NavigationBar from "@/components/common/NavigationBar";
+import NavigationBar from "@/components/Nav/NavigationBar";
 
-const BaseLayout = () => {
+const HomeLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen w-full">
+    <div className="flex flex-col min-h-screen w-full bg-custom-gray">
       <main className="flex-1 w-full max-w-[360px] mx-auto overflow-hidden">
         <Outlet />
       </main>
@@ -12,4 +12,4 @@ const BaseLayout = () => {
   );
 };
 
-export default BaseLayout;
+export default HomeLayout;
