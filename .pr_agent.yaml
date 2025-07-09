@@ -1,6 +1,3 @@
-trigger_on_branches:
-  - main
-  - develop
 review:
   rules:
     # 함수 네이밍 규칙
