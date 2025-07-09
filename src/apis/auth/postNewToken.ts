@@ -9,7 +9,7 @@ const postNewToken = async (): Promise<NewToken> => {
     END_POINTS.NEWTOKEN,
     { refreshToken },
     {
-      authRequired: false,
+      isAuthRequired: false,
     }
   );
 

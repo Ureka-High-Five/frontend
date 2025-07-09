@@ -10,7 +10,7 @@ export const axiosInstance = axios.create({
   baseURL: BASE_URL,
   timeout: NETWORK_TIMEOUT,
   withCredentials: true,
-  authRequired: true,
+  isAuthRequired: true,
 });
 
 axiosInstance.interceptors.request.use(setAuthorizedRequest, handleAPIError);

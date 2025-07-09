@@ -18,7 +18,11 @@ interface ErrorResponse {
 }
 
 export const setAuthorizedRequest = (config: InternalAxiosRequestConfig) => {
-  if (!config.authRequired || !config.headers || config.headers.Authorization) {
+  if (
+    !config.isAuthRequired ||
+    !config.headers ||
+    config.headers.Authorization
+  ) {
     return config;
   }
 
