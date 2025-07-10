@@ -10,7 +10,7 @@ interface AnimatedSubTextProps {
 const AnimatedSubText = ({ isVisible, text, keyVal }: AnimatedSubTextProps) => (
   <AnimatePresence mode="wait">
     {isVisible && (
-      <AnimatedFadeIn keyName={keyVal.toString()} duration={0.5}>
+      <AnimatedFadeIn keyName={keyVal.toString()}>
         <p className="text-gray-400 body-md-pretendard tracking-wide">{text}</p>
       </AnimatedFadeIn>
     )}
