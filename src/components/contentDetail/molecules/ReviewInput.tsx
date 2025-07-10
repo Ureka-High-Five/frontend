@@ -8,7 +8,7 @@ interface ReviewInputProps {
 }
 
 const ReviewInput = ({ value, onChange, onSend }: ReviewInputProps) => (
-  <div className="w-[85%] mx-auto flex items-center gap-2 mt-2 border-b border-white">
+  <div className="w-full mx-auto flex items-center gap-2 mt-2 border-b border-white">
     <Input
       className="bg-transparent border-none text-white placeholder-gray-300 focus-visible:ring-0 focus-visible:outline-none"
       placeholder="리뷰를 남겨주세요"
