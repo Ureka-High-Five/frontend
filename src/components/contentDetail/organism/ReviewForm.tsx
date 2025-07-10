@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import AnimatedFadeIn from "@/components/common/atom/AnimatedFadeIn";
 import { Card } from "@/components/ui/card";
 import RatingMessage from "../molecules/RatingMessage";
 import ReviewInput from "../molecules/ReviewInput";
@@ -42,29 +43,17 @@ const ReviewForm = () => {
       <div className="w-full min-h-[50px] flex items-center justify-center">
         <AnimatePresence mode="wait">
           {rating === 0 && (
-            <motion.div
-              key="default"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}>
+            <AnimatedFadeIn keyName="default">
               <RatingMessage message="이 작품 어떠셨나요?" />
-            </motion.div>
+            </AnimatedFadeIn>
           )}
           {rating > 0 && isMessageVisible && (
-            <motion.div
-              key="message"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}>
+            <AnimatedFadeIn keyName="message">
               <RatingMessage message={RATING_MESSAGES[rating - 1]} />
-            </motion.div>
+            </AnimatedFadeIn>
           )}
           {isInputVisible && (
-            <motion.div
-              key="input"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}>
+            <AnimatedFadeIn keyName="input">
               <ReviewInput
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
@@ -72,7 +61,7 @@ const ReviewForm = () => {
                   /* 전송 로직 */
                 }}
               />
-            </motion.div>
+            </AnimatedFadeIn>
           )}
         </AnimatePresence>
       </div>
