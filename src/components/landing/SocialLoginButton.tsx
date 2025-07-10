@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { KAKAO_API_URL } from "@/constants/api";
 import { Button } from "../ui/button";
 
 interface SocialLoginButtonProps {
@@ -15,7 +16,10 @@ const SocialLoginButton = ({ isVisible }: SocialLoginButtonProps) => (
         initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 60 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}>
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        onClick={() => {
+          window.location.href = KAKAO_API_URL;
+        }}>
         카카오로 시작하기
       </MotionCommonButton>
     )}
