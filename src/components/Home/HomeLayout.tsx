@@ -1,12 +1,35 @@
+import { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
-import NavigationBar from "@/components/Nav/NavigationBar";
+import Header from "@/components/common/Header";
+import NavigationBar from "@/components/common/Nav/NavigationBar";
 
 const HomeLayout = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const target = scrollRef.current;
+    if (!target) {
+      return undefined;
+    }
+
+    const handleScroll = () => {
+      const { scrollTop } = target;
+      setScrolled(scrollTop > 10);
+    };
+
+    target.addEventListener("scroll", handleScroll);
+    return () => target.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="flex flex-col min-h-screen w-full bg-custom-black">
-      <main className="flex-1 w-full max-w-[360px] mx-auto overflow-hidden">
+    <div className="bg-black text-white h-screen flex flex-col overflow-hidden">
+      <Header scrolled={scrolled} />
+
+      <div ref={scrollRef} className="flex-1 overflow-y-auto no-scrollbar">
         <Outlet />
-      </main>
+      </div>
+
       <NavigationBar />
     </div>
   );
