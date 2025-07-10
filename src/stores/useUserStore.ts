@@ -4,7 +4,7 @@ interface UserData {
   userId: number;
   selectedContentIds: number[];
   year: number;
-  gender: "male" | "female";
+  gender: "male" | "female" | "";
   name: string;
 }
 
@@ -21,7 +21,7 @@ const initialUser: UserData = {
   userId: 0,
   selectedContentIds: [],
   year: 0,
-  gender: "male",
+  gender: "",
   name: "",
 };
 
