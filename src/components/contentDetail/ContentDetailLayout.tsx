@@ -17,10 +17,10 @@ const ContentDetailLayout = ({
   myReview,
 }: ContentDetailLayoutProps) => {
   return (
-    <div className="relative w-full min-h-screen justify-center flex flex-col items-center">
+    <div className="relative w-full h-screen justify-center flex flex-col items-center">
       <ContentPoster posterUrl={content.posterUrl} />
       {/* 오버레이 컨텐츠 */}
-      <div className="relative z-10 px-8 mt-60 flex flex-col gap-6 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto max-h-screen hide-scrollbar">
+      <div className="relative z-10 px-8 mt-60 flex flex-col gap-6 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto hide-scrollbar">
         <ContentMainInfo
           contentTitle={content.contentTitle}
           contentCountry={content.contentCountry}
