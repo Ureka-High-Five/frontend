@@ -1,5 +1,3 @@
-// src/components/shared/HorizontalScrollContainer.tsx
-
 import { cn } from "@/utils/cn";
 
 interface Props {
