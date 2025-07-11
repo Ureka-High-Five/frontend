@@ -4,4 +4,6 @@ export const PATH = {
   HOME: "/home",
   SHORTS: "/shorts",
   MYPAGE: "/mypage",
+  ONBOARDING: "/onboarding",
+  REDIRECT: "/redirect/kakao",
 } as const;
