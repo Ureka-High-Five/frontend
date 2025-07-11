@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "@/components/common/Header";
-import NavigationBar from "@/components/common/Nav/NavigationBar";
+import NavigationBar from "@/components/common/Navigation/NavigationBar";
 
 const HomeLayout = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
