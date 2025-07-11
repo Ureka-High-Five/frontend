@@ -8,27 +8,29 @@ import {
 import useUserStore from "@/stores/useUserStore";
 import { cn } from "@/utils/cn";
 
-interface AgeSelectProps {
+interface BirthYearSelectProps {
   setStep: (step: "name" | "age" | "gender" | "content") => void;
 }
 
-const AgeSelect = ({ setStep }: AgeSelectProps) => {
-  const year = useUserStore((state) => state.user.year);
-  const setYear = useUserStore((state) => state.setYear);
+const BirthYearSelect = ({ setStep }: BirthYearSelectProps) => {
+  const birthYear = useUserStore((state) => state.user.birthYear);
+  const setBirthYear = useUserStore((state) => state.setBirthYear);
   const years = Array.from({ length: 101 }, (_, i) => 2025 - i);
 
-  const handleAgeChange = (val: string) => {
-    setYear(Number(val));
+  const handleBirthYearChange = (val: string) => {
+    setBirthYear(Number(val));
     setStep("gender");
   };
 
   return (
     <section className="flex flex-col gap-6 w-[90%] max-w-sm">
-      <Select value={year ? String(year) : ""} onValueChange={handleAgeChange}>
+      <Select
+        value={birthYear ? String(birthYear) : ""}
+        onValueChange={handleBirthYearChange}>
         <SelectTrigger
           className={cn(
             "w-full bg-white text-custom-black rounded-md",
-            year ? "border-none" : "border-2 border-custom-point"
+            birthYear ? "border-none" : "border-2 border-custom-point"
           )}>
           <SelectValue placeholder="태어난 연도를 선택해주세요" />
         </SelectTrigger>
@@ -45,4 +47,4 @@ const AgeSelect = ({ setStep }: AgeSelectProps) => {
   );
 };
 
-export default AgeSelect;
+export default BirthYearSelect;

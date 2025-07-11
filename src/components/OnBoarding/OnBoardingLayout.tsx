@@ -1,6 +1,6 @@
 import { ONBOARDING_STEP_TEXTS, REQUIRED_COUNT } from "@/constants/onBoarding";
 import useUserStore from "@/stores/useUserStore";
-import AgeSelect from "./organism/AgeSelect";
+import BirthYearSelect from "./organism/BirthYearSelect";
 import ContentSelect from "./organism/ContentSelect";
 import GenderSelect from "./organism/GenderSelect";
 import Name from "./organism/Name";
@@ -32,7 +32,7 @@ const OnBoardingLayout = ({ step, setStep }: OnBoardingLayoutProps) => {
         <>
           <Name setStep={setStep} isActive={step === "name"} />
           {(step === "age" || step === "gender") && (
-            <AgeSelect setStep={setStep} />
+            <BirthYearSelect setStep={setStep} />
           )}
           {step === "gender" && <GenderSelect setStep={setStep} />}
         </>
