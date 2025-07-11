@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import useUserStore from "@/stores/useUserStore";
 
 interface NameProps {
-  setStep: (step: "name" | "age" | "gender" | "content") => void;
+  setStep: (step: "name" | "birthYear" | "gender" | "content") => void;
   isActive: boolean;
 }
 
@@ -22,7 +22,7 @@ const Name = ({ setStep, isActive }: NameProps) => {
         <Button
           size="lg"
           className="w-full bg-custom-point text-custom-black body-lg-dohyeon flex items-center justify-center"
-          onClick={() => setStep("age")}>
+          onClick={() => setStep("birthYear")}>
           다음으로
         </Button>
       )}

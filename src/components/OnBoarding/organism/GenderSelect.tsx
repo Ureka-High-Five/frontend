@@ -10,7 +10,7 @@ import useUserStore from "@/stores/useUserStore";
 import { cn } from "@/utils/cn";
 
 interface GenderSelectProps {
-  setStep: (step: "name" | "age" | "gender" | "content") => void;
+  setStep: (step: "name" | "birthYear" | "gender" | "content") => void;
 }
 
 const GenderSelect = ({ setStep }: GenderSelectProps) => {

@@ -6,8 +6,8 @@ import GenderSelect from "./organism/GenderSelect";
 import Name from "./organism/Name";
 
 interface OnBoardingLayoutProps {
-  step: "name" | "age" | "gender" | "content";
-  setStep: (step: "name" | "age" | "gender" | "content") => void;
+  step: "name" | "birthYear" | "gender" | "content";
+  setStep: (step: "name" | "birthYear" | "gender" | "content") => void;
 }
 
 const OnBoardingLayout = ({ step, setStep }: OnBoardingLayoutProps) => {
@@ -31,7 +31,7 @@ const OnBoardingLayout = ({ step, setStep }: OnBoardingLayoutProps) => {
       {step !== "content" && (
         <>
           <Name setStep={setStep} isActive={step === "name"} />
-          {(step === "age" || step === "gender") && (
+          {(step === "birthYear" || step === "gender") && (
             <BirthYearSelect setStep={setStep} />
           )}
           {step === "gender" && <GenderSelect setStep={setStep} />}
