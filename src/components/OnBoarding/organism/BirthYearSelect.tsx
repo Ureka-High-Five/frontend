@@ -17,8 +17,8 @@ const BirthYearSelect = ({ setStep }: BirthYearSelectProps) => {
   const setBirthYear = useUserStore((state) => state.setBirthYear);
   const years = Array.from({ length: 101 }, (_, i) => 2025 - i);
 
-  const handleBirthYearChange = (val: string) => {
-    setBirthYear(Number(val));
+  const handleBirthYearChange = (value: string) => {
+    setBirthYear(Number(value));
     setStep("gender");
   };
 
