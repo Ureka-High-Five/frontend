@@ -21,9 +21,9 @@ const NavigationBar = () => {
       />
       <NavItem
         icon={
-          <Avatar className="w-6 h-6">
+          <Avatar className="w-5 h-5">
             <AvatarImage src="/images/user.svg" alt="사용자 이미지" />
-            <AvatarFallback className="text-body-sm font-pretendard text-white">
+            <AvatarFallback className="body-sm-pretendard text-white">
               나
             </AvatarFallback>
           </Avatar>
