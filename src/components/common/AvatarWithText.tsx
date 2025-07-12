@@ -1,5 +1,3 @@
-// components/common/AvatarWithText.tsx
-
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface AvatarWithTextProps {

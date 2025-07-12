@@ -4,10 +4,6 @@ export const mockRecommendContentsData = {
     description: "범죄도시2",
     genre: ["액션", "범죄", "하이틴"],
   },
-  // randomContent: {
-  //   contentId: 1401,
-  //   posterUrl: "/assets/poster.jpg",
-  // },
   recommendContents: Array(5)
     .fill(null)
     .map((_, i) => ({
