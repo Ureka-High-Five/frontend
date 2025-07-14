@@ -4,6 +4,7 @@ export const END_POINTS = {
   NEWTOKEN: "auth/reissue",
   KAKAOLOGIN: "auth/login",
   INIT_ONBOARDING: "content/init",
+  RECOMMEND_ONBOARDING: "content/recommend",
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
