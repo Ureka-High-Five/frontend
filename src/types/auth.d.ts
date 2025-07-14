@@ -13,7 +13,7 @@ interface ExistingUserLogin extends AuthTokens {
 
 interface FirstTimeUserLogin {
   userId: number;
-  name: string;
+  nickname: string;
   isNew: true;
 }
 
