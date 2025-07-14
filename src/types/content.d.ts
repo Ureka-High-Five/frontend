@@ -22,3 +22,10 @@ export interface MyReview {
   rating: number;
   review: string;
 }
+
+export interface OnBoardingContent {
+  contentId: number;
+  thumbnailUrl: string;
+  title: string;
+  openYear: number;
+}
