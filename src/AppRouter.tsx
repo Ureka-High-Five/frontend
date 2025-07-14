@@ -1,8 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { PATH } from "@/constants/path";
-import App from "./App";
 import ContentDetailPage from "@/pages/ContentDetailPage";
-import LandingPage from "@/pages/LandingPage";
+import App from "./App";
+import HomePage from "@/pages/Home/HomePage";
 
 const AppRouter = () => {
   const router = createBrowserRouter([
@@ -11,8 +11,8 @@ const AppRouter = () => {
       element: <App />,
       children: [
         {
-          path: "",
-          element: <LandingPage />,
+          path: "", 
+          element: <HomePage />, 
         },
         {
           path: PATH.CONTENT_DETAIL,
