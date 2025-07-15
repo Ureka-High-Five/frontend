@@ -21,7 +21,7 @@ const GenderSelect = ({ setStep }: GenderSelectProps) => {
     <section className="flex flex-col gap-6 w-[90%] max-w-sm">
       <Select
         value={gender}
-        onValueChange={(value: "male" | "female") => setGender(value)}>
+        onValueChange={(value: "MALE" | "FEMALE") => setGender(value)}>
         <SelectTrigger
           className={cn(
             "w-full bg-white text-custom-black rounded-md",
@@ -31,8 +31,8 @@ const GenderSelect = ({ setStep }: GenderSelectProps) => {
         </SelectTrigger>
 
         <SelectContent>
-          <SelectItem value="male">남성</SelectItem>
-          <SelectItem value="female">여성</SelectItem>
+          <SelectItem value="MALE">남성</SelectItem>
+          <SelectItem value="FEMALE">여성</SelectItem>
         </SelectContent>
       </Select>
 

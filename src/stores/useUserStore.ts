@@ -4,7 +4,7 @@ interface UserData {
   userId: number;
   selectedContentIds: number[];
   birthYear: number;
-  gender: "male" | "female" | "";
+  gender: "MALE" | "FEMALE" | "";
   name: string;
 }
 
@@ -13,7 +13,7 @@ interface UserState {
   setUserId: (id: number) => void;
   setSelectedContentIds: (ids: number[]) => void;
   setBirthYear: (birthYear: number) => void;
-  setGender: (gender: "male" | "female") => void;
+  setGender: (gender: "MALE" | "FEMALE") => void;
   setName: (name: string) => void;
 }
 
