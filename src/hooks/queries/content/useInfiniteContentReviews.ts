@@ -8,11 +8,13 @@ export const useInfiniteContentReviews = (
 ) => {
   return useInfiniteQuery<ReviewListResponse>({
     queryKey: ["contentReviews", contentId],
-    queryFn: (context) =>
-      getContentReviews(contentId, context.pageParam as string, size),
+    queryFn: ({ pageParam = "" }) =>
+      getContentReviews(contentId, pageParam as string, size),
     initialPageParam: "",
     getNextPageParam: (lastPage) =>
-      lastPage.hasNext ? (lastPage.nextCursor ?? "") : "",
+      lastPage.content.hasNext
+        ? (lastPage.content.nextCursor ?? "")
+        : undefined,
     enabled: !!contentId,
   });
 };

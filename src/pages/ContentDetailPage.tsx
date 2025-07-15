@@ -1,117 +1,64 @@
+import { useRef, useEffect } from "react";
 import ContentDetailLayout from "@/components/contentDetail/ContentDetailLayout";
-
-// UI 구성용 임시 데이터
-const mockContentData = {
-  contentTitle: "범죄도시2",
-  contentDescription:
-    "새로운 참가자들이 상금에 도전한다. 이렇게 시놉시스를 쓰고 룰루랄라 영화가 흥미진진하다 범죄도시 재미없다 오겜도 재미없다. 마지막 표를 던질 참가자가 그들 모두의 운명의 잡는다 야호.",
-  contentCountry: "한국",
-  contentGenres: ["스릴러", "범죄", "드라마"],
-  contentRunningTime: 180,
-  contentGrade: 15,
-  posterUrl:
-    "https://dev-leadme.s3.ap-northeast-2.amazonaws.com/poster/1010581_movie.jpg",
-  actors: ["차은우", "송강", "이도현"],
-  director: "봉준호",
-  openDate: "2025-04-05",
-};
-
-// const mockMyReviewData = {
-//   rating: 5,
-//   review: "작품 꿀잼",
-// };
-
-// API 응답 형식에 맞는 mock 리뷰 데이터
-const mockReviewsData = {
-  contentReviews: [
-    {
-      reviewId: 123,
-      userProfileUrl: "https://cdn.example.com/profiles/user1.png",
-      userRating: 5,
-      userReview: "범죄도시 제 인생영화 너무 웃기고 마지막에는 감동까지",
-    },
-    {
-      reviewId: 456,
-      userProfileUrl: "https://cdn.example.com/profiles/user2.png",
-      userRating: 4,
-      userReview: "스토리 전개가 빠르고 시원시원해서 좋았어요!",
-    },
-    {
-      reviewId: 456,
-      userProfileUrl: "https://cdn.example.com/profiles/user2.png",
-      userRating: 1,
-      userReview: "스토리 전개가 빠르고 시원시원해서 좋았어요!",
-    },
-    {
-      reviewId: 456,
-      userProfileUrl: "https://cdn.example.com/profiles/user2.png",
-      userRating: 2,
-      userReview: "스토리 전개가 빠르고 시원시원해서 좋았어요!",
-    },
-    {
-      reviewId: 456,
-      userProfileUrl: "https://cdn.example.com/profiles/user2.png",
-      userRating: 3,
-      userReview: "스토리 전개가 빠르고 시원시원해서 좋았어요!",
-    },
-    {
-      reviewId: 456,
-      userProfileUrl: "https://cdn.example.com/profiles/user2.png",
-      userRating: 4,
-      userReview: "스토리 전개가 빠르고 시원시원해서 좋았어요!",
-    },
-    {
-      reviewId: 456,
-      userProfileUrl: "https://cdn.example.com/profiles/user2.png",
-      userRating: 4,
-      userReview: "스토리 전개가 빠르고 시원시원해서 좋았어요!",
-    },
-    {
-      reviewId: 456,
-      userProfileUrl: "https://cdn.example.com/profiles/user2.png",
-      userRating: 4,
-      userReview: "여기까지만 보임 왜",
-    },
-    {
-      reviewId: 456,
-      userProfileUrl: "https://cdn.example.com/profiles/user2.png",
-      userRating: 2,
-      userReview: "여기까지만 보임 왜?",
-    },
-    {
-      reviewId: 456,
-      userProfileUrl: "https://cdn.example.com/profiles/user2.png",
-      userRating: 3,
-      userReview: "스토리 전개가 빠르고 시원시원해서 좋았어요!",
-    },
-    {
-      reviewId: 456,
-      userProfileUrl: "https://cdn.example.com/profiles/user2.png",
-      userRating: 3,
-      userReview: "스토리 전개가 빠르고 시원시원해서 좋았어요!",
-    },
-    {
-      reviewId: 456,
-      userProfileUrl: "https://cdn.example.com/profiles/user2.png",
-      userRating: 2,
-      userReview: "스토리 전개가 빠르고 시원시원해서 좋았어요!",
-    },
-    {
-      reviewId: 456,
-      userProfileUrl: "https://cdn.example.com/profiles/user2.png",
-      userRating: 1,
-      userReview: "꺼져라",
-    },
-  ],
-  nextCursor: "103",
-};
+import { useContentDetail } from "@/hooks/queries/content/useContentDetail";
+import { useInfiniteContentReviews } from "@/hooks/queries/content/useInfiniteContentReviews";
+import { useMyReview } from "@/hooks/queries/content/useMyReview";
 
 const ContentDetailPage = () => {
+  const { data: content, isLoading, error } = useContentDetail("420");
+  const {
+    data: reviewPages,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteContentReviews("420");
+  const { data: myReview } = useMyReview("420");
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // 모든 리뷰를 평탄화
+  const reviews =
+    reviewPages?.pages.flatMap((page) => page.content?.items ?? []) ?? [];
+
+  useEffect(() => {
+    const scrollElement = scrollRef.current;
+    const target = scrollElement?.querySelector("#observer-target");
+
+    if (!scrollElement || !target || !hasNextPage || isFetchingNextPage) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          console.log("무한스크롤 트리거!");
+          fetchNextPage();
+        }
+      },
+      {
+        root: scrollElement,
+        threshold: 1,
+      }
+    );
+    observer.observe(target);
+
+    return () => {
+      observer.unobserve(target);
+      observer.disconnect();
+    };
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage, reviews.length]);
+
+  if (isLoading) return <div>로딩중...</div>;
+  if (error) return <div>에러 발생!</div>;
+  if (!content) return <div>데이터 없음</div>;
+
   return (
     <ContentDetailLayout
-      content={mockContentData}
-      reviews={mockReviewsData.contentReviews}
-      // myReview={mockMyReviewData}
+      content={content}
+      reviews={reviews}
+      myReview={myReview}
+      scrollRef={scrollRef}
+      isFetchingNextPage={isFetchingNextPage}
     />
   );
 };

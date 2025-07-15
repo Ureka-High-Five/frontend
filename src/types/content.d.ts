@@ -19,11 +19,13 @@ export interface Review {
 }
 
 export interface ReviewListResponse {
+  code: number;
   content: {
     items: Review[];
     hasNext: boolean;
     nextCursor?: string;
   };
+  message: string;
 }
 
 export interface MyReview {
