@@ -4,7 +4,7 @@ import ContentDetailPage from "@/pages/ContentDetailPage";
 import LandingPage from "@/pages/LandingPage";
 import RedirectPage from "@/pages/RedirectPage";
 import App from "./App";
-import HomePage from "@/pages/Home/HomePage";
+import HomePage from "@/pages/HomePage";
 
 const AppRouter = () => {
   const router = createBrowserRouter([
