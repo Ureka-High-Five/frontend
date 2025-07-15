@@ -3,6 +3,8 @@ export const BASE_URL = import.meta.env.VITE_BASE_URL;
 export const END_POINTS = {
   NEWTOKEN: "auth/reissue",
   KAKAOLOGIN: "auth/login",
+  CONTENT: "content",
+  CONTENT_REVIEW: "content/review",
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;

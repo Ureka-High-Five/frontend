@@ -1,4 +1,5 @@
 import { axiosInstance } from "@/apis/axiosInstance";
+import { END_POINTS } from "@/constants/api";
 
 interface PostMyReviewRequest {
   contentId: number;
@@ -7,5 +8,5 @@ interface PostMyReviewRequest {
 }
 
 export const postMyReview = async (body: PostMyReviewRequest) => {
-  await axiosInstance.post("/content/review", body);
+  await axiosInstance.post(`/${END_POINTS.CONTENT_REVIEW}`, body);
 };

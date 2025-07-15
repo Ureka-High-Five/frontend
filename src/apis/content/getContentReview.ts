@@ -1,4 +1,5 @@
 import { axiosInstance } from "@/apis/axiosInstance";
+import { END_POINTS } from "@/constants/api";
 import type { ReviewListResponse } from "@/types/content";
 
 export const getContentReviews = async (
@@ -9,8 +10,11 @@ export const getContentReviews = async (
   const params: { size: number; cursor?: string } = { size };
   if (cursor) params.cursor = cursor;
 
-  const { data } = await axiosInstance.get(`/content/review/${contentId}`, {
-    params,
-  });
+  const { data } = await axiosInstance.get(
+    `/${END_POINTS.CONTENT_REVIEW}/${contentId}`,
+    {
+      params,
+    }
+  );
   return data;
 };
