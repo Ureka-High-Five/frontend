@@ -5,6 +5,7 @@ export const END_POINTS = {
   KAKAOLOGIN: "auth/login",
   INIT_ONBOARDING: "content/init",
   RECOMMEND_ONBOARDING: "content/recommend",
+  USER_PREFERENCE: "user/info",
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
