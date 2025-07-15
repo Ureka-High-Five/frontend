@@ -1,5 +1,5 @@
 import { ONBOARDING_STEP_TEXTS, REQUIRED_COUNT } from "@/constants/onBoarding";
-import useUserStore from "@/stores/useUserStore";
+import type { OnBoardingContent } from "@/types/content";
 import BirthYearSelect from "./organism/BirthYearSelect";
 import ContentSelect from "./organism/ContentSelect";
 import GenderSelect from "./organism/GenderSelect";
@@ -8,12 +8,21 @@ import Name from "./organism/Name";
 interface OnBoardingLayoutProps {
   step: "name" | "birthYear" | "gender" | "content";
   setStep: (step: "name" | "birthYear" | "gender" | "content") => void;
+  contents: OnBoardingContent[];
+  selectedIds: number[];
+  toggleSelect: (id: number) => void;
+  onSubmitOnBoarding: () => void;
 }
 
-const OnBoardingLayout = ({ step, setStep }: OnBoardingLayoutProps) => {
-  const selectedCount = useUserStore(
-    (state) => state.user.selectedContentIds.length
-  );
+const OnBoardingLayout = ({
+  step,
+  setStep,
+  contents,
+  selectedIds,
+  toggleSelect,
+  onSubmitOnBoarding,
+}: OnBoardingLayoutProps) => {
+  const selectedCount = selectedIds.length;
 
   const stepTexts = {
     ...ONBOARDING_STEP_TEXTS,
@@ -32,7 +41,12 @@ const OnBoardingLayout = ({ step, setStep }: OnBoardingLayoutProps) => {
         {stepTexts[step][0]} <br /> {stepTexts[step][1]}
       </h1>
       {step === "content" ? (
-        <ContentSelect />
+        <ContentSelect
+          contents={contents}
+          selectedIds={selectedIds}
+          toggleSelect={toggleSelect}
+          onSubmitOnBoarding={onSubmitOnBoarding}
+        />
       ) : (
         <>
           <Name setStep={setStep} isActive={step === "name"} />

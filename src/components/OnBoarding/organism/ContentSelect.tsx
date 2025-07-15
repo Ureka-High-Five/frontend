@@ -1,62 +1,21 @@
-import { useEffect, useState } from "react";
+import OnBoardingContentCard from "@/components/OnBoarding/molecule/OnBoardingContentCard";
 import { Button } from "@/components/ui/button";
 import { REQUIRED_COUNT } from "@/constants/onBoarding";
-import useOnBoardingContentMutation from "@/hooks/queries/onboarding/useOnBoardingContentMutation";
-import useOnBoardingContentQuery from "@/hooks/queries/onboarding/useOnBoardingContentQuery";
-import useUserPreferenceMutation from "@/hooks/queries/onboarding/useUserPreferenceMutation";
-import useUserStore from "@/stores/useUserStore";
 import type { OnBoardingContent } from "@/types/content";
-import OnBoardingContentCard from "../molecule/OnBoardingContentCard";
 
-const ContentSelect = () => {
-  const [contents, setContents] = useState<OnBoardingContent[]>([]);
-  const selectedIds = useUserStore((state) => state.user.selectedContentIds);
-  const addContentId = useUserStore((state) => state.addSelectedContentId);
-  const removeContentId = useUserStore(
-    (state) => state.removeSelectedContentId
-  );
-  const { user } = useUserStore.getState();
+interface ContentSelectProps {
+  contents: OnBoardingContent[];
+  selectedIds: number[];
+  toggleSelect: (id: number) => void;
+  onSubmitOnBoarding: () => void;
+}
 
-  const { onBoardingContent } = useOnBoardingContentQuery();
-  const { mutatePostOnBoardingContent } = useOnBoardingContentMutation();
-  const { mutateUserPreference } = useUserPreferenceMutation();
-
-  useEffect(() => {
-    if (onBoardingContent) {
-      setContents(onBoardingContent);
-    }
-  }, [onBoardingContent]);
-
-  const mergeUniqueContents = (
-    base: OnBoardingContent[],
-    add: OnBoardingContent[]
-  ): OnBoardingContent[] => {
-    const existingIds = new Set(base.map((item) => item.contentId));
-    const filtered = add.filter((item) => !existingIds.has(item.contentId));
-
-    return [...base, ...filtered];
-  };
-
-  const toggleSelect = async (id: number) => {
-    const isSelected = selectedIds.includes(id);
-
-    if (isSelected) {
-      removeContentId(id);
-    } else {
-      addContentId(id);
-
-      const newContents = await mutatePostOnBoardingContent([
-        ...selectedIds,
-        id,
-      ]);
-      setContents((prev) => mergeUniqueContents(prev, newContents));
-    }
-  };
-
-  const handleStartButtonClick = () => {
-    mutateUserPreference(user);
-  };
-
+const ContentSelect = ({
+  contents,
+  selectedIds,
+  toggleSelect,
+  onSubmitOnBoarding,
+}: ContentSelectProps) => {
   return (
     <>
       <div className="w-[90%] max-w-sm overflow-y-auto no-scrollbar max-h-[calc(100dvh-312px)]">
@@ -78,7 +37,7 @@ const ContentSelect = () => {
         size="lg"
         disabled={selectedIds.length < REQUIRED_COUNT}
         className="w-[90%] max-w-sm bg-custom-point text-custom-black body-lg-dohyeon flex items-center justify-center"
-        onClick={handleStartButtonClick}>
+        onClick={onSubmitOnBoarding}>
         시작하기
       </Button>
     </>
