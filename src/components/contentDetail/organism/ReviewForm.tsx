@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import AnimatedFadeIn from "@/components/common/atom/AnimatedFadeIn";
 import { Card } from "@/components/ui/card";
+import { useMyReview } from "@/hooks/queries/content/useMyReview";
 import RatingMessage from "../molecules/RatingMessage";
 import ReviewInput from "../molecules/ReviewInput";
 import StarRating from "../molecules/StarRating";
@@ -14,11 +15,16 @@ const RATING_MESSAGES = [
   "완전 내 스타일이에요",
 ];
 
-const ReviewForm = () => {
+interface ReviewFormProps {
+  contentId: number;
+}
+
+const ReviewForm = ({ contentId }: ReviewFormProps) => {
   const [rating, setRating] = useState(0);
   const [isMessageVisible, setIsMessageVisible] = useState(false);
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const { postMyReview, isPosting } = useMyReview(String(contentId));
 
   useEffect(() => {
     let messageTimer: ReturnType<typeof setTimeout>;
@@ -58,8 +64,13 @@ const ReviewForm = () => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onSend={() => {
-                  /* 전송 로직 */
+                  postMyReview({
+                    contentId,
+                    rating,
+                    review: inputValue,
+                  });
                 }}
+                disabled={isPosting}
               />
             </AnimatedFadeIn>
           )}

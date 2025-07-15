@@ -18,6 +18,14 @@ export interface Review {
   userReview: string;
 }
 
+export interface ReviewListResponse {
+  content: {
+    items: Review[];
+    hasNext: boolean;
+    nextCursor?: string;
+  };
+}
+
 export interface MyReview {
   rating: number;
   review: string;
