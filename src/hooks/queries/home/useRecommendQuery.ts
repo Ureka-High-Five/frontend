@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRecommendContents } from "@/apis/home/getRecommendContents";
+import type { RecommendContentsResponse } from "@/types/RecommendContentsResponse";
 
 export const useRecommendQuery = () => {
-  return useQuery({
+  const { data: recommendContents } = useQuery<RecommendContentsResponse>({
     queryKey: ["RecommendContents"],
     queryFn: getRecommendContents,
     retry: false,
   });
+  
+  return { recommendContents };
 };

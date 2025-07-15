@@ -12,7 +12,7 @@ const HomePage = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const { data, isLoading } = useRecommendQuery();
+  const { recommendContents, isLoading } = useRecommendQuery();
 
   useEffect(() => {
     const target = scrollRef.current;
@@ -26,7 +26,7 @@ const HomePage = () => {
     return () => target.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (isLoading || !data) return null;
+  if (isLoading || !recommendContents) return null;
 
   return (
     <div className="relative bg-black text-white h-screen flex flex-col overflow-hidden">
@@ -36,28 +36,28 @@ const HomePage = () => {
         ref={scrollRef}
         className="flex flex-col gap-8 py-6 px-6 md:px-10 overflow-y-auto no-scrollbar"
       >
-        {data.mainRecommend && (
-          <MainRecommendBanner content={data.mainRecommend} />
+        {recommendContents.mainRecommend && (
+          <MainRecommendBanner content={recommendContents.mainRecommend} />
         )}
 
-        <VisibleSection contents={data.personalRecommends}>
-          <PersonalRecommendSection contents={data.personalRecommends} />
+        <VisibleSection contents={recommendContents.personalRecommends}>
+          <PersonalRecommendSection contents={recommendContents.personalRecommends} />
         </VisibleSection>
 
-        <VisibleSection contents={data.recommendGenreContents?.contents}>
-          <GenreRecommendSection data={data.recommendGenreContents} />
+        <VisibleSection contents={recommendContents.recommendGenreContents?.contents}>
+          <GenreRecommendSection data={recommendContents.recommendGenreContents} />
         </VisibleSection>
 
-        <VisibleSection contents={data.recommendSecondGenreContents?.contents}>
-          <GenreRecommendSection data={data.recommendSecondGenreContents} />
+        <VisibleSection contents={recommendContents.recommendSecondGenreContents?.contents}>
+          <GenreRecommendSection data={recommendContents.recommendSecondGenreContents} />
         </VisibleSection>
 
-        <VisibleSection contents={data.recommendCuration?.contents}>
-          <CurationRecommendSection data={data.recommendCuration} />
+        <VisibleSection contents={recommendContents.recommendCuration?.contents}>
+          <CurationRecommendSection data={recommendContents.recommendCuration} />
         </VisibleSection>
 
-        <VisibleSection contents={data.recommendSecondCuration?.contents}>
-          <CurationRecommendSection data={data.recommendSecondCuration} />
+        <VisibleSection contents={recommendContents.recommendSecondCuration?.contents}>
+          <CurationRecommendSection data={recommendContents.recommendSecondCuration} />
         </VisibleSection>
       </main>
 
