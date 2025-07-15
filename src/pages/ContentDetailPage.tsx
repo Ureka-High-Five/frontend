@@ -31,7 +31,6 @@ const ContentDetailPage = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          console.log("무한스크롤 트리거!");
           fetchNextPage();
         }
       },
