@@ -1,9 +1,8 @@
-export interface NewToken {
+export interface AccessToken {
   accessToken: string;
 }
 
-export interface AuthTokens {
-  accessToken: string;
+interface AuthTokens extends AccessToken {
   refreshToken: string;
 }
 
