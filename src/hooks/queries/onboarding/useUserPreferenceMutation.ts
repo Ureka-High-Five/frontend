@@ -18,7 +18,7 @@ const useUserPreferenceMutation = () => {
   });
 
   return {
-    mutateUserPrefernce: patchUserPreferenceMutation.mutate,
+    mutateUserPreference: patchUserPreferenceMutation.mutate,
   };
 };
 

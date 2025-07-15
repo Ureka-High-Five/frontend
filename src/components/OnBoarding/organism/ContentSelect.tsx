@@ -19,7 +19,7 @@ const ContentSelect = () => {
 
   const { onBoardingContent } = useOnBoardingContentQuery();
   const { mutatePostOnBoardingContent } = useOnBoardingContentMutation();
-  const { mutateUserPrefernce } = useUserPreferenceMutation();
+  const { mutateUserPreference } = useUserPreferenceMutation();
 
   useEffect(() => {
     if (onBoardingContent) {
@@ -54,7 +54,7 @@ const ContentSelect = () => {
   };
 
   const handleStartButtonClick = () => {
-    mutateUserPrefernce(user);
+    mutateUserPreference(user);
   };
 
   return (
