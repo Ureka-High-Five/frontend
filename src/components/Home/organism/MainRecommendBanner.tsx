@@ -1,17 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { MainRecommend } from "@/types/RecommendContentsResponse";
-import { usePreviewVideoQuery } from "@/hooks/queries/usePreviewVideoQuery";
 
 interface Props {
   content: MainRecommend;
 }
 
 const MainRecommendBanner = ({ content }: Props) => {
-  const { refetch } = usePreviewVideoQuery(content.contentId);
+  const navigate = useNavigate();
 
-  const handlePreview = () => {
-    refetch(); 
+  const handlePreviewClick = () => {
+    {/* TODO: 미리보기 이동 */}
   };
 
   return (
@@ -24,7 +24,7 @@ const MainRecommendBanner = ({ content }: Props) => {
       <h2 className="heading-h2-pretendard font-bold mt-2">{content.description}</h2>
       <p className="body-sm-pretendard text-gray-300">{content.genre.join(" · ")}</p>
       <Button
-        onClick={handlePreview}
+        onClick={handlePreviewClick}
         className="w-full bg-custom-point text-custom-black body-sm-pretendard mt-3"
       >
         <Play />
