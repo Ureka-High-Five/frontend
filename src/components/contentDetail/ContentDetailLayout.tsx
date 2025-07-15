@@ -21,7 +21,6 @@ const ContentDetailLayout = ({
   scrollRef,
   isFetchingNextPage,
 }: ContentDetailLayoutProps) => {
-  console.log("isFetchingNextPage", isFetchingNextPage);
   return (
     <div className="relative w-full h-screen justify-center flex flex-col items-center">
       <ContentPoster posterUrl={content.posterUrl} />
@@ -42,7 +41,7 @@ const ContentDetailLayout = ({
           director={content.director}
           openYear={content.openYear}
         />
-        <ReviewList reviews={reviews} />
+        <ReviewList reviews={reviews} myReview={myReview} />
         {isFetchingNextPage && (
           <div className="flex items-center w-full justify-center">
             <Loader2 className="h-10 w-10 animate-spin text-custom-point mb-4" />
