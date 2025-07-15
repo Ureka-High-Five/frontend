@@ -26,7 +26,7 @@ const BirthYearSelect = ({ setStep }: BirthYearSelectProps) => {
   };
 
   return (
-    <section className="flex flex-col gap-6 w-[90%] max-w-sm">
+    <div className="flex flex-col gap-6 w-[90%] max-w-sm">
       <Select
         value={birthYear ? String(birthYear) : ""}
         onValueChange={handleBirthYearChange}>
@@ -46,7 +46,7 @@ const BirthYearSelect = ({ setStep }: BirthYearSelectProps) => {
           ))}
         </SelectContent>
       </Select>
-    </section>
+    </div>
   );
 };
 

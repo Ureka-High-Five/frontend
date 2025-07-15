@@ -10,7 +10,7 @@ const Name = ({ setStep, isActive }: NameProps) => {
   const name = useUserStore((state) => state.user.name);
 
   return (
-    <section className="flex flex-col gap-9 w-[90%] max-w-sm">
+    <div className="flex flex-col gap-9 w-[90%] max-w-sm">
       <span
         className={`flex h-14 items-center justify-center bg-white heading-h1-pretendard px-4 rounded-md ${
           isActive ? "border-2 border-custom-point" : "border-none"
@@ -26,7 +26,7 @@ const Name = ({ setStep, isActive }: NameProps) => {
           다음으로
         </Button>
       )}
-    </section>
+    </div>
   );
 };
 

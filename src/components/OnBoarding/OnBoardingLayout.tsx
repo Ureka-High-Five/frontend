@@ -27,7 +27,7 @@ const OnBoardingLayout = ({ step, setStep }: OnBoardingLayoutProps) => {
   };
 
   return (
-    <main className="flex flex-col items-center h-full gap-9 py-16">
+    <section className="flex flex-col items-center h-full gap-9 py-16">
       <h1 className="heading-h1-dohyeon text-white w-[90%] max-w-sm">
         {stepTexts[step][0]} <br /> {stepTexts[step][1]}
       </h1>
@@ -41,7 +41,7 @@ const OnBoardingLayout = ({ step, setStep }: OnBoardingLayoutProps) => {
         </>
       )}
       {step === "content" && <ContentSelect />}
-    </main>
+    </section>
   );
 };
 
