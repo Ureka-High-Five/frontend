@@ -14,6 +14,10 @@ const AppRouter = () => {
       children: [
         {
           path: "", 
+          element: <LandingPage />, 
+        },
+         {
+          path: PATH.HOME, 
           element: <HomePage />, 
         },
         {
