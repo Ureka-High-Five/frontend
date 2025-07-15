@@ -3,7 +3,7 @@ import { create } from "zustand";
 interface UserData {
   userId: number;
   selectedContentIds: number[];
-  year: number;
+  birthYear: number;
   gender: "male" | "female" | "";
   name: string;
 }
@@ -12,7 +12,7 @@ interface UserState {
   user: UserData;
   setUserId: (id: number) => void;
   setSelectedContentIds: (ids: number[]) => void;
-  setYear: (year: number) => void;
+  setBirthYear: (birthYear: number) => void;
   setGender: (gender: "male" | "female") => void;
   setName: (name: string) => void;
 }
@@ -20,7 +20,7 @@ interface UserState {
 const initialUser: UserData = {
   userId: 0,
   selectedContentIds: [],
-  year: 0,
+  birthYear: 0,
   gender: "",
   name: "",
 };
@@ -38,9 +38,9 @@ const useUserStore = create<UserState>((set) => ({
       user: { ...state.user, selectedContentIds: ids },
     })),
 
-  setYear: (year) =>
+  setBirthYear: (birthYear) =>
     set((state) => ({
-      user: { ...state.user, year },
+      user: { ...state.user, birthYear },
     })),
 
   setGender: (gender) =>

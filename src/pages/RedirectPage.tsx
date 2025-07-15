@@ -1,17 +1,20 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import useKakaoLoginMutation from "@/hooks/queries/auth/useKakaoLoginMutation";
 
 const RedirectPage = () => {
   const { mutatePostKakaoLogin } = useKakaoLoginMutation();
+  const location = useLocation();
 
   useEffect(() => {
-    const code = new URL(window.location.href).searchParams.get("code");
+    const params = new URLSearchParams(location.search);
+    const code = params.get("code");
 
     if (code) {
       mutatePostKakaoLogin(code);
     }
-  }, [mutatePostKakaoLogin]);
+  }, [location.search, mutatePostKakaoLogin]);
 
   return (
     <div className="flex h-screen w-full items-center justify-center">
