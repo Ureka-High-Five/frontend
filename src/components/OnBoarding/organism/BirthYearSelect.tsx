@@ -15,7 +15,10 @@ interface BirthYearSelectProps {
 const BirthYearSelect = ({ setStep }: BirthYearSelectProps) => {
   const birthYear = useUserStore((state) => state.user.birthYear);
   const setBirthYear = useUserStore((state) => state.setBirthYear);
-  const years = Array.from({ length: 101 }, (_, i) => 2025 - i);
+  const years = Array.from(
+    { length: 101 },
+    (_, i) => new Date().getFullYear() - 8 - i
+  );
 
   const handleBirthYearChange = (value: string) => {
     setBirthYear(Number(value));
