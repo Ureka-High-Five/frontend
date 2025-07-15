@@ -7,7 +7,7 @@ export interface AuthTokens {
   refreshToken: string;
 }
 
-interface ExistingUserLogin extends AuthTokens {
+export interface ExistingUserLogin extends AuthTokens {
   isNew: false;
 }
 
