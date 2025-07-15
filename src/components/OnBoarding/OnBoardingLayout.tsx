@@ -17,10 +17,13 @@ const OnBoardingLayout = ({ step, setStep }: OnBoardingLayoutProps) => {
 
   const stepTexts = {
     ...ONBOARDING_STEP_TEXTS,
-    content: [
-      ONBOARDING_STEP_TEXTS.content[0],
-      `${REQUIRED_COUNT - selectedCount}${ONBOARDING_STEP_TEXTS.content[1]}`,
-    ],
+    content:
+      selectedCount < REQUIRED_COUNT
+        ? [
+            ONBOARDING_STEP_TEXTS.content.default[0],
+            `${REQUIRED_COUNT - selectedCount}${ONBOARDING_STEP_TEXTS.content.default[1]}`,
+          ]
+        : ONBOARDING_STEP_TEXTS.content.completed,
   };
 
   return (
