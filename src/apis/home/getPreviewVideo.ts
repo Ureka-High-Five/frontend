@@ -1,14 +1,11 @@
 import { axiosInstance } from '@/apis/axiosInstance';
 import { END_POINTS } from '@/constants/api';
-
-export interface PreviewVideoResponse {
-  videoUrl: string;
-  type: string;
-}
+import type { PreviewVideo } from '@/types/content';
 
 export const getPreviewVideo = async (contentId: number) => {
-  const { data } = await axiosInstance.get<PreviewVideoResponse>(
+  const { data } = await axiosInstance.get<PreviewVideo>(
     END_POINTS.PREVIEW_VIDEO(contentId)
   );
+  
   return data.content;
 };

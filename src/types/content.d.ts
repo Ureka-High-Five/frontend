@@ -22,3 +22,10 @@ export interface MyReview {
   rating: number;
   review: string;
 }
+
+export type PreviewVideoType = "VIDEO" | "SHORTS";
+
+export interface PreviewVideo {
+  videoUrl: string;
+  type: PreviewVideoType;
+}

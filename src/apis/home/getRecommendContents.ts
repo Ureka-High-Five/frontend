@@ -6,5 +6,6 @@ export const getRecommendContents = async () => {
   const { data } = await axiosInstance.get<RecommendContentsResponse>(
     END_POINTS.HOME_RECOMMEND
   );
+  
   return data.content;
 };
