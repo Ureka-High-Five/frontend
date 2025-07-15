@@ -1,18 +1,21 @@
 import { useRef, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import ContentDetailLayout from "@/components/contentDetail/ContentDetailLayout";
 import { useContentDetail } from "@/hooks/queries/content/useContentDetail";
 import { useInfiniteContentReviews } from "@/hooks/queries/content/useInfiniteContentReviews";
 import { useMyReview } from "@/hooks/queries/content/useMyReview";
 
 const ContentDetailPage = () => {
-  const { data: content, isLoading, error } = useContentDetail("420");
+  const { id } = useParams<{ id: string }>();
+  const contentId = id ?? "";
+  const { data: content, isLoading, error } = useContentDetail(contentId);
   const {
     data: reviewPages,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useInfiniteContentReviews("420");
-  const { data: myReview } = useMyReview("420");
+  } = useInfiniteContentReviews(contentId);
+  const { data: myReview } = useMyReview(contentId);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -53,6 +56,7 @@ const ContentDetailPage = () => {
 
   return (
     <ContentDetailLayout
+      contentId={contentId}
       content={content}
       reviews={reviews}
       myReview={myReview}

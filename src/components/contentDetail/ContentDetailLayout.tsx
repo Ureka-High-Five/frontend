@@ -7,6 +7,7 @@ import ReviewForm from "./organism/ReviewForm";
 import ReviewList from "./organism/ReviewList";
 
 interface ContentDetailLayoutProps {
+  contentId: string;
   content: Content;
   reviews: Review[];
   myReview?: MyReview;
@@ -15,6 +16,7 @@ interface ContentDetailLayoutProps {
 }
 
 const ContentDetailLayout = ({
+  contentId,
   content,
   reviews,
   myReview,
@@ -34,7 +36,7 @@ const ContentDetailLayout = ({
           contentGenres={content.contentGenres}
           contentRunningTime={content.contentRunningTime}
         />
-        {myReview == null && <ReviewForm contentId={420} />}
+        {myReview == null && <ReviewForm contentId={contentId} />}
         <ContentDescription
           contentDescription={content.contentDescription}
           actors={content.actors}

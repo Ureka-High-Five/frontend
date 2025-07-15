@@ -16,7 +16,7 @@ const RATING_MESSAGES = [
 ];
 
 interface ReviewFormProps {
-  contentId: number;
+  contentId: string;
 }
 
 const ReviewForm = ({ contentId }: ReviewFormProps) => {
@@ -24,7 +24,7 @@ const ReviewForm = ({ contentId }: ReviewFormProps) => {
   const [isMessageVisible, setIsMessageVisible] = useState(false);
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const { postMyReview, isPosting } = useMyReview(String(contentId));
+  const { postMyReview, isPosting } = useMyReview(contentId);
 
   useEffect(() => {
     let messageTimer: ReturnType<typeof setTimeout>;

@@ -4,7 +4,7 @@ import { getMyReview } from "@/apis/content/getMyReview";
 import type { MyReview } from "@/types/content";
 
 interface PostMyReviewRequest {
-  contentId: number;
+  contentId: string;
   rating: number;
   review?: string;
 }
