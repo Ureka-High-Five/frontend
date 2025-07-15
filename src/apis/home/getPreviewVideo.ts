@@ -8,7 +8,7 @@ export interface PreviewVideoResponse {
 
 export const getPreviewVideo = async (contentId: number) => {
   const { data } = await axiosInstance.get<PreviewVideoResponse>(
-    END_POINTS.CONTENT.PREVIEW_VIDEO(contentId)
+    END_POINTS.PREVIEW_VIDEO(contentId)
   );
   return data.content;
 };

@@ -4,7 +4,7 @@ import type { RecommendContentsResponse } from "@/types/RecommendContentsRespons
 
 export const getRecommendContents = async () => {
   const { data } = await axiosInstance.get<RecommendContentsResponse>(
-    END_POINTS.CONTENT.HOME_RECOMMEND
+    END_POINTS.HOME_RECOMMEND
   );
   return data.content;
 };
