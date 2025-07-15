@@ -8,7 +8,7 @@ export interface Content {
   posterUrl: string;
   actors: string[];
   director: string;
-  openDate: string;
+  openYear: string;
 }
 
 export interface Review {

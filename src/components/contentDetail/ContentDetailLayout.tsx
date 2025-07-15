@@ -32,7 +32,7 @@ const ContentDetailLayout = ({
           contentDescription={content.contentDescription}
           actors={content.actors}
           director={content.director}
-          openDate={content.openDate}
+          openYear={content.openYear}
         />
         <ReviewList reviews={reviews} />
       </div>
