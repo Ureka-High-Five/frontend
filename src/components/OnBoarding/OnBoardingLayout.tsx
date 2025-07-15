@@ -31,7 +31,9 @@ const OnBoardingLayout = ({ step, setStep }: OnBoardingLayoutProps) => {
       <h1 className="heading-h1-dohyeon text-white w-[90%] max-w-sm">
         {stepTexts[step][0]} <br /> {stepTexts[step][1]}
       </h1>
-      {step !== "content" && (
+      {step === "content" ? (
+        <ContentSelect />
+      ) : (
         <>
           <Name setStep={setStep} isActive={step === "name"} />
           {(step === "birthYear" || step === "gender") && (
@@ -40,7 +42,6 @@ const OnBoardingLayout = ({ step, setStep }: OnBoardingLayoutProps) => {
           {step === "gender" && <GenderSelect setStep={setStep} />}
         </>
       )}
-      {step === "content" && <ContentSelect />}
     </section>
   );
 };
