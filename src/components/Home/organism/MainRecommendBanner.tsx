@@ -2,18 +2,15 @@ import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { MainRecommend } from "@/types/RecommendContentsResponse";
 import { usePreviewVideoQuery } from "@/hooks/queries/usePreviewVideoQuery";
-import { useState } from "react";
 
 interface Props {
   content: MainRecommend;
 }
 
 const MainRecommendBanner = ({ content }: Props) => {
-  const [clicked, setClicked] = useState(false);
-  const { refetch } = usePreviewVideoQuery(content.contentId, clicked);
+  const { refetch } = usePreviewVideoQuery(content.contentId);
 
   const handlePreview = () => {
-    setClicked(true);
     refetch(); 
   };
 
