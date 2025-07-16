@@ -28,3 +28,9 @@ export interface MyReview {
   rating: number;
   review: string;
 }
+
+export interface PostMyReviewRequest {
+  contentId: number;
+  rating: string;
+  review?: string;
+}
