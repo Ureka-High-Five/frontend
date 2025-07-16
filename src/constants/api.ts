@@ -10,6 +10,7 @@ export const END_POINTS = {
   PREVIEW_VIDEO: (contentId: number) => `/content/${contentId}/video`,
   CONTENT: "content",
   CONTENT_REVIEW: "content/review",
+  SEARCH_CONTENT: "/content/search",
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
