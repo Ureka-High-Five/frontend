@@ -8,13 +8,7 @@ const patchUserPreference = async (
 ): Promise<ExistingUserLogin> => {
   const response = await axiosInstance.patch(
     END_POINTS.USER_PREFERENCE,
-    {
-      userId: userInformation.userId,
-      selectedContentIds: userInformation.selectedContentIds,
-      year: userInformation.birthYear,
-      gender: userInformation.gender,
-      name: userInformation.name,
-    },
+    userInformation,
     {
       isAuthRequired: false,
     }
