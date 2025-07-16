@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { PATH } from "@/constants/path";
 import ContentDetailPage from "@/pages/ContentDetailPage";
+import HomePage from "@/pages/Home/HomePage";
 import LandingPage from "@/pages/LandingPage";
 import OnBoardingPage from "@/pages/OnBoardingPage";
 import RedirectPage from "@/pages/RedirectPage";
@@ -17,6 +18,10 @@ const AppRouter = () => {
           element: <LandingPage />,
         },
         {
+          path: PATH.HOME,
+          element: <HomePage />,
+        },
+        {
           path: PATH.CONTENT_DETAIL,
           element: <ContentDetailPage />,
         },
@@ -31,8 +36,6 @@ const AppRouter = () => {
       ],
     },
   ]);
-
   return <RouterProvider router={router} />;
 };
-
 export default AppRouter;
