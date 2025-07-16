@@ -6,6 +6,7 @@ const mergeUniqueContents = (
 ): OnBoardingContent[] => {
   const existingIds = new Set(base.map((item) => item.contentId));
   const filtered = add.filter((item) => !existingIds.has(item.contentId));
+
   return [...base, ...filtered];
 };
 
