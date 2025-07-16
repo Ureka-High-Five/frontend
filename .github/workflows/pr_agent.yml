@@ -2,6 +2,7 @@ on:
   pull_request:
     types: [opened, reopened, ready_for_review, synchronize]
   issue_comment:
+    types: [created, edited]
 
 jobs:
   pr_agent_job:
@@ -19,3 +20,5 @@ jobs:
         env:
           OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_AGENT.CONFIG.LANGUAGE: 'ko'
+          PR_AGENT.PR_REVIEWER.EXTRA_INSTRUCTIONS: '모든 리뷰 코멘트는 반드시 한국어로 작성해주세요.'

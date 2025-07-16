@@ -1,0 +1,39 @@
+[general]
+language = "korean"
+code_style = "high_five"
+
+[pr_reviewer]
+review_summary = true
+comment_mode = "diff"
+extra_instructions = """\
+High-Five 프론트엔드 팀의 코드 컨벤션을 반드시 따르세요. 주요 기준은 다음과 같습니다:
+
+[함수 네이밍]
+- 이벤트 핸들러: handle + 동작명 (예: handleLoginButtonClick)
+- 일반 함수: 동사로 시작 (예: calculateAverage)
+- HTTP 요청: get/post/delete + 의미 (예: getUserInformation)
+- 훅: use로 시작, 예: useAuth, useUserStatusQuery
+
+[변수 네이밍]
+- Boolean: is/has 접두어 사용 (예: isModalOpen)
+- 나머지: 의미가 명확하게 드러나는 이름 사용 (예: userList)
+
+[파일 네이밍]
+- 컴포넌트, 페이지: PascalCase (예: LoginPage)
+- hooks, utils, api: camelCase (예: useAuth, formatDate)
+- 이미지 파일: kebab-case (예: together-logo.svg)
+
+[코드 작성 순서]
+- import 순서: React → 컴포넌트/함수 → 스타일
+- 컴포넌트 내부 선언 순서: hook → 변수 → useEffect → 함수
+
+[스타일 규칙]
+- 중첩(depth): 최대 2단계
+- return 문 앞에 줄바꿈 추가
+- 불필요한 else 문 제거
+- 이중 if문 대신 조건 결합
+- props가 2개 이상이면 interface 사용
+- 중첩 삼항 연산자 금지
+
+이 기준에 위배되는 부분이 있다면 리뷰에서 명확히 지적해 주세요.
+"""
