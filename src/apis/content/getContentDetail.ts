@@ -6,5 +6,6 @@ export const getContentDetail = async (contentId: string): Promise<Content> => {
   const response = await axiosInstance.get(
     `/${END_POINTS.CONTENT}/${contentId}/detail`
   );
+
   return response.data.content;
 };

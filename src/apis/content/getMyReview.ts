@@ -6,5 +6,6 @@ export const getMyReview = async (contentId: string): Promise<MyReview> => {
   const response = await axiosInstance.get(
     `/${END_POINTS.CONTENT_REVIEW}/${contentId}/me`
   );
+
   return response.data.content;
 };
