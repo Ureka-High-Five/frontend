@@ -24,8 +24,6 @@ const ContentDetailPage = () => {
   const reviews = reviewPages?.pages.flatMap((page) => page.items ?? []) ?? [];
 
   useEffect(() => {
-    if (!id) return undefined;
-
     const scrollElement = scrollRef.current;
     const target = scrollElement?.querySelector("#observer-target");
 
@@ -49,12 +47,12 @@ const ContentDetailPage = () => {
     return () => {
       observer.disconnect();
     };
-  }, [id, hasNextPage, isFetchingNextPage, fetchNextPage, reviews.length]);
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage, reviews.length]);
 
-  if (!id) return <div>잘못된 접근입니다</div>;
-  if (isLoading) return <div>로딩중...</div>;
-  if (error) return <div>에러 발생!</div>;
-  if (!content) return <div>데이터 없음</div>;
+  if (!id) return <div className="text-white">잘못된 접근입니다</div>;
+  if (isLoading) return <div className="text-white">로딩중...</div>;
+  if (error) return <div className="text-white">에러 발생!</div>;
+  if (!content) return <div className="text-white">데이터 없음</div>;
 
   return (
     <ContentDetailLayout
