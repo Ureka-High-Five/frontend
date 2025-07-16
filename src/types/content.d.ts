@@ -19,13 +19,9 @@ export interface Review {
 }
 
 export interface ReviewListResponse {
-  code: number;
-  content: {
-    items: Review[];
-    hasNext: boolean;
-    nextCursor?: string;
-  };
-  message: string;
+  items: Review[];
+  hasNext: boolean;
+  nextCursor?: string;
 }
 
 export interface MyReview {

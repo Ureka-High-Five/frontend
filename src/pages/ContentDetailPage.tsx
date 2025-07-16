@@ -20,8 +20,7 @@ const ContentDetailPage = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // 모든 리뷰를 평탄화
-  const reviews =
-    reviewPages?.pages.flatMap((page) => page.content?.items ?? []) ?? [];
+  const reviews = reviewPages?.pages.flatMap((page) => page.items ?? []) ?? [];
 
   useEffect(() => {
     const scrollElement = scrollRef.current;
