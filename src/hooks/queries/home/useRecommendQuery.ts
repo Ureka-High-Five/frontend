@@ -3,11 +3,11 @@ import { getRecommendContents } from "@/apis/home/getRecommendContents";
 import type { RecommendContentsResponse } from "@/types/RecommendContentsResponse";
 
 export const useRecommendQuery = () => {
-  const { data: recommendContents } = useQuery<RecommendContentsResponse>({
+  const { data: recommendContents, isLoading } = useQuery<RecommendContentsResponse>({
     queryKey: ["RecommendContents"],
     queryFn: getRecommendContents,
     retry: false,
   });
   
-  return { recommendContents };
+  return { recommendContents, isLoading };
 };
