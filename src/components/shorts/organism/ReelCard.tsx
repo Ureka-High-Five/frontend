@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+import Hls from "hls.js";
 import { Heart } from "lucide-react";
 import ReelTitle from "../atom/ReelTitle";
 import ReelActionBar from "../molecules/ReelActionBar";
@@ -12,16 +14,54 @@ interface ReelCardProps {
 }
 
 export default function ReelCard({ reel }: ReelCardProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) return undefined;
+
+    const isHLS = reel.shortsUrl.endsWith(".m3u8");
+
+    if (!isHLS) {
+      // 일반 mp4 같은 경우
+      video.src = reel.shortsUrl;
+      return undefined;
+    }
+
+    if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      // Safari: 기본 재생
+      video.src = reel.shortsUrl;
+      return undefined;
+    }
+
+    if (Hls.isSupported()) {
+      // 기타 브라우저: HLS.js 사용
+      const hls = new Hls();
+      hls.loadSource(reel.shortsUrl);
+      hls.attachMedia(video);
+
+      return () => {
+        hls.destroy();
+      };
+    }
+
+    console.error("This browser does not support HLS.");
+    return undefined;
+  }, [reel.shortsUrl]);
+
   return (
     <div className="w-full h-screen snap-start relative bg-black">
       <video
-        src={reel.shortsUrl}
+        ref={videoRef}
+        // src={reel.shortsUrl}
         poster={reel.shortThumbnail}
         autoPlay
         loop
         muted
         playsInline
         className="object-cover w-full h-full"
+        controls={false}
       />
 
       {/* 오버레이: 제목 + 액션바 */}
