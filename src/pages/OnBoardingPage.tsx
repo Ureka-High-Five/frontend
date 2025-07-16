@@ -4,6 +4,7 @@ import useOnBoardingContentMutation from "@/hooks/queries/onboarding/useOnBoardi
 import useOnBoardingContentQuery from "@/hooks/queries/onboarding/useOnBoardingContentQuery";
 import useUserPreferenceMutation from "@/hooks/queries/onboarding/useUserPreferenceMutation";
 import useUserStore from "@/stores/useUserStore";
+import mergeUniqueContents from "@/utils/mergeUniqueContents";
 import type { OnBoardingContent } from "@/types/content";
 
 const OnBoardingPage = () => {
@@ -28,15 +29,6 @@ const OnBoardingPage = () => {
       setContents(onBoardingContent);
     }
   }, [onBoardingContent]);
-
-  const mergeUniqueContents = (
-    base: OnBoardingContent[],
-    add: OnBoardingContent[]
-  ): OnBoardingContent[] => {
-    const existingIds = new Set(base.map((item) => item.contentId));
-    const filtered = add.filter((item) => !existingIds.has(item.contentId));
-    return [...base, ...filtered];
-  };
 
   const toggleSelect = async (id: number) => {
     const isSelected = selectedIds.includes(id);
