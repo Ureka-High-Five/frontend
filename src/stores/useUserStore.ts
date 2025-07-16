@@ -1,10 +1,10 @@
 import { create } from "zustand";
 
-interface UserData {
+export interface UserData {
   userId: number;
   selectedContentIds: number[];
   birthYear: number;
-  gender: "male" | "female" | "";
+  gender: "MALE" | "FEMALE" | "";
   name: string;
 }
 
@@ -12,8 +12,10 @@ interface UserState {
   user: UserData;
   setUserId: (id: number) => void;
   setSelectedContentIds: (ids: number[]) => void;
+  addSelectedContentId: (id: number) => void;
+  removeSelectedContentId: (id: number) => void;
   setBirthYear: (birthYear: number) => void;
-  setGender: (gender: "male" | "female") => void;
+  setGender: (gender: "MALE" | "FEMALE") => void;
   setName: (name: string) => void;
 }
 
@@ -36,6 +38,30 @@ const useUserStore = create<UserState>((set) => ({
   setSelectedContentIds: (ids) =>
     set((state) => ({
       user: { ...state.user, selectedContentIds: ids },
+    })),
+
+  addSelectedContentId: (id) =>
+    set((state) => {
+      const current = state.user.selectedContentIds;
+
+      if (current.includes(id)) return state;
+
+      return {
+        user: {
+          ...state.user,
+          selectedContentIds: [...current, id],
+        },
+      };
+    }),
+
+  removeSelectedContentId: (id) =>
+    set((state) => ({
+      user: {
+        ...state.user,
+        selectedContentIds: state.user.selectedContentIds.filter(
+          (contentId) => contentId !== id
+        ),
+      },
     })),
 
   setBirthYear: (birthYear) =>

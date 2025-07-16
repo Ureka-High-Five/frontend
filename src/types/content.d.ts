@@ -29,6 +29,20 @@ export interface MyReview {
   review: string;
 }
 
+export interface OnBoardingContent {
+  contentId: number;
+  thumbnailUrl: string;
+  title: string;
+  openYear: number;
+}
+
+export type PreviewVideoType = "VIDEO" | "SHORTS";
+
+export interface PreviewVideo {
+  videoUrl: string;
+  type: PreviewVideoType;
+}
+
 export interface PostMyReviewRequest {
   contentId: string;
   rating: number;

@@ -9,8 +9,7 @@ const HorizontalScrollContainer = ({ children, className }: Props) => {
   return (
     <div
       className={cn(
-        scrollSnapType: "x mandatory"
-        "flex gap-2 overflow-x-auto no-scrollbar scroll-smooth snap-x",
+        "flex gap-2 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory",
         className
       )}>
       {children}

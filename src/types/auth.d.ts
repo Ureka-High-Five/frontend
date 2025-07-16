@@ -1,19 +1,18 @@
-export interface NewToken {
+export interface AccessToken {
   accessToken: string;
 }
 
-export interface AuthTokens {
-  accessToken: string;
+interface AuthTokens extends AccessToken {
   refreshToken: string;
 }
 
-interface ExistingUserLogin extends AuthTokens {
+export interface ExistingUserLogin extends AuthTokens {
   isNew: false;
 }
 
 interface FirstTimeUserLogin {
   userId: number;
-  name: string;
+  nickname: string;
   isNew: true;
 }
 
