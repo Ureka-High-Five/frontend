@@ -1,41 +1,59 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 
-interface Props {
+interface UseIntersectionObserverProps {
   onIntersect: () => void;
-  enabled?: boolean;
-  rootMargin?: string;
-  root?: Element | null; 
+  hasNextPage?: boolean;         
+  threshold?: number | number[]; 
+  delayMs?: number;                 
+  rootMargin?: string;             
+  root?: Element | null;          
+  enabled?: boolean;               
 }
 
-export function useIntersectionObserver({
+export const useIntersectionObserver = ({
   onIntersect,
+  hasNextPage = true,
+  threshold = 0.5,
+  delayMs = 300,
+  rootMargin = '0px',  
+  root = null,
   enabled = true,
-  rootMargin = '100px',
-  root = null, 
-}: Props) {
-  const ref = useRef<HTMLDivElement | null>(null);
+}: UseIntersectionObserverProps): RefObject<HTMLDivElement | null> => {
+  const ref = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (!enabled || !ref.current) return;
+    const target = ref.current;
+
+    if (!enabled || !target || !hasNextPage) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          onIntersect(); 
-        }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (timerRef.current) clearTimeout(timerRef.current);
+            timerRef.current = setTimeout(() => {
+              onIntersect();
+            }, delayMs);
+          }
+        });
       },
       {
-        root, 
-        rootMargin,
+        root,
+        rootMargin,          
+        threshold,            
       }
     );
 
-    observer.observe(ref.current);
+    observer.observe(target);
 
     return () => {
-      observer.disconnect(); 
+      observer.disconnect();
+      if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [onIntersect, enabled, root, rootMargin]); 
+  }, [onIntersect, hasNextPage, threshold, delayMs, rootMargin, root, enabled]);
 
-  return ref; 
-}
+  return ref;
+};
+
+
