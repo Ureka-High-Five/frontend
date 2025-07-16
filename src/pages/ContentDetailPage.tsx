@@ -44,7 +44,6 @@ const ContentDetailPage = () => {
     observer.observe(target);
 
     return () => {
-      observer.unobserve(target);
       observer.disconnect();
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage, reviews.length]);
