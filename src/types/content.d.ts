@@ -8,7 +8,7 @@ export interface Content {
   posterUrl: string;
   actors: string[];
   director: string;
-  openDate: string;
+  openYear: string;
 }
 
 export interface Review {
@@ -18,7 +18,19 @@ export interface Review {
   userReview: string;
 }
 
+export interface ReviewListResponse {
+  items: Review[];
+  hasNext: boolean;
+  nextCursor?: string;
+}
+
 export interface MyReview {
   rating: number;
   review: string;
+}
+
+export interface PostMyReviewRequest {
+  contentId: string;
+  rating: number;
+  review?: string;
 }
