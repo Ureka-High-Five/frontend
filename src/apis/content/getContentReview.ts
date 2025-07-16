@@ -10,11 +10,11 @@ export const getContentReviews = async (
   const params: { size: number; cursor?: string } = { size };
   if (cursor) params.cursor = cursor;
 
-  const { data } = await axiosInstance.get(
+  const response = await axiosInstance.get(
     `/${END_POINTS.CONTENT_REVIEW}/${contentId}`,
     {
       params,
     }
   );
-  return data;
+  return response.data.content;
 };

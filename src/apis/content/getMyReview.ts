@@ -3,8 +3,8 @@ import { END_POINTS } from "@/constants/api";
 import type { MyReview } from "@/types/content";
 
 export const getMyReview = async (contentId: string): Promise<MyReview> => {
-  const { data } = await axiosInstance.get(
+  const response = await axiosInstance.get(
     `/${END_POINTS.CONTENT_REVIEW}/${contentId}/me`
   );
-  return data.content;
+  return response.data.content;
 };
