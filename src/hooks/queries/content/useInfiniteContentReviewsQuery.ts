@@ -2,7 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getContentReviews } from "@/apis/content/getContentReview";
 import type { ReviewListResponse } from "@/types/content";
 
-export const useInfiniteContentReviews = (
+export const useInfiniteContentReviewsQuery = (
   contentId: string,
   size: number = 5
 ) => {

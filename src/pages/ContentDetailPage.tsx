@@ -1,21 +1,21 @@
 import { useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ContentDetailLayout from "@/components/contentDetail/ContentDetailLayout";
-import { useContentDetail } from "@/hooks/queries/content/useContentDetail";
-import { useInfiniteContentReviews } from "@/hooks/queries/content/useInfiniteContentReviews";
-import { useMyReview } from "@/hooks/queries/content/useMyReview";
+import { useContentDetailQuery } from "@/hooks/queries/content/useContentDetailQuery";
+import { useInfiniteContentReviewsQuery } from "@/hooks/queries/content/useInfiniteContentReviewsQuery";
+import { useMyReviewQuery } from "@/hooks/queries/content/useMyReviewQuery";
 
 const ContentDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const contentId = id ?? "";
-  const { data: content, isLoading, error } = useContentDetail(contentId);
+  const { data: content, isLoading, error } = useContentDetailQuery(contentId);
   const {
     data: reviewPages,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useInfiniteContentReviews(contentId);
-  const { data: myReview } = useMyReview(contentId);
+  } = useInfiniteContentReviewsQuery(contentId);
+  const { data: myReview } = useMyReviewQuery(contentId);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import AnimatedFadeIn from "@/components/common/atom/AnimatedFadeIn";
 import { Card } from "@/components/ui/card";
-import { useMyReview } from "@/hooks/queries/content/useMyReview";
+import { useMyReviewMutation } from "@/hooks/queries/content/useMyReviewMutation";
 import RatingMessage from "../molecules/RatingMessage";
 import ReviewInput from "../molecules/ReviewInput";
 import StarRating from "../molecules/StarRating";
@@ -24,7 +24,8 @@ const ReviewForm = ({ contentId }: ReviewFormProps) => {
   const [isMessageVisible, setIsMessageVisible] = useState(false);
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const { postMyReview, isPosting } = useMyReview(contentId);
+  const { mutate: postMyReview, isPending: isPosting } =
+    useMyReviewMutation(contentId);
 
   useEffect(() => {
     let messageTimer: ReturnType<typeof setTimeout>;

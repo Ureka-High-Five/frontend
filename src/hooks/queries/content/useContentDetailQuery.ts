@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getContentDetail } from "@/apis/content/getContentDetail";
 
-export const useContentDetail = (contentId: string) => {
+export const useContentDetailQuery = (contentId: string) => {
   return useQuery({
     queryKey: ["contentDetail", contentId],
     queryFn: () => getContentDetail(contentId),
