@@ -8,7 +8,7 @@ export interface Content {
   posterUrl: string;
   actors: string[];
   director: string;
-  openDate: string;
+  openYear: string;
 }
 
 export interface Review {
@@ -16,6 +16,12 @@ export interface Review {
   userProfileUrl: string;
   userRating: number;
   userReview: string;
+}
+
+export interface ReviewListResponse {
+  items: Review[];
+  hasNext: boolean;
+  nextCursor?: string;
 }
 
 export interface MyReview {
@@ -28,4 +34,10 @@ export type PreviewVideoType = "VIDEO" | "SHORTS";
 export interface PreviewVideo {
   videoUrl: string;
   type: PreviewVideoType;
+}
+
+export interface PostMyReviewRequest {
+  contentId: string;
+  rating: number;
+  review?: string;
 }

@@ -5,6 +5,8 @@ export const END_POINTS = {
   KAKAOLOGIN: "auth/login",
   HOME_RECOMMEND: "/content/home",
   PREVIEW_VIDEO: (contentId: number) => `/content/${contentId}/video`,
+  CONTENT: "content",
+  CONTENT_REVIEW: "content/review",
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
