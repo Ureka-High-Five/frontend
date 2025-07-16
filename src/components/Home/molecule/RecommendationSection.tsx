@@ -23,9 +23,9 @@ const RecommendationSection = ({
       )}
 
       <ul className="flex overflow-x-auto gap-2 no-scrollbar">
-        {contents.map((item) => (
-          <li key={item.contentId} className="flex-shrink-0 w-1/3">
-            <ContentCard posterUrl={item.posterUrl} />
+        {contents.map((content) => (
+          <li key={content.contentId} className="flex-shrink-0 w-1/3">
+            <ContentCard thumbnailUrl={content.thumbnailUrl} />
           </li>
         ))}
       </ul>

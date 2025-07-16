@@ -29,6 +29,13 @@ export interface MyReview {
   review: string;
 }
 
+export type PreviewVideoType = "VIDEO" | "SHORTS";
+
+export interface PreviewVideo {
+  videoUrl: string;
+  type: PreviewVideoType;
+}
+
 export interface PostMyReviewRequest {
   contentId: string;
   rating: number;

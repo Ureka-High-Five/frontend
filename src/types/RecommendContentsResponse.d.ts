@@ -1,4 +1,5 @@
 export interface MainRecommend {
+  contentId: number; 
   posterUrl: string;
   description: string;
   genre: string[];
@@ -6,7 +7,7 @@ export interface MainRecommend {
 
 export interface RecommendContent {
   contentId: number;
-  posterUrl: string;
+  thumbnailUrl: string;
 }
 
 export interface RecommendGenreContent {
