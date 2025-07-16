@@ -13,7 +13,7 @@ const NavItem = ({ icon, label, onClick }: NavItemProps) => (
     size="lg"
     onClick={onClick}>
     {icon}
-    <span className="text-body-sm-pretendard text-white">{label}</span>
+    <span className="body-sm-pretendard text-white">{label}</span>
   </Button>
 );
 

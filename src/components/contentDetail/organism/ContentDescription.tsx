@@ -2,14 +2,14 @@ import type { Content } from "@/types/content";
 
 type ContentDescriptionProps = Pick<
   Content,
-  "contentDescription" | "actors" | "director" | "openDate"
+  "contentDescription" | "actors" | "director" | "openYear"
 >;
 
 const ContentDescription = ({
   contentDescription,
   actors,
   director,
-  openDate,
+  openYear,
 }: ContentDescriptionProps) => {
   return (
     <section className="flex flex-col gap-2">
@@ -17,7 +17,7 @@ const ContentDescription = ({
       <ul className="text-custom-gray body-sm-pretendard">
         <li>감독: {director}</li>
         <li>배우: {actors.join(", ")}</li>
-        <li>개봉일: {openDate}</li>
+        <li>개봉: {openYear}</li>
       </ul>
     </section>
   );

@@ -1,28 +1,31 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import type { Review } from "@/types/content";
+import ReviewItem from "@/components/contentDetail/molecules/ReviewItem";
+import type { Review, MyReview } from "@/types/content";
 
-type ReviewListProps = Pick<
-  Review,
-  "reviewId" | "userProfileUrl" | "userRating" | "userReview"
->[];
+interface ReviewListProps {
+  reviews: Review[];
+  myReview?: MyReview;
+}
 
-const ReviewList = ({ reviews }: { reviews: ReviewListProps }) => {
+const ReviewList = ({ reviews, myReview }: ReviewListProps) => {
   return (
     <section className="flex flex-col">
       <h2 className="body-lg-dohyeon text-custom-gray pb-4">리뷰</h2>
+      {myReview && (
+        <ReviewItem
+          key="my-review"
+          userProfileUrl=""
+          userRating={myReview.rating}
+          userReview={myReview.review}
+          isMyReview
+        />
+      )}
       {reviews.map((review) => (
-        <article
+        <ReviewItem
           key={review.reviewId}
-          className="flex items-center text-white pb-3 gap-3">
-          <Avatar>
-            <AvatarImage src={review.userProfileUrl} alt="프로필" />
-            <AvatarFallback>cn</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col body-sm-pretendard">
-            <div className="text-custom-gray">{review.userRating}/5</div>
-            <div className="text-white">{review.userReview}</div>
-          </div>
-        </article>
+          userProfileUrl={review.userProfileUrl}
+          userRating={review.userRating}
+          userReview={review.userReview}
+        />
       ))}
     </section>
   );
