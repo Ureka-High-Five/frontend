@@ -30,7 +30,7 @@ export interface MyReview {
 }
 
 export interface PostMyReviewRequest {
-  contentId: number;
-  rating: string;
+  contentId: string;
+  rating: number;
   review?: string;
 }
