@@ -12,9 +12,7 @@ export const useInfiniteContentReviews = (
       getContentReviews(contentId, pageParam as string, size),
     initialPageParam: "",
     getNextPageParam: (lastPage) =>
-      lastPage.content.hasNext
-        ? (lastPage.content.nextCursor ?? "")
-        : undefined,
+      lastPage.hasNext ? (lastPage.nextCursor ?? "") : undefined,
     enabled: !!contentId,
   });
 };
