@@ -6,11 +6,10 @@ import useUserPreferenceMutation from "@/hooks/queries/onboarding/useUserPrefere
 import useUserStore from "@/stores/useUserStore";
 import mergeUniqueContents from "@/utils/mergeUniqueContents";
 import type { OnBoardingContent } from "@/types/content";
+import type { OnBoardingStep } from "@/types/onBoarding";
 
 const OnBoardingPage = () => {
-  const [step, setStep] = useState<"name" | "birthYear" | "gender" | "content">(
-    "name"
-  );
+  const [step, setStep] = useState<OnBoardingStep>("name");
   const [contents, setContents] = useState<OnBoardingContent[]>([]);
 
   const selectedIds = useUserStore((state) => state.user.selectedContentIds);

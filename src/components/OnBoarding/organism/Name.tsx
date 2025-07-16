@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import useUserStore from "@/stores/useUserStore";
+import type { OnBoardingStep } from "@/types/onBoarding";
 
 interface NameProps {
-  setStep: (step: "name" | "birthYear" | "gender" | "content") => void;
+  setStep: (step: OnBoardingStep) => void;
   isActive: boolean;
 }
 

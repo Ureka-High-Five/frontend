@@ -1,13 +1,14 @@
 import { ONBOARDING_STEP_TEXTS, REQUIRED_COUNT } from "@/constants/onBoarding";
 import type { OnBoardingContent } from "@/types/content";
+import type { OnBoardingStep } from "@/types/onBoarding";
 import BirthYearSelect from "./organism/BirthYearSelect";
 import ContentSelect from "./organism/ContentSelect";
 import GenderSelect from "./organism/GenderSelect";
 import Name from "./organism/Name";
 
 interface OnBoardingLayoutProps {
-  step: "name" | "birthYear" | "gender" | "content";
-  setStep: (step: "name" | "birthYear" | "gender" | "content") => void;
+  step: OnBoardingStep;
+  setStep: (step: OnBoardingStep) => void;
   contents: OnBoardingContent[];
   selectedIds: number[];
   toggleSelect: (id: number) => void;

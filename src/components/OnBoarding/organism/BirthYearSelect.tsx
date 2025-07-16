@@ -7,9 +7,10 @@ import {
 } from "@/components/ui/select";
 import useUserStore from "@/stores/useUserStore";
 import { cn } from "@/utils/cn";
+import type { OnBoardingStep } from "@/types/onBoarding";
 
 interface BirthYearSelectProps {
-  setStep: (step: "name" | "birthYear" | "gender" | "content") => void;
+  setStep: (step: OnBoardingStep) => void;
 }
 
 const BirthYearSelect = ({ setStep }: BirthYearSelectProps) => {

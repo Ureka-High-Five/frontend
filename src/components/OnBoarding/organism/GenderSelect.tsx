@@ -8,9 +8,10 @@ import {
 } from "@/components/ui/select";
 import useUserStore from "@/stores/useUserStore";
 import { cn } from "@/utils/cn";
+import type { OnBoardingStep } from "@/types/onBoarding";
 
 interface GenderSelectProps {
-  setStep: (step: "name" | "birthYear" | "gender" | "content") => void;
+  setStep: (step: OnBoardingStep) => void;
 }
 
 const GenderSelect = ({ setStep }: GenderSelectProps) => {
