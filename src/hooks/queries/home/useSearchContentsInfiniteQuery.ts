@@ -6,11 +6,10 @@ export const useSearchContentsInfiniteQuery = (input: string) => {
   return useInfiniteQuery<GetSearchContentsResponse>({
     queryKey: ['search', input],
     queryFn: ({ pageParam = undefined }) =>
-    getSearchContents({ input, cursor: pageParam }),
+    getSearchContents({ input, cursor: pageParam as number | undefined }),
     getNextPageParam: (lastPage) =>
       lastPage.hasNext ? lastPage.nextCursor : undefined,
     initialPageParam: undefined,
     enabled: !!input,
-    keepPreviousData: true,
   });
 };
