@@ -6,6 +6,10 @@ export const END_POINTS = {
   INIT_ONBOARDING: "content/init",
   RECOMMEND_ONBOARDING: "content/recommend",
   USER_PREFERENCE: "user/info",
+  HOME_RECOMMEND: "/content/home",
+  PREVIEW_VIDEO: (contentId: number) => `/content/${contentId}/video`,
+  CONTENT: "content",
+  CONTENT_REVIEW: "content/review",
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
