@@ -14,7 +14,7 @@ const useKakaoLoginMutation = () => {
     onSuccess: (content) => {
       if (content.isNew) {
         setUserId(content.userId);
-        setName(content.name);
+        setName(content.nickname);
 
         navigate(PATH.ONBOARDING);
       } else {

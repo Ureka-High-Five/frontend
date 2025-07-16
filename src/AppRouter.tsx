@@ -3,6 +3,7 @@ import { PATH } from "@/constants/path";
 import ContentDetailPage from "@/pages/ContentDetailPage";
 import HomePage from "@/pages/Home/HomePage";
 import LandingPage from "@/pages/LandingPage";
+import OnBoardingPage from "@/pages/OnBoardingPage";
 import RedirectPage from "@/pages/RedirectPage";
 import App from "./App";
 
@@ -27,6 +28,10 @@ const AppRouter = () => {
         {
           path: PATH.REDIRECT,
           element: <RedirectPage />,
+        },
+        {
+          path: PATH.ONBOARDING,
+          element: <OnBoardingPage />,
         },
       ],
     },
