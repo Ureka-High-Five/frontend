@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postShortsComment } from "@/apis/shorts/postShortsComment";
 import type { PostCommentRequest } from "@/types/shorts";
 
-export const useCommentQuery = ({
+export const useCommentMutation = ({
   shortsId,
   time,
   comment,
