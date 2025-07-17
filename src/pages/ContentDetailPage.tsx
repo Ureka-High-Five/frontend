@@ -10,12 +10,9 @@ const ContentDetailPage = () => {
   const contentId = id ?? "";
 
   const { content, isLoading, error } = useContentDetailQuery(contentId);
-  const { reviewPages, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { reviews, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteContentReviewsQuery(contentId);
   const myReview = useMyReviewQuery(contentId);
-
-  // 모든 리뷰를 평탄화
-  const reviews = reviewPages?.pages.flatMap((page) => page.items ?? []) ?? [];
 
   const { rootRef, targetRef } = useIntersectionObserver({
     onIntersect: fetchNextPage,
