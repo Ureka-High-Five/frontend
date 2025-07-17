@@ -8,7 +8,7 @@ const ContentCard = ({
   width = "w-full",
 }: ContentCardProps) => {
   return (
-    <div className={`overflow-hidden rounded-lg aspect-[2/3] ${width}`}>
+    <div className={`overflow-hidden rounded-xl aspect-[2/3] ${width}`}>
       <img
         src={thumbnailUrl}
         alt="콘텐츠 썸네일"
