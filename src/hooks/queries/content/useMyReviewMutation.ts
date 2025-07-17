@@ -6,7 +6,7 @@ export const useMyReviewMutation = (contentId: string) => {
   const queryClient = useQueryClient();
 
   // 내 리뷰 생성/수정 (이 파일에서 직접 구현)
-  return useMutation({
+  const { mutate: postReview, isPending: isPosting } = useMutation({
     mutationFn: async (body: PostMyReviewRequest) => {
       await postMyReview(body);
     },
@@ -14,4 +14,9 @@ export const useMyReviewMutation = (contentId: string) => {
       queryClient.invalidateQueries({ queryKey: ["myReview", contentId] });
     },
   });
+
+  return {
+    postReview,
+    isPosting,
+  };
 };

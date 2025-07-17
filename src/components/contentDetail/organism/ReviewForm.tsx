@@ -24,8 +24,7 @@ const ReviewForm = ({ contentId }: ReviewFormProps) => {
   const [isMessageVisible, setIsMessageVisible] = useState(false);
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const { mutate: postMyReview, isPending: isPosting } =
-    useMyReviewMutation(contentId);
+  const { postReview, isPosting } = useMyReviewMutation(contentId);
 
   useEffect(() => {
     let messageTimer: ReturnType<typeof setTimeout>;
@@ -65,7 +64,7 @@ const ReviewForm = ({ contentId }: ReviewFormProps) => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onSend={() => {
-                  postMyReview({
+                  postReview({
                     contentId,
                     rating,
                     review: inputValue,

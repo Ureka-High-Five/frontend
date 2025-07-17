@@ -10,14 +10,10 @@ const ContentDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const contentId = id ?? "";
 
-  const { data: content, isLoading, error } = useContentDetailQuery(contentId);
-  const {
-    data: reviewPages,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useInfiniteContentReviewsQuery(contentId);
-  const { data: myReview } = useMyReviewQuery(contentId);
+  const { content, isLoading, error } = useContentDetailQuery(contentId);
+  const { reviewPages, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteContentReviewsQuery(contentId);
+  const myReview = useMyReviewQuery(contentId);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
