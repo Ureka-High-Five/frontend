@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { MainRecommend } from "@/types/RecommendContentsResponse";
@@ -8,7 +7,7 @@ interface Props {
 }
 
 const MainRecommendBanner = ({ content }: Props) => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const handlePreviewClick = () => {
     {/* TODO: 미리보기 이동 */}
