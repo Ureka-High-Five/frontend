@@ -36,7 +36,9 @@ const ReviewItem = ({
             </span>
           </div>
         }
-        subText={<div className="text-white">{userReview}</div>}
+        subText={
+          <div className="text-white body-sm-pretendard">{userReview}</div>
+        }
         className="flex-1"
       />
     </article>
