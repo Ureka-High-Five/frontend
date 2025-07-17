@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { MainRecommend } from "@/types/RecommendContentsResponse";
@@ -8,28 +7,30 @@ interface Props {
 }
 
 const MainRecommendBanner = ({ content }: Props) => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const handlePreviewClick = () => {
     {/* TODO: 미리보기 이동 */}
   };
 
   return (
-    <section className="flex flex-col items-center">
+    <section className="relative w-full max-w-[600px] mx-auto">
       <img
         src={content.posterUrl}
         alt="메인 포스터"
-        className="w-full rounded-md aspect-square object-cover"
+        className="w-full rounded-xl aspect-square object-cover"
       />
-      <h2 className="heading-h2-pretendard font-bold mt-2">{content.description}</h2>
-      <p className="body-sm-pretendard text-gray-300">{content.genre.join(" · ")}</p>
+      <div className="absolute inset-0 flex flex-col items-center justify-end text-center bg-gradient-to-t from-black/70 to-transparent p-4 rounded-xl gap-3"> {/* ✅ 오버레이 배경 + 텍스트 영역 */}
+      <h2 className="body-lg-pretendard">{content.description}</h2>
+      <p className="body-sm-pretendard text-custom-gray">{content.genre.join(" · ")}</p>
       <Button
         onClick={handlePreviewClick}
-        className="w-full bg-custom-point text-custom-black body-sm-pretendard mt-3"
+        className="w-full bg-custom-point text-custom-black flex items-center justify-center gap-2 max-w-[350px] body-sm-pretendard"
       >
         <Play />
         미리보기
       </Button>
+    </div>
     </section>
   );
 };

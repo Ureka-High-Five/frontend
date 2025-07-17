@@ -24,9 +24,8 @@ export interface RecommendCuration {
 
 export interface RecommendContentsResponse {
   mainRecommend: MainRecommend;
-  recommendContents: RecommendContent[];
-  recommendGenreContents: RecommendGenreContent;
-  recommendSecondGenreContents: RecommendGenreContent;
+  personalRecommends: RecommendContent[];
+  genre: Record<string, RecommendContent[]>;
   recommendCuration: RecommendCuration;
   recommendSecondCuration: RecommendCuration;
 }
