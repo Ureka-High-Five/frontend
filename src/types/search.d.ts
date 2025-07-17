@@ -6,7 +6,7 @@ export interface SearchContent {
 }
 
 export interface GetSearchContentsResponse {
-  contents: SearchContent[];
+  items: SearchContent[];
   nextCursor: number | null;
   hasNext: boolean;
 }
