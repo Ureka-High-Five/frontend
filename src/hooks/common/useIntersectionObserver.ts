@@ -1,13 +1,13 @@
-import { useEffect, useRef, type RefObject } from 'react';
+import { useEffect, useRef, type RefObject } from "react";
 
 interface UseIntersectionObserverProps {
   onIntersect: () => void;
-  hasNextPage?: boolean;         
-  threshold?: number | number[]; 
-  delayMs?: number;                 
-  rootMargin?: string;             
-  root?: Element | null;          
-  enabled?: boolean;               
+  hasNextPage?: boolean;
+  threshold?: number | number[];
+  delayMs?: number;
+  rootMargin?: string;
+  root?: Element | null;
+  enabled?: boolean;
 }
 
 export const useIntersectionObserver = ({
@@ -15,7 +15,7 @@ export const useIntersectionObserver = ({
   hasNextPage = true,
   threshold = 0.5,
   delayMs = 300,
-  rootMargin = '0px',  
+  rootMargin = "0px",
   root = null,
   enabled = true,
 }: UseIntersectionObserverProps): RefObject<HTMLDivElement | null> => {
@@ -40,8 +40,8 @@ export const useIntersectionObserver = ({
       },
       {
         root,
-        rootMargin,          
-        threshold,            
+        rootMargin,
+        threshold,
       }
     );
 
@@ -55,5 +55,3 @@ export const useIntersectionObserver = ({
 
   return ref;
 };
-
-

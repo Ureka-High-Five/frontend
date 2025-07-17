@@ -12,6 +12,7 @@ interface ContentDetailLayoutProps {
   reviews: Review[];
   myReview?: MyReview;
   scrollRef?: React.RefObject<HTMLDivElement | null>;
+  observerRef?: React.RefObject<HTMLDivElement | null>;
   isFetchingNextPage: boolean;
 }
 
@@ -21,6 +22,7 @@ const ContentDetailLayout = ({
   reviews,
   myReview,
   scrollRef,
+  observerRef,
   isFetchingNextPage,
 }: ContentDetailLayoutProps) => {
   return (
@@ -50,7 +52,11 @@ const ContentDetailLayout = ({
           </div>
         )}
         {/* 무한스크롤 트리거 */}
-        <div id="observer-target" className="h-1" />
+        <div
+          id="observer-target"
+          ref={observerRef}
+          className="h-16 w-full  min-h-[40px]"
+        />
       </div>
     </div>
   );
