@@ -8,7 +8,6 @@ export const useLikeMutation = ({ shortsId, time }: ShortsTimeLine) => {
   const { mutate: mutatePostShortsLike, isPending: isPosting } = useMutation({
     mutationFn: () => postShortsLike({ shortsId, time }),
     onSuccess: () => {
-      console.log("like post 성공");
       queryClient.invalidateQueries({
         queryKey: ["shortsLike", shortsId, time],
       });

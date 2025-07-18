@@ -8,7 +8,6 @@ export const useDislikeMutation = (shortsId: string) => {
     {
       mutationFn: () => postShortsDislike(shortsId),
       onSuccess: () => {
-        console.log("dislike post 성공");
         queryClient.invalidateQueries({
           queryKey: ["shortsLike", shortsId],
         });

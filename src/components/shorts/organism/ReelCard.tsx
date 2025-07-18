@@ -49,7 +49,7 @@ export default function ReelCard({ reel }: ReelCardProps) {
       };
     }
 
-    // console.error("This browser does not support HLS.");
+    console.error("This browser does not support HLS.");
     return () => {};
   }, [reel.shortsUrl]);
 

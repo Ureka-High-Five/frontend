@@ -13,7 +13,6 @@ export const useCommentMutation = ({
     {
       mutationFn: () => postShortsComment({ shortsId, time, comment }),
       onSuccess: () => {
-        console.log("comment post 성공");
         queryClient.invalidateQueries({
           queryKey: ["shortsComment", shortsId, time],
         });
