@@ -1,6 +1,6 @@
 export interface SearchContent {
   contentId: number;
-  posterUrl: string;
+  thumbnailUrl: string;
   title: string;
   openYear: number;
 }
