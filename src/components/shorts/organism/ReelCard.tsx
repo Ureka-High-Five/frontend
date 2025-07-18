@@ -1,11 +1,9 @@
 import { useEffect, useRef } from "react";
 import Hls from "hls.js";
-import { Heart } from "lucide-react";
 // import { useCommentQuery } from "@/hooks/queries/shorts/useCommentQuery";
 // import { useLikeQuery } from "@/hooks/queries/shorts/useLikeQuery";
 import type { ShortsItem } from "@/types/shorts";
-import ReelTitle from "../atom/ReelTitle";
-import ReelActionBar from "../molecules/ReelActionBar";
+import ReelOverlay from "./ReelOverlay";
 
 interface ReelCardProps {
   reel: ShortsItem;
@@ -20,6 +18,7 @@ export default function ReelCard({ reel }: ReelCardProps) {
    */
   // const shortsLikes = useLikeQuery({ shortsId: "1", duration: "5" });
   // const shortsComments = useCommentQuery({ shortsId: "1", time: "2" });
+
   useEffect(() => {
     const video = videoRef.current;
 
@@ -50,7 +49,7 @@ export default function ReelCard({ reel }: ReelCardProps) {
       };
     }
 
-    console.error("This browser does not support HLS.");
+    // console.error("This browser does not support HLS.");
     return () => {};
   }, [reel.shortsUrl]);
 
@@ -70,13 +69,7 @@ export default function ReelCard({ reel }: ReelCardProps) {
       />
 
       {/* 오버레이: 제목 + 액션바 */}
-      <div className="absolute bottom-0 left-0 w-full px-4 pb-5 text-white bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col gap-2">
-        <div className="flex items-center justify-between pb-2">
-          <ReelTitle title={reel.contentTitle} />
-          <Heart className="w-5 h-5 text-white" />
-        </div>
-        <ReelActionBar />
-      </div>
+      <ReelOverlay title={reel.contentTitle} />
     </div>
   );
 }
