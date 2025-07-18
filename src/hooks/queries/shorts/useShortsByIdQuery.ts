@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { getShortsById } from "@/apis/shorts/getShortsById";
 
-export const useShortsByIdQuery = (shortsId: string) => {
+export const useShortsByIdQuery = (
+  shortsId: string,
+  options?: { enabled?: boolean }
+) => {
   const { data: shorts } = useQuery({
     queryKey: ["shortsById", shortsId],
     queryFn: () => getShortsById(shortsId),
-    enabled: !!shortsId,
+    enabled: options?.enabled ?? !!shortsId,
   });
 
   return shorts;
