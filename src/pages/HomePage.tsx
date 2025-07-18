@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import Header from "@/components/common/Header";
 import NavigationBar from "@/components/common/Navigation/NavigationBar";
 import MainRecommendBanner from "@/components/Home/organism/MainRecommendBanner";
@@ -7,7 +6,6 @@ import GenreRecommendSection from "@/components/Home/organism/GenreRecommendSect
 import CurationRecommendSection from "@/components/Home/organism/CurationRecommendSection";
 import VisibleSection from "@/components/Home/atom/VisibleSection";
 import { useRecommendQuery } from "@/hooks/queries/home/useRecommendQuery";
-import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
 import { useScrollPositionDetector } from "@/hooks/common/useScrollPositionDetector";
 
 const HomePage = () => {
@@ -28,7 +26,9 @@ const HomePage = () => {
         )}
 
         <VisibleSection contents={recommendContents.personalRecommends}>
-          <PersonalRecommendSection contents={recommendContents.personalRecommends} />
+          <PersonalRecommendSection
+            contents={recommendContents.personalRecommends}
+          />
         </VisibleSection>
 
         {Object.entries(recommendContents.genre).map(([genre, contents]) => (
@@ -37,12 +37,18 @@ const HomePage = () => {
           </VisibleSection>
         ))}
 
-        <VisibleSection contents={recommendContents.recommendCuration?.contents}>
-          <CurationRecommendSection data={recommendContents.recommendCuration} />
+        <VisibleSection
+          contents={recommendContents.recommendCuration?.contents}>
+          <CurationRecommendSection
+            data={recommendContents.recommendCuration}
+          />
         </VisibleSection>
 
-        <VisibleSection contents={recommendContents.recommendSecondCuration?.contents}>
-          <CurationRecommendSection data={recommendContents.recommendSecondCuration} />
+        <VisibleSection
+          contents={recommendContents.recommendSecondCuration?.contents}>
+          <CurationRecommendSection
+            data={recommendContents.recommendSecondCuration}
+          />
         </VisibleSection>
       </main>
 
