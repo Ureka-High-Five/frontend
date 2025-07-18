@@ -26,6 +26,8 @@ export default function ShortsLayout({
     enabled: !isLoading,
   });
 
+  const cardRef = cardRefs;
+
   return (
     <div className="relative w-full h-screen overflow-y-scroll snap-y snap-mandatory">
       <div className="fixed top-4 left-2 z-10 text-white">
@@ -38,7 +40,7 @@ export default function ShortsLayout({
         <div
           key={reel.shortsId}
           ref={(el) => {
-            cardRefs.current[idx] = el;
+            cardRef.current[idx] = el;
           }}>
           <ReelCard reel={reel} />
         </div>

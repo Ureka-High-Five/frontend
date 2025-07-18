@@ -1,8 +1,6 @@
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { useParams } from "react-router-dom";
 import ShortsLayout from "@/components/shorts/ShortsLayout";
-import { useShortsByIdQuery } from "@/hooks/queries/shorts/useShortsByIdQuery";
-import { useShortsInfiniteQuery } from "@/hooks/queries/shorts/useShortsInfiniteQuery";
 import { useActiveShortsId } from "@/hooks/shorts/useActiveShortsId";
 import { useShortsToShow } from "@/hooks/shorts/useShortsToShow";
 
