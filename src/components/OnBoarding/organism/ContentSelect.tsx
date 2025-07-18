@@ -2,7 +2,10 @@ import { Loader2 } from "lucide-react";
 import OnBoardingContentCard from "@/components/OnBoarding/molecule/OnBoardingContentCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { REQUIRED_COUNT } from "@/constants/onBoarding";
+import {
+  REQUIRED_COUNT,
+  ONBOARDING_SEARCH_COUNT,
+} from "@/constants/onBoarding";
 import { useSearchContent } from "@/hooks/onboarding/useSearchContent";
 import type { OnBoardingContent } from "@/types/content";
 
@@ -28,7 +31,7 @@ const ContentSelect = ({
     scrollContainerRef,
     rootRef,
     targetRef,
-  } = useSearchContent(6);
+  } = useSearchContent(ONBOARDING_SEARCH_COUNT);
   const displayContents = searchKeyword.length > 0 ? searchContents : contents;
 
   return (
