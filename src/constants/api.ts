@@ -11,6 +11,7 @@ export const END_POINTS = {
   CONTENT: "content",
   CONTENT_REVIEW: "content/review",
   SEARCH_CONTENT: "/content/search",
+  SHORTS: "/shorts",
   SHORTS_LIKE: "shorts/like",
   SHORTS_DISLIKE: "shorts/dislike",
   SHORTS_COMMENT: "shorts/comment",

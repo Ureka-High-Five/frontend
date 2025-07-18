@@ -1,3 +1,18 @@
+export interface ShortsItem {
+  contentId: string;
+  contentTitle: string;
+  shortsId: string;
+  shortsUrl: string;
+  liked: boolean;
+  shortThumbnail?: string;
+}
+
+export interface GetShortsResponse {
+  nextCursor?: number;
+  hasNext: boolean;
+  items: ShortsItem[];
+}
+
 export interface LikeTimeline {
   time: number; // 좋아요가 눌린 영상 시간
   count: number; // 해당 시간에 눌린 좋아요 개수

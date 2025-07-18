@@ -1,31 +1,41 @@
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
+import type { ShortsItem } from "@/types/shorts";
 import ReelCard from "./organism/ReelCard";
 
-interface ShortItem {
-  contentId: string;
-  contentTitle: string;
-  shortsUrl: string;
-  shortThumbnail: string;
-}
-
 interface ShortsLayoutProps {
-  shorts: ShortItem[];
+  shorts: ShortsItem[];
+  fetchNextPage: () => void;
+  hasNextPage?: boolean;
+  isLoading?: boolean;
 }
 
-export default function ShortsLayout({ shorts }: ShortsLayoutProps) {
+export default function ShortsLayout({
+  shorts,
+  fetchNextPage,
+  hasNextPage,
+  isLoading,
+}: ShortsLayoutProps) {
+  const loaderRef = useIntersectionObserver({
+    onIntersect: fetchNextPage,
+    hasNextPage,
+    enabled: !isLoading,
+  });
+
   return (
     <div className="relative w-full h-screen overflow-y-scroll snap-y snap-mandatory">
-      <div className="fixed top-4 left-2 z-10 text-white ">
+      <div className="fixed top-4 left-2 z-10 text-white">
         <Button variant="ghost">
           <X className="w-6 h-6" />
         </Button>
       </div>
 
-      {/* 각 릴스 카드 */}
       {shorts.map((reel) => (
-        <ReelCard key={reel.contentId} reel={reel} />
+        <ReelCard key={reel.shortsId} reel={reel} />
       ))}
+
+      <div ref={loaderRef} className="h-1" />
     </div>
   );
 }

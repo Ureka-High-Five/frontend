@@ -1,18 +1,14 @@
 import { useEffect, useRef } from "react";
 import Hls from "hls.js";
 import { Heart } from "lucide-react";
+import type { ShortsItem } from "@/types/shorts";
 import { useCommentQuery } from "@/hooks/queries/shorts/useCommentQuery";
 import { useLikeQuery } from "@/hooks/queries/shorts/useLikeQuery";
 import ReelTitle from "../atom/ReelTitle";
 import ReelActionBar from "../molecules/ReelActionBar";
 
 interface ReelCardProps {
-  reel: {
-    contentId: string;
-    contentTitle: string;
-    shortsUrl: string;
-    shortThumbnail: string;
-  };
+  reel: ShortsItem;
 }
 
 export default function ReelCard({ reel }: ReelCardProps) {
@@ -30,20 +26,20 @@ export default function ReelCard({ reel }: ReelCardProps) {
   useEffect(() => {
     const video = videoRef.current;
 
-    if (!video) return undefined;
+    if (!video) return;
 
     const isHLS = reel.shortsUrl.endsWith(".m3u8");
 
     if (!isHLS) {
       // 일반 mp4 같은 경우
       video.src = reel.shortsUrl;
-      return undefined;
+      return;
     }
 
     if (video.canPlayType("application/vnd.apple.mpegurl")) {
       // Safari: 기본 재생
       video.src = reel.shortsUrl;
-      return undefined;
+      return;
     }
 
     if (Hls.isSupported()) {
@@ -58,7 +54,6 @@ export default function ReelCard({ reel }: ReelCardProps) {
     }
 
     console.error("This browser does not support HLS.");
-    return undefined;
   }, [reel.shortsUrl]);
 
   return (
@@ -71,6 +66,7 @@ export default function ReelCard({ reel }: ReelCardProps) {
         loop
         muted
         playsInline
+        preload="auto"
         className="object-cover w-full h-full"
         controls={false}
       />
