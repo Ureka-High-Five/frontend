@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { Tv, Zap } from "lucide-react";
 import NavItem from "@/components/common/Navigation/NavItem";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { PATH } from "@/constants/path";
+import useUserInformationQuery from "@/hooks/queries/user/useUserInformationQuery";
 
 const NavigationBar = () => {
   const navigate = useNavigate();
+  const { userInformation } = useUserInformationQuery();
 
   return (
     <nav className="flex h-20 w-full py-4 justify-around bg-custom-darkgray/80">
@@ -22,10 +24,10 @@ const NavigationBar = () => {
       <NavItem
         icon={
           <Avatar className="w-5 h-5">
-            <AvatarImage src="/images/user.svg" alt="사용자 이미지" />
-            <AvatarFallback className="body-sm-pretendard text-white">
-              나
-            </AvatarFallback>
+            <AvatarImage
+              src={userInformation?.profileUrl}
+              alt="사용자 이미지"
+            />
           </Avatar>
         }
         label="MY"
