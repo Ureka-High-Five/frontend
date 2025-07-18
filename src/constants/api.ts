@@ -11,6 +11,7 @@ export const END_POINTS = {
   CONTENT: "content",
   CONTENT_REVIEW: "content/review",
   SEARCH_CONTENT: "/content/search",
+  USER_INFORMATION: "user/me",
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
