@@ -3,8 +3,6 @@ export interface ShortsItem {
   contentTitle: string;
   shortsId: string;
   shortsUrl: string;
-  liked: boolean;
-  shortThumbnail?: string;
 }
 
 export interface GetShortsResponse {

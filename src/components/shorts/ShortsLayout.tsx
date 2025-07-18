@@ -1,3 +1,4 @@
+import type { MutableRefObject } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
@@ -9,6 +10,7 @@ interface ShortsLayoutProps {
   fetchNextPage: () => void;
   hasNextPage?: boolean;
   isLoading?: boolean;
+  cardRefs: MutableRefObject<(HTMLDivElement | null)[]>;
 }
 
 export default function ShortsLayout({
@@ -16,6 +18,7 @@ export default function ShortsLayout({
   fetchNextPage,
   hasNextPage,
   isLoading,
+  cardRefs,
 }: ShortsLayoutProps) {
   const loaderRef = useIntersectionObserver({
     onIntersect: fetchNextPage,
@@ -31,8 +34,14 @@ export default function ShortsLayout({
         </Button>
       </div>
 
-      {shorts.map((reel) => (
-        <ReelCard key={reel.shortsId} reel={reel} />
+      {shorts.map((reel, idx) => (
+        <div
+          key={reel.shortsId}
+          ref={(el) => {
+            cardRefs.current[idx] = el;
+          }}>
+          <ReelCard reel={reel} />
+        </div>
       ))}
 
       <div ref={loaderRef} className="h-1" />
