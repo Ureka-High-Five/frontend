@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import Hls from "hls.js";
 import { Heart } from "lucide-react";
 import type { ShortsItem } from "@/types/shorts";
+import { useCommentQuery } from "@/hooks/queries/shorts/useCommentQuery";
+import { useLikeQuery } from "@/hooks/queries/shorts/useLikeQuery";
 import ReelTitle from "../atom/ReelTitle";
 import ReelActionBar from "../molecules/ReelActionBar";
 
@@ -11,6 +13,15 @@ interface ReelCardProps {
 
 export default function ReelCard({ reel }: ReelCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  /**
+   * server state
+   */
+  const shortsLikes = useLikeQuery({ shortsId: "1", duration: "5" });
+  const shortsComments = useCommentQuery({ shortsId: "1", time: "2" });
+
+  console.log(shortsLikes);
+  console.log(shortsComments);
 
   useEffect(() => {
     const video = videoRef.current;
