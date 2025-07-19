@@ -10,7 +10,7 @@ export const END_POINTS = {
   PREVIEW_VIDEO: (contentId: number) => `/content/${contentId}/video`,
   CONTENT: "content",
   CONTENT_REVIEW: "content/review",
-  SEARCH_CONTENT: "/content/search",
+  CONTENT_SEARCH: "/content/search",
   SHORTS: "/shorts",
   SHORTS_LIKE: "shorts/like",
   SHORTS_DISLIKE: "shorts/dislike",
