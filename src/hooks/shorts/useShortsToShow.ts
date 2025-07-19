@@ -15,11 +15,10 @@ export function useShortsToShow(currentShortsId?: string) {
 
   const shortsToShow = isSingleFetchNeeded
     ? [
-        singleShorts,
-        ...shorts.filter((s) => String(s.shortsId) !== currentShortsId),
+        ...(singleShorts ? [singleShorts] : []),
+        ...shorts.filter((s) => s && String(s.shortsId) !== currentShortsId),
       ]
-    : shorts;
-
+    : shorts.filter(Boolean);
   return {
     shortsToShow,
     fetchNextPage,
