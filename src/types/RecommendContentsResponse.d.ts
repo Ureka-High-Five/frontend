@@ -1,5 +1,5 @@
 export interface MainRecommend {
-  contentId: number; 
+  contentId: number;
   posterUrl: string;
   description: string;
   genre: string[];
