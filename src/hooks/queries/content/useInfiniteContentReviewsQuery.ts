@@ -6,7 +6,12 @@ export const useInfiniteContentReviewsQuery = (
   contentId: string,
   size: number = 5
 ) => {
-  return useInfiniteQuery<ReviewListResponse>({
+  const {
+    data: reviewPages,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery<ReviewListResponse>({
     queryKey: ["contentReviews", contentId],
     queryFn: ({ pageParam = "" }) =>
       getContentReviews(contentId, pageParam as string, size),
@@ -15,4 +20,11 @@ export const useInfiniteContentReviewsQuery = (
       lastPage.hasNext ? (lastPage.nextCursor ?? "") : undefined,
     enabled: !!contentId,
   });
+
+  return {
+    reviewPages,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  };
 };

@@ -1,5 +1,5 @@
-import type { RecommendContent } from "@/types/RecommendContentsResponse";
 import ContentCard from "@/components/Home/atom/ContentCard";
+import type { RecommendContent } from "@/types/RecommendContentsResponse";
 
 interface RecommendationSectionProps {
   title?: string;
@@ -24,7 +24,7 @@ const RecommendationSection = ({
 
       <ul className="flex overflow-x-auto gap-2 no-scrollbar">
         {contents.map((content) => (
-          <li key={content.contentId} className="flex-shrink-0 w-[200px]">
+          <li key={content.contentId} className="flex-shrink-0 w-[100px]">
             <ContentCard thumbnailUrl={content.thumbnailUrl} />
           </li>
         ))}

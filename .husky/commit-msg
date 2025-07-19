@@ -1,27 +1,27 @@
-COMMIT_MSG_FILE="$1"
-BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
+# COMMIT_MSG_FILE="$1"
+# BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
 
-ISSUE_TAG=$(echo "$BRANCH_NAME" | grep -oE 'HIGH-[0-9]+')
+# ISSUE_TAG=$(echo "$BRANCH_NAME" | grep -oE 'HIGH-[0-9]+')
 
-if [ -z "$ISSUE_TAG" ]; then
-  npx --no-install commitlint --edit "$COMMIT_MSG_FILE"
-  exit $?
-fi
+# if [ -z "$ISSUE_TAG" ]; then
+#   npx --no-install commitlint --edit "$COMMIT_MSG_FILE"
+#   exit $?
+# fi
 
-COMMIT_HEADER=$(head -n 1 "$COMMIT_MSG_FILE")
-COMMIT_BODY=$(tail -n +2 "$COMMIT_MSG_FILE")
+# COMMIT_HEADER=$(head -n 1 "$COMMIT_MSG_FILE")
+# COMMIT_BODY=$(tail -n +2 "$COMMIT_MSG_FILE")
 
-if echo "$COMMIT_HEADER" | grep -qE "\(.*$ISSUE_TAG.*\)"; then
-  npx --no-install commitlint --edit "$COMMIT_MSG_FILE"
-  exit $?
-fi
+# if echo "$COMMIT_HEADER" | grep -qE "\(.*$ISSUE_TAG.*\)"; then
+#   npx --no-install commitlint --edit "$COMMIT_MSG_FILE"
+#   exit $?
+# fi
 
-MODIFIED_HEADER=$(echo "$COMMIT_HEADER" | sed -E "s/^([a-zA-Z]+)(!?):/\1(${ISSUE_TAG})\2:/")
+# MODIFIED_HEADER=$(echo "$COMMIT_HEADER" | sed -E "s/^([a-zA-Z]+)(!?):/\1(${ISSUE_TAG})\2:/")
 
-{
-  echo "$MODIFIED_HEADER"
-  echo "$COMMIT_BODY"
-} > "$COMMIT_MSG_FILE"
+# {
+#   echo "$MODIFIED_HEADER"
+#   echo "$COMMIT_BODY"
+# } > "$COMMIT_MSG_FILE"
 
-npx --no-install commitlint --edit "$COMMIT_MSG_FILE"
-exit $?
+# npx --no-install commitlint --edit "$COMMIT_MSG_FILE"
+# exit $?

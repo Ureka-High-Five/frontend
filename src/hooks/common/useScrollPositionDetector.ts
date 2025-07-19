@@ -7,7 +7,7 @@ export const useScrollPositionDetector = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsScrolled(!entry.isIntersecting); 
+        setIsScrolled(!entry.isIntersecting);
       },
       {
         threshold: 1.0,
