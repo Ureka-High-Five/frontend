@@ -1,6 +1,6 @@
-import { axiosInstance } from '@/apis/axiosInstance';
-import { END_POINTS } from '@/constants/api';
-import type { GetSearchContentsResponse } from '@/types/search';
+import { axiosInstance } from "@/apis/axiosInstance";
+import { END_POINTS } from "@/constants/api";
+import type { GetSearchContentsResponse } from "@/types/search";
 
 interface GetSearchContentsParams {
   input: string;
@@ -21,7 +21,7 @@ export const getSearchContents = async ({
   const { items, nextCursor, hasNext } = response.data.content;
 
   return {
-    contents: items,          
+    contents: items,
     nextCursor: nextCursor ? Number(nextCursor) : null,
     hasNext,
   };
