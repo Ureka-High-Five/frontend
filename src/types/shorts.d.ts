@@ -1,12 +1,16 @@
+export type VideoType = "VIDEO" | "SHORTS";
+
 export interface ShortsItem {
-  contentId: string;
-  contentTitle: string;
-  shortsId: string;
+  shortsId: number;
   shortsUrl: string;
+  contentId: number;
+  contentTitle: string;
+  liked: boolean;
+  videoType: VideoType;
 }
 
 export interface GetShortsResponse {
-  nextCursor?: number;
+  nextCursor?: number | null;
   hasNext: boolean;
   items: ShortsItem[];
 }

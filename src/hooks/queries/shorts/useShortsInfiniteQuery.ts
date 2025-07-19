@@ -3,12 +3,24 @@ import { getShorts } from "@/apis/shorts/getShorts";
 import type { GetShortsResponse } from "@/types/shorts";
 
 export const useShortsInfiniteQuery = () => {
-  return useInfiniteQuery<GetShortsResponse>({
-    queryKey: ["shorts"],
-    queryFn: ({ pageParam }) => getShorts({ cursor: pageParam }),
-    getNextPageParam: (lastPage) =>
-      lastPage.hasNext ? lastPage.nextCursor : undefined,
-    staleTime: 1000 * 60,
-    keepPreviousData: true,
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useInfiniteQuery<GetShortsResponse>({
+      queryKey: ["shorts"],
+      queryFn: ({ pageParam = undefined }) =>
+        getShorts({ cursor: pageParam as number | undefined }),
+      getNextPageParam: (lastPage) =>
+        lastPage.hasNext ? lastPage.nextCursor : undefined,
+      initialPageParam: undefined,
+      staleTime: 60 * 1000,
+    });
+
+  const shorts = data?.pages.flatMap((page) => page.items) ?? [];
+
+  return {
+    shorts,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+  };
 };

@@ -29,7 +29,9 @@ export default function ShortsLayout({
   const cardRef = cardRefs;
 
   return (
-    <div className="relative w-full h-screen overflow-y-scroll snap-y snap-mandatory">
+    <div
+      ref={rootRef}
+      className="relative w-full h-screen overflow-y-scroll snap-y snap-mandatory">
       <div className="fixed top-4 left-2 z-10 text-white">
         <Button variant="ghost">
           <X className="w-6 h-6" />
