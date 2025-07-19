@@ -9,11 +9,11 @@ interface GetShortsParams {
 
 export const getShorts = async ({
   cursor,
-  size = 10,
+  size = 3,
 }: GetShortsParams): Promise<GetShortsResponse> => {
   const response = await axiosInstance.get(END_POINTS.SHORTS, {
     params: { cursor, size },
   });
 
-  return response.data.content.shorts;
+  return response.data.content;
 };

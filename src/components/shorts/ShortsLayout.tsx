@@ -20,10 +20,10 @@ export default function ShortsLayout({
   isLoading,
   cardRefs,
 }: ShortsLayoutProps) {
-  const loaderRef = useIntersectionObserver({
+  const { rootRef, targetRef } = useIntersectionObserver({
     onIntersect: fetchNextPage,
     hasNextPage,
-    enabled: !isLoading,
+    enabled: !isLoading && !!hasNextPage,
   });
 
   const cardRef = cardRefs;
@@ -46,7 +46,7 @@ export default function ShortsLayout({
         </div>
       ))}
 
-      <div ref={loaderRef} className="h-1" />
+      <div ref={targetRef} className="h-1" />
     </div>
   );
 }
