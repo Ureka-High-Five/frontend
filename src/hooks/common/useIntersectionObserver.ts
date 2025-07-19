@@ -6,7 +6,6 @@ interface UseIntersectionObserverProps {
   threshold?: number | number[];
   delayMs?: number;
   rootMargin?: string;
-  root?: Element | null;
   enabled?: boolean;
 }
 
@@ -14,16 +13,20 @@ export const useIntersectionObserver = ({
   onIntersect,
   hasNextPage = true,
   threshold = 0.5,
-  delayMs = 300,
+  delayMs = 1000,
   rootMargin = "0px",
-  root = null,
   enabled = true,
-}: UseIntersectionObserverProps): RefObject<HTMLDivElement | null> => {
-  const ref = useRef<HTMLDivElement>(null);
+}: UseIntersectionObserverProps): {
+  rootRef: RefObject<HTMLDivElement | null>;
+  targetRef: RefObject<HTMLDivElement | null>;
+} => {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const targetRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const target = ref.current;
+    const root = rootRef.current;
+    const target = targetRef.current;
 
     if (!enabled || !target || !hasNextPage) return;
 
@@ -47,11 +50,13 @@ export const useIntersectionObserver = ({
 
     observer.observe(target);
 
+    // eslint-disable-next-line consistent-return
     return () => {
       observer.disconnect();
+
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [onIntersect, hasNextPage, threshold, delayMs, rootMargin, root, enabled]);
+  }, [onIntersect, hasNextPage, threshold, delayMs, rootMargin, enabled]);
 
-  return ref;
+  return { rootRef, targetRef };
 };

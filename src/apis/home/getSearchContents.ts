@@ -18,11 +18,5 @@ export const getSearchContents = async ({
     isAuthRequired: false,
   });
 
-  const { items, nextCursor, hasNext } = response.data.content;
-
-  return {
-    contents: items,
-    nextCursor: nextCursor ? Number(nextCursor) : null,
-    hasNext,
-  };
+  return response.data.content;
 };

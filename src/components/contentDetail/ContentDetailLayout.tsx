@@ -11,8 +11,8 @@ interface ContentDetailLayoutProps {
   content: Content;
   reviews: Review[];
   myReview?: MyReview;
-  scrollRef?: React.RefObject<HTMLDivElement | null>;
-  observerRef?: React.RefObject<HTMLDivElement | null>;
+  rootRef?: React.RefObject<HTMLDivElement | null>;
+  targetRef?: React.RefObject<HTMLDivElement | null>;
   isFetchingNextPage: boolean;
 }
 
@@ -21,8 +21,8 @@ const ContentDetailLayout = ({
   content,
   reviews,
   myReview,
-  scrollRef,
-  observerRef,
+  rootRef,
+  targetRef,
   isFetchingNextPage,
 }: ContentDetailLayoutProps) => {
   return (
@@ -30,7 +30,7 @@ const ContentDetailLayout = ({
       <ContentPoster posterUrl={content.posterUrl} />
       {/* 오버레이 컨텐츠 */}
       <div
-        ref={scrollRef}
+        ref={rootRef}
         className="relative z-10 px-8 mt-60 flex flex-col gap-6 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto hide-scrollbar">
         <ContentMainInfo
           contentTitle={content.contentTitle}
@@ -54,7 +54,7 @@ const ContentDetailLayout = ({
         {/* 무한스크롤 트리거 */}
         <div
           id="observer-target"
-          ref={observerRef}
+          ref={targetRef}
           className="h-16 w-full  min-h-[40px]"
         />
       </div>

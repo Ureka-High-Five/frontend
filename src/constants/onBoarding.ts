@@ -9,3 +9,5 @@ export const ONBOARDING_STEP_TEXTS = {
 } as const;
 
 export const REQUIRED_COUNT = 10;
+
+export const ONBOARDING_SEARCH_COUNT = 6;
