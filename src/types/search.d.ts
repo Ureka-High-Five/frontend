@@ -1,12 +1,12 @@
 export interface SearchContent {
   contentId: number;
-  posterUrl: string;
+  thumbnailUrl: string;
   title: string;
   openYear: number;
 }
 
 export interface GetSearchContentsResponse {
-  contents: SearchContent[];
+  items: SearchContent[];
   nextCursor: number | null;
   hasNext: boolean;
 }
