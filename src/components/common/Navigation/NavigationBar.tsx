@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Tv, Zap } from "lucide-react";
 import NavItem from "@/components/common/Navigation/NavItem";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { PATH } from "@/constants/path";
 import useUserInformationQuery from "@/hooks/queries/user/useUserInformationQuery";
 
@@ -28,6 +28,7 @@ const NavigationBar = () => {
               src={userInformation?.profileUrl}
               alt="사용자 이미지"
             />
+            <AvatarFallback>{userInformation?.name[0]}</AvatarFallback>
           </Avatar>
         }
         label="MY"
