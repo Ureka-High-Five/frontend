@@ -15,6 +15,7 @@ export const END_POINTS = {
   SHORTS_LIKE: "shorts/like",
   SHORTS_DISLIKE: "shorts/dislike",
   SHORTS_COMMENT: "shorts/comment",
+  SHORTS_COMMENT_TIMELINE: (shortsId: string) => `/shorts/${shortsId}/comments`,
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;

@@ -31,6 +31,10 @@ export interface Comment {
   userId: number;
 }
 
+export interface CommentWithTime extends Comment {
+  time: number;
+}
+
 export interface ShortsDuration {
   shortsId: string;
   duration: string;
@@ -38,7 +42,7 @@ export interface ShortsDuration {
 
 interface ShortsTimeLine {
   shortsId: string;
-  time: string;
+  time: number;
 }
 export interface ShortsCommentRequest extends ShortsTimeLine {
   comment: string;
@@ -46,6 +50,6 @@ export interface ShortsCommentRequest extends ShortsTimeLine {
 
 interface PostCommentRequest {
   shortsId: string;
-  time: string;
+  time: number;
   comment: string;
 }
