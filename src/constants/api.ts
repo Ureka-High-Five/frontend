@@ -17,6 +17,7 @@ export const END_POINTS = {
   SHORTS_DISLIKE: "shorts/dislike",
   SHORTS_COMMENT: "shorts/comment",
   MY_CURATION: "curation/me",
+  CURATION: "curation",
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;

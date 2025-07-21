@@ -9,3 +9,18 @@ export interface MyCurationResponse {
   hasNext: boolean;
   nextCursor: string;
 }
+
+interface CurationDetail {
+  id: number;
+  title: string;
+  thumbnailUrl: string;
+}
+
+export interface CurationDetailResponse {
+  title: string;
+  contents: CurationDetail[];
+  thumbnailUrl: string;
+  profileUrl: string;
+  editorName: string;
+  editorId: number;
+}
