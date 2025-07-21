@@ -3,6 +3,7 @@ export const PATH = {
   CONTENT_DETAIL: "/content/:id",
   HOME: "/home",
   SHORTS: "/shorts/:id?",
+  SHORTS_LIST: "/shorts",
   MYPAGE: "/mypage",
   ONBOARDING: "/onboarding",
   REDIRECT: "/redirect/kakao",

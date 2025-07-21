@@ -17,7 +17,7 @@ const NavigationBar = () => {
       <NavItem
         icon={<Zap className="stroke-white" />}
         label="SHORTS"
-        onClick={() => navigate(PATH.SHORTS)}
+        onClick={() => navigate(PATH.SHORTS_LIST)}
       />
       <NavItem
         icon={
