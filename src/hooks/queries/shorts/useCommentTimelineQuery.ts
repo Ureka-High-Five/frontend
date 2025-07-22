@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getShortsCommentsTimeline } from "@/apis/shorts/getShortsCommentsTimeline";
+import { groupCommentsByTime } from "@/utils/groupCommentsByTime";
 import type { CommentWithTime } from "@/types/shorts";
 
 const CHUNK_SIZE = 10;
@@ -29,13 +30,7 @@ export const useCommentTimelineQuery = ({
     staleTime: 1000 * 60 * 5,
   });
 
-  const commentTimelineMap: Record<number, CommentWithTime[]> = {};
-  fetchedComments.forEach((comment) => {
-    if (!commentTimelineMap[comment.time]) {
-      commentTimelineMap[comment.time] = [];
-    }
-    commentTimelineMap[comment.time].push(comment);
-  });
+  const commentTimelineMap = groupCommentsByTime(fetchedComments);
 
   return { commentTimelineMap };
 };
