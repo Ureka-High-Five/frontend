@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { useParams } from "react-router-dom";
 import ContentDetailLayout from "@/components/contentDetail/ContentDetailLayout";
 import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
@@ -11,21 +10,15 @@ const ContentDetailPage = () => {
   const contentId = id ?? "";
 
   const { content, isLoading, error } = useContentDetailQuery(contentId);
-  const { reviewPages, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { reviews, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteContentReviewsQuery(contentId);
   const myReview = useMyReviewQuery(contentId);
 
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  // 모든 리뷰를 평탄화
-  const reviews = reviewPages?.pages.flatMap((page) => page.items ?? []) ?? [];
-
-  const observerRef = useIntersectionObserver({
+  const { rootRef, targetRef } = useIntersectionObserver({
     onIntersect: fetchNextPage,
     hasNextPage,
     threshold: 1,
     enabled: !!hasNextPage && !isFetchingNextPage,
-    root: null,
   });
 
   if (!id) return <div className="text-white">잘못된 접근입니다</div>;
@@ -39,8 +32,8 @@ const ContentDetailPage = () => {
       content={content}
       reviews={reviews}
       myReview={myReview}
-      scrollRef={scrollRef}
-      observerRef={observerRef}
+      rootRef={rootRef}
+      targetRef={targetRef}
       isFetchingNextPage={isFetchingNextPage}
     />
   );

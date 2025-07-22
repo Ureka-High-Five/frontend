@@ -1,12 +1,12 @@
 import Header from "@/components/common/Header";
 import NavigationBar from "@/components/common/Navigation/NavigationBar";
+import VisibleSection from "@/components/Home/atom/VisibleSection";
+import CurationRecommendSection from "@/components/Home/organism/CurationRecommendSection";
+import GenreRecommendSection from "@/components/Home/organism/GenreRecommendSection";
 import MainRecommendBanner from "@/components/Home/organism/MainRecommendBanner";
 import PersonalRecommendSection from "@/components/Home/organism/PersonalRecommendSection";
-import GenreRecommendSection from "@/components/Home/organism/GenreRecommendSection";
-import CurationRecommendSection from "@/components/Home/organism/CurationRecommendSection";
-import VisibleSection from "@/components/Home/atom/VisibleSection";
-import { useRecommendQuery } from "@/hooks/queries/home/useRecommendQuery";
 import { useScrollPositionDetector } from "@/hooks/common/useScrollPositionDetector";
+import { useRecommendQuery } from "@/hooks/queries/home/useRecommendQuery";
 
 const HomePage = () => {
   const { isScrolled, sentinelRef } = useScrollPositionDetector();

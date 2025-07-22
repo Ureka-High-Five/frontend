@@ -37,7 +37,7 @@ const OnBoardingLayout = ({
   };
 
   return (
-    <section className="flex flex-col items-center h-full gap-9 py-16">
+    <section className="flex flex-col items-center h-full gap-9 pt-16 pb-12">
       <h1 className="heading-h1-dohyeon text-white w-[90%] max-w-sm">
         {stepTexts[step][0]} <br /> {stepTexts[step][1]}
       </h1>
