@@ -1,8 +1,8 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface AvatarWithTextProps {
-  avatarUrl?: string;
-  title: React.ReactNode;
+  avatarUrl: string;
+  title?: React.ReactNode;
   subText?: React.ReactNode;
   className?: string;
 }
