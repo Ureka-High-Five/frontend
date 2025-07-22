@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { Toaster } from "@/components/ui/sonner";
 import "./index.css";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
       <main className="flex-1 w-full max-w-[768px] mx-auto bg-custom-black overflow-hidden">
         <Outlet />
       </main>
+      <Toaster />
     </div>
   );
 }
