@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 import AvatarWithText from "@/components/common/AvatarWithText";
@@ -26,6 +27,11 @@ export default function ReelOverlay({
   shortsId,
   currentTime,
 }: ReelOverlayProps) {
+  const [liked, setLiked] = useState(isUserLiked);
+  useEffect(() => {
+    setLiked(isUserLiked);
+  }, [isUserLiked]);
+
   const { mutatePostShortsLike, isPosting: isLiking } = useLikeMutation({
     shortsId,
     time: currentTime,
@@ -33,9 +39,11 @@ export default function ReelOverlay({
   const { mutatePostShortsDislike, isPosting: isDisliking } =
     useDislikeMutation(shortsId);
   const handleHeartClick = () => {
-    if (isUserLiked) {
+    if (liked) {
+      setLiked(false);
       mutatePostShortsDislike();
     } else {
+      setLiked(true);
       mutatePostShortsLike();
     }
   };
@@ -73,7 +81,7 @@ export default function ReelOverlay({
             disabled={isLiking || isDisliking}>
             <Heart
               className={`w-5 h-5 ${
-                isUserLiked ? "text-red-500 fill-red-500" : "text-white"
+                liked ? "text-red-500 fill-red-500" : "text-white"
               }`}
             />
           </button>
