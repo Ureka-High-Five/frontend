@@ -8,9 +8,16 @@ import type { CommentWithTime } from "@/types/shorts";
 interface ReelOverlayProps {
   title: string;
   comment?: CommentWithTime | null;
+  isLikeVisible: boolean;
+  totalLikeCount: number;
 }
 
-export default function ReelOverlay({ title, comment }: ReelOverlayProps) {
+export default function ReelOverlay({
+  title,
+  comment,
+  isLikeVisible,
+  totalLikeCount,
+}: ReelOverlayProps) {
   return (
     <div className="absolute bottom-0 left-0 w-full px-4 pb-8 text-white bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col gap-2">
       <div className="relative h-14">
@@ -35,8 +42,23 @@ export default function ReelOverlay({ title, comment }: ReelOverlayProps) {
 
       <div className="flex items-center justify-between pt-2">
         <ReelTitle title={title} />
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 relative">
           <Heart className="w-5 h-5 text-white" />
+          <span className="text-sm ml-1">{totalLikeCount}</span>
+
+          <AnimatePresence>
+            {isLikeVisible && (
+              <motion.div
+                key="heart-pop"
+                initial={{ opacity: 0, scale: 0.5, y: 0 }}
+                animate={{ opacity: 1, scale: 1.3, y: -10 }}
+                exit={{ opacity: 0, scale: 0.5, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="absolute -top-5 right-4 text-red-500 text-sm font-bold pointer-events-none">
+                ❤️
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 

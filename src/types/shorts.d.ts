@@ -21,7 +21,7 @@ export interface LikeTimeline {
 }
 
 export interface ShortsLikeContent {
-  likeTimelines: LikeTimeline[];
+  likeTimeLines: LikeTimeline[];
 }
 
 export interface Comment {
@@ -52,4 +52,13 @@ interface PostCommentRequest {
   shortsId: string;
   time: number;
   comment: string;
+}
+
+interface FlyingHeart {
+  id: string;
+  x: number;
+  y: number;
+  scale: number;
+  rotate: number;
+  color: string;
 }
