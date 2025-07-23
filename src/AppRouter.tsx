@@ -6,6 +6,7 @@ import HomePage from "@/pages/HomePage";
 import LandingPage from "@/pages/LandingPage";
 import OnBoardingPage from "@/pages/OnBoardingPage";
 import RedirectPage from "@/pages/RedirectPage";
+import AdminPage from "./pages/AdminPage";
 import ShortsPage from "./pages/ShortsPage";
 
 const AppRouter = () => {
@@ -38,7 +39,15 @@ const AppRouter = () => {
           path: PATH.ONBOARDING,
           element: <OnBoardingPage />,
         },
+        {
+          path: PATH.ONBOARDING,
+          element: <OnBoardingPage />,
+        },
       ],
+    },
+    {
+      path: PATH.ADMIN,
+      element: <AdminPage />,
     },
   ]);
   return <RouterProvider router={router} />;
