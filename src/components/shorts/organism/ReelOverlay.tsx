@@ -1,9 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 import AvatarWithText from "@/components/common/AvatarWithText";
+import ReelTitle from "@/components/shorts/atom/ReelTitle";
+import ReelActionBar from "@/components/shorts/molecules/ReelActionBar";
 import type { CommentWithTime } from "@/types/shorts";
-import ReelTitle from "../atom/ReelTitle";
-import ReelActionBar from "../molecules/ReelActionBar";
 
 interface ReelOverlayProps {
   title: string;
@@ -35,8 +35,11 @@ export default function ReelOverlay({ title, comment }: ReelOverlayProps) {
 
       <div className="flex items-center justify-between pt-2">
         <ReelTitle title={title} />
-        <Heart className="w-5 h-5 text-white" />
+        <div className="flex items-center gap-1">
+          <Heart className="w-5 h-5 text-white" />
+        </div>
       </div>
+
       <ReelActionBar />
     </div>
   );
