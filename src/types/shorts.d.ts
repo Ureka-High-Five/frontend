@@ -29,6 +29,13 @@ export interface Comment {
   userName: string;
   profileUrl: string;
   userId: number;
+  createdAt?: string;
+}
+
+export interface GetAllCommentsResponse {
+  nextCursor?: number | null;
+  hasNext: boolean;
+  items: Comment[];
 }
 
 export interface CommentWithTime extends Comment {
