@@ -18,6 +18,7 @@ export const END_POINTS = {
   SHORTS_COMMENT: "shorts/comment",
   MY_CURATION: "curation/me",
   CURATION: "curation",
+  PRESIGNEDURL: "s3/presignedUrl",
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
