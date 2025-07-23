@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 import AvatarWithText from "@/components/common/AvatarWithText";
@@ -22,6 +23,7 @@ interface ReelOverlayProps {
   isUserLiked: boolean;
   shortsId: string;
   currentTime: number;
+  contentId: number;
 }
 
 export default function ReelOverlay({
@@ -32,7 +34,9 @@ export default function ReelOverlay({
   isUserLiked,
   shortsId,
   currentTime,
+  contentId,
 }: ReelOverlayProps) {
+  const navigate = useNavigate();
   const { mutatePostShortsLike, isPosting: isLiking } = useLikeMutation({
     shortsId,
     time: currentTime,
@@ -46,7 +50,10 @@ export default function ReelOverlay({
       mutatePostShortsLike();
     }
   };
-  console.log(comment);
+
+  const handleTitleClick = () => {
+    navigate(`/content/${contentId}`);
+  };
 
   return (
     <div className="absolute bottom-0 left-0 w-full px-4 pb-8 text-white bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col gap-2">
@@ -88,7 +95,7 @@ export default function ReelOverlay({
       </div>
 
       <div className="flex items-center justify-between pt-2">
-        <ReelTitle title={title} />
+        <ReelTitle title={title} onClick={handleTitleClick} />
         <div className="flex items-center gap-1 relative">
           <button
             type="button"

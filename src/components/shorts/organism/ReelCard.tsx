@@ -38,6 +38,7 @@ export default function ReelCard({ reel }: ReelCardProps) {
       />
       <ReelOverlay
         title={reel.contentTitle}
+        contentId={reel.contentId}
         comment={activeComment}
         isLikeVisible={isLikeVisible}
         totalLikeCount={totalLikeCount}
