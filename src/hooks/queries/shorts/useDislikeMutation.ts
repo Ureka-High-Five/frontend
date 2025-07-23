@@ -1,6 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postShortsDislike } from "@/apis/shorts/postShortsDislike";
-import type { ShortsLikeContent, LikeTimeline } from "@/types/shorts";
+import type {
+  ShortsLikeContent,
+  LikeTimeline,
+  ShortsItem,
+  GetShortsResponse,
+} from "@/types/shorts";
+import type { InfiniteData } from "@tanstack/react-query";
 
 export const useDislikeMutation = (shortsId: string) => {
   const queryClient = useQueryClient();
@@ -9,46 +15,94 @@ export const useDislikeMutation = (shortsId: string) => {
     {
       mutationFn: () => postShortsDislike(shortsId),
 
-      // 낙관적 업데이트
       onMutate: async () => {
         await queryClient.cancelQueries({ queryKey: ["shortsLike", shortsId] });
 
-        const previousData = queryClient.getQueryData<ShortsLikeContent>([
+        const previousLikeData = queryClient.getQueryData<ShortsLikeContent>([
           "shortsLike",
           shortsId,
         ]);
 
-        if (!previousData) return { previousData };
+        const previousShortsList = queryClient.getQueryData<
+          InfiniteData<GetShortsResponse>
+        >(["shorts"]);
 
-        // 좋아요 count 전체 1 감소
-        const updatedTimelines: LikeTimeline[] = previousData.likeTimeLines.map(
-          (entry) => ({
-            ...entry,
-            count: Math.max((entry.count ?? 1) - 1, 0),
-          })
-        );
+        const previousShortById = queryClient.getQueryData<ShortsItem>([
+          "shortsById",
+          shortsId,
+        ]);
 
-        queryClient.setQueryData<ShortsLikeContent>(["shortsLike", shortsId], {
-          ...previousData,
-          likeTimeLines: updatedTimelines,
-        });
+        if (previousLikeData) {
+          const updatedTimelines: LikeTimeline[] =
+            previousLikeData.likeTimeLines.map((entry) => ({
+              ...entry,
+              count: Math.max((entry.count ?? 1) - 1, 0),
+            }));
 
-        return { previousData };
+          queryClient.setQueryData<ShortsLikeContent>(
+            ["shortsLike", shortsId],
+            {
+              ...previousLikeData,
+              likeTimeLines: updatedTimelines,
+            }
+          );
+        }
+
+        if (previousShortsList) {
+          queryClient.setQueryData<InfiniteData<GetShortsResponse>>(
+            ["shorts"],
+            {
+              ...previousShortsList,
+              pages: previousShortsList.pages.map((page) => ({
+                ...page,
+                items: page.items.map((item) =>
+                  item.shortsId === Number(shortsId)
+                    ? { ...item, liked: false }
+                    : item
+                ),
+              })),
+            }
+          );
+        }
+
+        if (previousShortById) {
+          queryClient.setQueryData<ShortsItem>(["shortsById", shortsId], {
+            ...previousShortById,
+            liked: false,
+          });
+        }
+
+        return {
+          previousLikeData,
+          previousShortsList,
+          previousShortById,
+        };
       },
 
-      // 실패 시 롤백
-      onError: (_err, _vars, context) => {
-        if (context?.previousData) {
+      onError: (_err, _vars, ctx) => {
+        if (ctx?.previousLikeData) {
           queryClient.setQueryData(
             ["shortsLike", shortsId],
-            context.previousData
+            ctx.previousLikeData
+          );
+        }
+
+        if (ctx?.previousShortsList) {
+          queryClient.setQueryData(["shorts"], ctx.previousShortsList);
+        }
+
+        if (ctx?.previousShortById) {
+          queryClient.setQueryData(
+            ["shortsById", shortsId],
+            ctx.previousShortById
           );
         }
       },
 
-      // 항상 최신 데이터 fetch
       onSettled: () => {
         queryClient.invalidateQueries({ queryKey: ["shortsLike", shortsId] });
+        queryClient.invalidateQueries({ queryKey: ["shortsById", shortsId] });
+        queryClient.invalidateQueries({ queryKey: ["shorts"] });
       },
     }
   );
