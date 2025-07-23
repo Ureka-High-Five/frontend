@@ -41,7 +41,7 @@ export interface ShortsDuration {
 }
 
 interface ShortsTimeLine {
-  shortsId: string;
+  shortsId: number;
   time: number;
 }
 export interface ShortsCommentRequest extends ShortsTimeLine {

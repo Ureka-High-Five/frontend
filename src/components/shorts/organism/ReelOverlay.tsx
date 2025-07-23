@@ -2,10 +2,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 import AvatarWithText from "@/components/common/AvatarWithText";
 import ReelTitle from "@/components/shorts/atom/ReelTitle";
-import ReelActionBar from "@/components/shorts/molecules/ReelActionBar";
 import { useDislikeMutation } from "@/hooks/queries/shorts/useDislikeMutation";
 import { useLikeMutation } from "@/hooks/queries/shorts/useLikeMutation";
 import type { CommentWithTime } from "@/types/shorts";
+import ReelCommentForm from "./ReelCommentForm";
 
 interface ReelOverlayProps {
   title: string;
@@ -13,7 +13,8 @@ interface ReelOverlayProps {
   isLikeVisible: boolean;
   totalLikeCount: number;
   isUserLiked: boolean;
-  shortsId: string;
+  shortsId: number;
+  videoRef: React.RefObject<HTMLVideoElement | null>;
   currentTime: number;
 }
 
@@ -24,6 +25,7 @@ export default function ReelOverlay({
   totalLikeCount,
   isUserLiked,
   shortsId,
+  videoRef,
   currentTime,
 }: ReelOverlayProps) {
   const { mutatePostShortsLike, isPosting: isLiking } = useLikeMutation({
@@ -94,8 +96,7 @@ export default function ReelOverlay({
           </AnimatePresence>
         </div>
       </div>
-
-      <ReelActionBar />
+      <ReelCommentForm shortsId={shortsId} videoRef={videoRef} />
     </div>
   );
 }
