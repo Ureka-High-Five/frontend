@@ -3,6 +3,8 @@ import { Heart } from "lucide-react";
 import AvatarWithText from "@/components/common/AvatarWithText";
 import ReelTitle from "@/components/shorts/atom/ReelTitle";
 import ReelActionBar from "@/components/shorts/molecules/ReelActionBar";
+import { useDislikeMutation } from "@/hooks/queries/shorts/useDislikeMutation";
+import { useLikeMutation } from "@/hooks/queries/shorts/useLikeMutation";
 import type { CommentWithTime } from "@/types/shorts";
 
 interface ReelOverlayProps {
@@ -10,6 +12,9 @@ interface ReelOverlayProps {
   comment?: CommentWithTime | null;
   isLikeVisible: boolean;
   totalLikeCount: number;
+  isUserLiked: boolean;
+  shortsId: string;
+  currentTime: number;
 }
 
 export default function ReelOverlay({
@@ -17,7 +22,24 @@ export default function ReelOverlay({
   comment,
   isLikeVisible,
   totalLikeCount,
+  isUserLiked,
+  shortsId,
+  currentTime,
 }: ReelOverlayProps) {
+  const { mutatePostShortsLike, isPosting: isLiking } = useLikeMutation({
+    shortsId,
+    time: currentTime,
+  });
+  const { mutatePostShortsDislike, isPosting: isDisliking } =
+    useDislikeMutation(shortsId);
+  const handleHeartClick = () => {
+    if (isUserLiked) {
+      mutatePostShortsDislike();
+    } else {
+      mutatePostShortsLike();
+    }
+  };
+
   return (
     <div className="absolute bottom-0 left-0 w-full px-4 pb-8 text-white bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col gap-2">
       <div className="relative h-14">
@@ -43,7 +65,18 @@ export default function ReelOverlay({
       <div className="flex items-center justify-between pt-2">
         <ReelTitle title={title} />
         <div className="flex items-center gap-1 relative">
-          <Heart className="w-5 h-5 text-white" />
+          <button
+            type="button"
+            onClick={handleHeartClick}
+            className="relative"
+            aria-label="좋아요 토글"
+            disabled={isLiking || isDisliking}>
+            <Heart
+              className={`w-5 h-5 ${
+                isUserLiked ? "text-red-500 fill-red-500" : "text-white"
+              }`}
+            />
+          </button>
           <span className="text-sm ml-1">{totalLikeCount}</span>
 
           <AnimatePresence>

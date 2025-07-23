@@ -1,8 +1,6 @@
 import ReelProgressBar from "@/components/shorts/molecules/ReelProgressBar";
-import { useLikeQuery } from "@/hooks/queries/shorts/useLikeQuery";
 import { useCommentTimeline } from "@/hooks/shorts/useCommentTimeline";
-import { useLikeTimeline } from "@/hooks/shorts/useLikeTimeline";
-import { useTotalLikeCount } from "@/hooks/shorts/useTotalLikeCount";
+import { useShortsLikeInfo } from "@/hooks/shorts/useShortsLikeInfo";
 import { useVideoPlayer } from "@/hooks/shorts/useVideoPlayer";
 import type { ShortsItem } from "@/types/shorts";
 import ReelOverlay from "./ReelOverlay";
@@ -21,14 +19,10 @@ export default function ReelCard({ reel }: ReelCardProps) {
     currentTime
   );
 
-  const shortsLikes = useLikeQuery({
-    shortsId: String(reel.shortsId),
-    duration: "5",
+  const { totalLikeCount, liked, isLikeVisible } = useShortsLikeInfo({
+    reel,
+    currentTime,
   });
-
-  const totalLikeCount = useTotalLikeCount(shortsLikes);
-
-  const { isLikeVisible } = useLikeTimeline(currentTime, 1, shortsLikes ?? []);
 
   return (
     <div className="w-full h-screen snap-start relative bg-black">
@@ -47,6 +41,9 @@ export default function ReelCard({ reel }: ReelCardProps) {
         comment={activeComment}
         isLikeVisible={isLikeVisible}
         totalLikeCount={totalLikeCount}
+        isUserLiked={liked}
+        shortsId={String(reel.shortsId)}
+        currentTime={currentTime}
       />
       <ReelProgressBar
         duration={duration}
