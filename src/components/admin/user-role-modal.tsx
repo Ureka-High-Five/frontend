@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import usePatchUserRoleMutation from "@/hooks/queries/admin/usePatchUserRoleMutation";
 
 interface UserRoleModalProps {
   isOpen: boolean;
@@ -26,6 +27,7 @@ interface UserRoleModalProps {
 }
 
 export function UserRoleModal({ isOpen, onClose, user }: UserRoleModalProps) {
+  const { mutateUserRole } = usePatchUserRoleMutation();
   const [selectedRole, setSelectedRole] = useState("");
 
   useEffect(() => {
@@ -35,11 +37,19 @@ export function UserRoleModal({ isOpen, onClose, user }: UserRoleModalProps) {
   }, [user]);
 
   const handleSave = () => {
-    console.log("Update user role:", {
-      userId: user?.id,
-      newRole: selectedRole,
-    });
-    onClose();
+    if (!user) return;
+
+    mutateUserRole(
+      {
+        userId: user.userId, // ✅ 주의: 기존 user.id가 아니라 user.userId
+        role: selectedRole,
+      },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      }
+    );
   };
 
   if (!user) return null;
@@ -54,7 +64,7 @@ export function UserRoleModal({ isOpen, onClose, user }: UserRoleModalProps) {
         <div className="space-y-4 py-4">
           <div className="flex items-center space-x-4">
             <Avatar className="h-16 w-16">
-              <AvatarImage src={user.profileImage || "/placeholder.svg"} />
+              <AvatarImage src={user.profileUrl || "/placeholder.svg"} />
               <AvatarFallback>
                 {user.username.charAt(0).toUpperCase()}
               </AvatarFallback>
