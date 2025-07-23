@@ -62,3 +62,9 @@ interface FlyingHeart {
   rotate: number;
   color: string;
 }
+
+export interface WatchLogRequest {
+  id: number;
+  watchTime: number;
+  type: VideoType;
+}

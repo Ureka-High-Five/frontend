@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ShortsLayout from "@/components/shorts/ShortsLayout";
 import { useActiveShortsId } from "@/hooks/shorts/useActiveShortsId";
 import { useShortsToShow } from "@/hooks/shorts/useShortsToShow";
+import { useShortsWatchTimeTracker } from "@/hooks/shorts/useShortsWatchTimeTracker";
 
 const ShortsPage = () => {
   const { id: currentShortsId } = useParams<{ id: string }>();
@@ -11,11 +12,13 @@ const ShortsPage = () => {
 
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  useActiveShortsId({
+   const activeShortsId = useActiveShortsId({
     shortsToShow,
     cardRefs,
     currentShortsId,
   });
+  
+  useShortsWatchTimeTracker({ activeShortsId }); 
 
   return (
     <ShortsLayout
