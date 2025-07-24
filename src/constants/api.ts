@@ -9,6 +9,7 @@ export const END_POINTS = {
   HOME_RECOMMEND: "/content/home",
   PREVIEW_VIDEO: (contentId: number) => `/content/${contentId}/video`,
   CONTENT: "content",
+  CONTENT_DETAIL: (contentId: number | string) => `/content/${contentId}`,
   CONTENT_REVIEW: "content/review",
   CONTENT_SEARCH: "/content/search",
   SHORTS: "/shorts",
