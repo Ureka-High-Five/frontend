@@ -3,10 +3,10 @@ import { postShortsDislike } from "@/apis/shorts/postShortsDislike";
 import type {
   ShortsLikeContent,
   LikeTimeline,
-  // ShortsItem,
-  // GetShortsResponse,
+  ShortsItem,
+  GetShortsResponse,
 } from "@/types/shorts";
-// import type { InfiniteData } from "@tanstack/react-query";
+import type { InfiniteData } from "@tanstack/react-query";
 
 export const useDislikeMutation = (shortsId: number) => {
   const queryClient = useQueryClient();
@@ -23,14 +23,14 @@ export const useDislikeMutation = (shortsId: number) => {
           shortsId,
         ]);
 
-        // const previousShortsList = queryClient.getQueryData<
-        //   InfiniteData<GetShortsResponse>
-        // >(["shorts"]);
+        const previousShortsList = queryClient.getQueryData<
+          InfiniteData<GetShortsResponse>
+        >(["shorts"]);
 
-        // const previousShortById = queryClient.getQueryData<ShortsItem>([
-        //   "shortsById",
-        //   shortsId,
-        // ]);
+        const previousShortById = queryClient.getQueryData<ShortsItem>([
+          "shortsById",
+          shortsId,
+        ]);
 
         if (previousLikeData) {
           const updatedTimelines: LikeTimeline[] =
@@ -48,34 +48,34 @@ export const useDislikeMutation = (shortsId: number) => {
           );
         }
 
-        // if (previousShortsList) {
-        //   queryClient.setQueryData<InfiniteData<GetShortsResponse>>(
-        //     ["shorts"],
-        //     {
-        //       ...previousShortsList,
-        //       pages: previousShortsList.pages.map((page) => ({
-        //         ...page,
-        //         items: page.items.map((item) =>
-        //           item.shortsId === Number(shortsId)
-        //             ? { ...item, liked: false }
-        //             : item
-        //         ),
-        //       })),
-        //     }
-        //   );
-        // }
+        if (previousShortsList) {
+          queryClient.setQueryData<InfiniteData<GetShortsResponse>>(
+            ["shorts"],
+            {
+              ...previousShortsList,
+              pages: previousShortsList.pages.map((page) => ({
+                ...page,
+                items: page.items.map((item) =>
+                  item.shortsId === Number(shortsId)
+                    ? { ...item, liked: false }
+                    : item
+                ),
+              })),
+            }
+          );
+        }
 
-        // if (previousShortById) {
-        //   queryClient.setQueryData<ShortsItem>(["shortsById", shortsId], {
-        //     ...previousShortById,
-        //     liked: false,
-        //   });
-        // }
+        if (previousShortById) {
+          queryClient.setQueryData<ShortsItem>(["shortsById", shortsId], {
+            ...previousShortById,
+            liked: false,
+          });
+        }
 
         return {
           previousLikeData,
-          // previousShortsList,
-          // previousShortById,
+          previousShortsList,
+          previousShortById,
         };
       },
 
@@ -87,22 +87,22 @@ export const useDislikeMutation = (shortsId: number) => {
           );
         }
 
-        // if (ctx?.previousShortsList) {
-        //   queryClient.setQueryData(["shorts"], ctx.previousShortsList);
-        // }
+        if (ctx?.previousShortsList) {
+          queryClient.setQueryData(["shorts"], ctx.previousShortsList);
+        }
 
-        // if (ctx?.previousShortById) {
-        //   queryClient.setQueryData(
-        //     ["shortsById", shortsId],
-        //     ctx.previousShortById
-        //   );
-        // }
+        if (ctx?.previousShortById) {
+          queryClient.setQueryData(
+            ["shortsById", shortsId],
+            ctx.previousShortById
+          );
+        }
       },
 
       onSettled: () => {
         queryClient.invalidateQueries({ queryKey: ["shortsLike", shortsId] });
-        // queryClient.invalidateQueries({ queryKey: ["shortsById", shortsId] });
-        // queryClient.invalidateQueries({ queryKey: ["shorts"] });
+        queryClient.invalidateQueries({ queryKey: ["shortsById", shortsId] });
+        queryClient.invalidateQueries({ queryKey: ["shorts"] });
       },
     }
   );
