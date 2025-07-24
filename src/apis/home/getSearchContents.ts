@@ -13,7 +13,7 @@ export const getSearchContents = async ({
   cursor,
   size = 10,
 }: GetSearchContentsParams): Promise<GetSearchContentsResponse> => {
-  const response = await axiosInstance.get(END_POINTS.SEARCH_CONTENT, {
+  const response = await axiosInstance.get(END_POINTS.CONTENT_SEARCH, {
     params: { input, cursor, size },
     isAuthRequired: false,
   });

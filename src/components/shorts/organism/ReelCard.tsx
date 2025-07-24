@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react";
-import Hls from "hls.js";
-// import { useCommentQuery } from "@/hooks/queries/shorts/useCommentQuery";
-// import { useLikeQuery } from "@/hooks/queries/shorts/useLikeQuery";
+import ReelProgressBar from "@/components/shorts/molecules/ReelProgressBar";
+import { useCommentTimeline } from "@/hooks/shorts/useCommentTimeline";
+import { useShortsLikeInfo } from "@/hooks/shorts/useShortsLikeInfo";
+import { useVideoPlayer } from "@/hooks/shorts/useVideoPlayer";
 import type { ShortsItem } from "@/types/shorts";
 import ReelOverlay from "./ReelOverlay";
 
@@ -10,55 +10,24 @@ interface ReelCardProps {
 }
 
 export default function ReelCard({ reel }: ReelCardProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const { videoRef, currentTime, duration, handleSeek } = useVideoPlayer(
+    reel.shortsUrl
+  );
 
-  /**
-   * server state
-   */
-  // const shortsLikes = useLikeQuery({ shortsId: "1", duration: "5" });
-  // const shortsComments = useCommentQuery({ shortsId: "1", time: "2" });
+  const { commentTimelineMap, activeComment } = useCommentTimeline(
+    String(reel.shortsId),
+    currentTime
+  );
 
-  useEffect(() => {
-    const video = videoRef.current;
-
-    if (!video) return () => {};
-
-    const isHLS = reel.shortsUrl.endsWith(".m3u8");
-
-    if (!isHLS) {
-      // 일반 mp4 같은 경우
-      video.src = reel.shortsUrl;
-      return () => {};
-    }
-
-    if (video.canPlayType("application/vnd.apple.mpegurl")) {
-      // Safari: 기본 재생
-      video.src = reel.shortsUrl;
-      return () => {};
-    }
-
-    if (Hls.isSupported()) {
-      // 기타 브라우저: HLS.js 사용
-      const hls = new Hls();
-      hls.loadSource(reel.shortsUrl);
-      hls.attachMedia(video);
-
-      return () => {
-        hls.destroy();
-      };
-    }
-
-    console.error("This browser does not support HLS.");
-    return () => {};
-  }, [reel.shortsUrl]);
+  const { totalLikeCount, liked, isLikeVisible } = useShortsLikeInfo({
+    reel,
+    currentTime,
+  });
 
   return (
-    <div className="w-full h-screen snap-start relative bg-black" ref={cardRef}>
+    <div className="w-full h-screen snap-start relative bg-black">
       <video
         ref={videoRef}
-        // src={reel.shortsUrl}
-        // poster={reel.shortThumbnail}
         autoPlay
         loop
         muted
@@ -67,9 +36,21 @@ export default function ReelCard({ reel }: ReelCardProps) {
         className="object-cover w-full h-full"
         controls={false}
       />
-
-      {/* 오버레이: 제목 + 액션바 */}
-      <ReelOverlay title={reel.contentTitle} />
+      <ReelOverlay
+        title={reel.contentTitle}
+        comment={activeComment}
+        isLikeVisible={isLikeVisible}
+        totalLikeCount={totalLikeCount}
+        isUserLiked={liked}
+        shortsId={String(reel.shortsId)}
+        currentTime={currentTime}
+      />
+      <ReelProgressBar
+        duration={duration}
+        currentTime={currentTime}
+        onSeek={handleSeek}
+        commentTimelineMap={commentTimelineMap}
+      />
     </div>
   );
 }

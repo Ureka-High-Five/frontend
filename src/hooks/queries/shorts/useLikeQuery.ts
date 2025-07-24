@@ -9,5 +9,5 @@ export const useLikeQuery = ({ shortsId, duration }: ShortsDuration) => {
     enabled: !!shortsId && !!duration,
   });
 
-  return shortsLikes;
+  return shortsLikes?.likeTimeLines;
 };
