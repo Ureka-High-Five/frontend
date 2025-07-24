@@ -2,7 +2,11 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getAllShortsComments } from "@/apis/shorts/getAllShortsComments";
 import type { GetAllCommentsResponse } from "@/types/shorts";
 
-export const useCommentInfiniteQuery = (shortsId: string) => {
+export const useCommentInfiniteQuery = (
+  shortsId: string,
+  commentId: number,
+  isDrawerOpen: boolean
+) => {
   const {
     data: allComments,
     fetchNextPage,
@@ -10,15 +14,16 @@ export const useCommentInfiniteQuery = (shortsId: string) => {
     isFetchingNextPage,
     isLoading,
   } = useInfiniteQuery<GetAllCommentsResponse>({
-    queryKey: ["comments"],
-    queryFn: ({ pageParam = shortsId }) =>
+    queryKey: ["comments", shortsId, commentId], // shortsId로 캐시 분리
+    queryFn: ({ pageParam = commentId }) =>
       getAllShortsComments({
         shortsId,
-        cursor: pageParam as number | undefined,
+        cursor: pageParam,
       }),
     getNextPageParam: (lastPage) =>
       lastPage.hasNext ? lastPage.nextCursor : undefined,
-    initialPageParam: shortsId,
+    initialPageParam: commentId,
+    enabled: !!commentId && isDrawerOpen,
   });
 
   return {

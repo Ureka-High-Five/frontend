@@ -14,6 +14,8 @@ import {
 import { useDislikeMutation } from "@/hooks/queries/shorts/useDislikeMutation";
 import { useLikeMutation } from "@/hooks/queries/shorts/useLikeMutation";
 import type { CommentWithTime } from "@/types/shorts";
+import { useCommentInfiniteQuery } from "@/hooks/queries/shorts/useCommentInfiniteQuery";
+import { useState } from "react";
 
 interface ReelOverlayProps {
   title: string;
@@ -37,6 +39,11 @@ export default function ReelOverlay({
   contentId,
 }: ReelOverlayProps) {
   const navigate = useNavigate();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [activeCommentId, setActiveCommentId] = useState<number>(0);
+
+  const { allComments, fetchNextPage, hasNextPage, isLoading } =
+    useCommentInfiniteQuery(shortsId, activeCommentId, isDrawerOpen);
   const { mutatePostShortsLike, isPosting: isLiking } = useLikeMutation({
     shortsId,
     time: currentTime,
@@ -60,7 +67,14 @@ export default function ReelOverlay({
       <div className="relative h-14">
         <AnimatePresence mode="wait">
           {comment && (
-            <Drawer>
+            <Drawer
+              open={isDrawerOpen}
+              onOpenChange={(open) => {
+                setIsDrawerOpen(open);
+                if (open && comment?.commentId) {
+                  setActiveCommentId(comment.commentId);
+                }
+              }}>
               <DrawerTrigger asChild>
                 <motion.button
                   key={`${comment.userId}-${comment.time}`}
@@ -81,12 +95,29 @@ export default function ReelOverlay({
                 <DrawerHeader>
                   <DrawerTitle>댓글 전체 보기</DrawerTitle>
                 </DrawerHeader>
-                <div className="overflow-y-auto h-[calc(50vh-64px)] space-y-3">
-                  {/* 실제 댓글 리스트 삽입 */}
-                  {/* <CommentList shortsId={shortsId} /> */}
-                  <p className="text-sm text-muted-foreground">
-                    여기에 댓글 리스트를 넣으세요.
-                  </p>
+                <div className="overflow-y-auto h-[calc(50vh-64px)] space-y-3 pr-1">
+                  {allComments?.pages
+                    .flatMap((page) => page.items)
+                    .map((commentItem) => (
+                      <AvatarWithText
+                        key={commentItem.commentId}
+                        avatarUrl={commentItem.profileUrl}
+                        title={commentItem.userName}
+                        subText={commentItem.comment}
+                        className="bg-gray-500/30 px-3 py-2 rounded-xl"
+                      />
+                    ))}
+
+                  {isLoading && (
+                    <p className="text-sm text-muted-foreground">
+                      댓글을 불러오는 중...
+                    </p>
+                  )}
+                  {!isLoading && allComments?.pages[0]?.items?.length === 0 && (
+                    <p className="text-sm text-muted-foreground">
+                      아직 댓글이 없습니다.
+                    </p>
+                  )}
                 </div>
               </DrawerContent>
             </Drawer>

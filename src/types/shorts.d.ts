@@ -31,6 +31,7 @@ export interface Comment {
   profileUrl: string;
   userId: number;
   createdAt?: string;
+  commentId: number;
 }
 
 export interface GetAllCommentsResponse {
