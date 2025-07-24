@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import getMyCuration from "@/apis/my/getMyCuration";
+import getMyCuration from "@/apis/my/curation/getMyCuration";
 import type { MyCurationResponse, Curation } from "@/types/curation";
 
 const useMyCurationInfiniteQuery = (size: number = 10) => {

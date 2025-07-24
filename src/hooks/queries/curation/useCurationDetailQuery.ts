@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import getCurationDetail from "@/apis/my/getCurationDetail";
+import getCurationDetail from "@/apis/my/curation/getCurationDetail";
 import type { CurationDetailResponse } from "@/types/curation";
 
 const useCurationDetailQuery = (curationId: number) => {

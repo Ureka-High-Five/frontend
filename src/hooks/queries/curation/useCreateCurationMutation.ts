@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import postMyCuration from "@/apis/my/postMyCuration";
+import postMyCuration from "@/apis/my/curation/postMyCuration";
 import { makeToast } from "@/utils/makeToast";
 
 const useCreateCurationMutation = (onSuccessCallback: () => void) => {

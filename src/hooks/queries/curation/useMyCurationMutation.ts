@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import deleteMyCuration from "@/apis/my/deleteMyCuration";
+import deleteMyCuration from "@/apis/my/curation/deleteMyCuration";
 import { makeToast } from "@/utils/makeToast";
 
 const useMyCurationMutation = () => {
