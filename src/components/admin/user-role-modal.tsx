@@ -24,7 +24,7 @@ import type { UserItem } from "@/types/admin";
 interface UserRoleModalProps {
   isOpen: boolean;
   onClose: () => void;
-  user?: UserItem;
+  user?: UserItem | null;
 }
 
 export function UserRoleModal({ isOpen, onClose, user }: UserRoleModalProps) {

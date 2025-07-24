@@ -9,7 +9,9 @@ const ContentDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const contentId = id ?? "";
 
-  const { content, isLoading, error } = useContentDetailQuery(contentId);
+  const { content, isLoading, error } = useContentDetailQuery(
+    Number(contentId)
+  );
   const { reviews, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteContentReviewsQuery(contentId);
   const myReview = useMyReviewQuery(contentId);
