@@ -18,7 +18,7 @@ export const useCommentInfiniteQuery = (
     queryFn: ({ pageParam = commentId }) =>
       getAllShortsComments({
         shortsId,
-        cursor: pageParam,
+        cursor: pageParam as number,
       }),
     getNextPageParam: (lastPage) =>
       lastPage.hasNext ? lastPage.nextCursor : undefined,
