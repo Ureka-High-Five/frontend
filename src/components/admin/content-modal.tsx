@@ -54,9 +54,7 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
   const [genreInput, setGenreInput] = useState("");
   const [actorInput, setActorInput] = useState("");
 
-  const { content: contentDetail } = useContentDetailQuery(
-    String(content?.contentId)
-  );
+  const { content: contentDetail } = useContentDetailQuery(content?.contentId);
   const { mutatePostContent, isPosting } = usePostContentMutation();
   const { mutatePatchContent } = usePatchContent();
 
