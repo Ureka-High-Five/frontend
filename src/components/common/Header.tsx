@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import logoImg from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
+import { PATH } from "@/constants/path";
 import { cn } from "@/utils/cn";
 
 interface HeaderProps {
@@ -22,7 +23,7 @@ const Header = ({ scrolled }: HeaderProps) => {
         <div className="flex items-center gap-1">
           <Button
             variant="ghost"
-            onClick={() => navigate("/search")}
+            onClick={() => navigate(PATH.SEARCH)}
             className="hover:text-white hover:bg-transparent">
             <Search />
           </Button>
