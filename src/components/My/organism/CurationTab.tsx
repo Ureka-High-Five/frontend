@@ -4,13 +4,13 @@ import MyCurationItem from "@/components/My/organism/MyCurationItem";
 import { Button } from "@/components/ui/button";
 import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
 import { useOverlay } from "@/hooks/common/useOverlay";
+import useDeleteCurationMutation from "@/hooks/queries/curation/useDeleteCurationMutation";
 import useMyCurationInfiniteQuery from "@/hooks/queries/curation/useMyCurationInfiniteQuery";
-import useMyCurationMutation from "@/hooks/queries/curation/useMyCurationMutation";
 
 const CurationTab = () => {
   const { curations, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useMyCurationInfiniteQuery();
-  const { mutateDeleteMyCuration } = useMyCurationMutation();
+  const { mutateDeleteMyCuration } = useDeleteCurationMutation();
 
   const { isOpen, open, close } = useOverlay();
   const { rootRef, targetRef } = useIntersectionObserver({

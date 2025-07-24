@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import deleteMyCuration from "@/apis/my/curation/deleteMyCuration";
 import { makeToast } from "@/utils/makeToast";
 
-const useMyCurationMutation = () => {
+const useDeleteCurationMutation = () => {
   const queryClient = useQueryClient();
 
   const { mutate: mutateDeleteMyCuration } = useMutation({
@@ -21,4 +21,4 @@ const useMyCurationMutation = () => {
   };
 };
 
-export default useMyCurationMutation;
+export default useDeleteCurationMutation;
