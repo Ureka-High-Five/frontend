@@ -1,6 +1,6 @@
 export interface UserInformation {
   userId: number;
-  name: string;
+  userName: string;
   email: string;
   role: string;
   profileUrl: string;

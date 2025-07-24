@@ -28,7 +28,7 @@ const NavigationBar = () => {
               src={userInformation?.profileUrl}
               alt="사용자 이미지"
             />
-            <AvatarFallback>{userInformation?.name[0]}</AvatarFallback>
+            <AvatarFallback>{userInformation?.userName[0]}</AvatarFallback>
           </Avatar>
         }
         label="MY"

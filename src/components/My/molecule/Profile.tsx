@@ -10,12 +10,12 @@ const Profile = ({ userInformation }: ProfileProps) => {
     <section className="flex items-center gap-4">
       <Avatar className="w-14 h-14">
         <AvatarImage src={userInformation.profileUrl} alt="프로필 이미지" />
-        <AvatarFallback>{userInformation.name[0]}</AvatarFallback>
+        <AvatarFallback>{userInformation.userName[0]}</AvatarFallback>
       </Avatar>
       <div className="flex flex-col">
         <div className="flex items-center gap-2">
           <h2 className="heading-h2-pretendard text-white">
-            {userInformation.name}님
+            {userInformation.userName}님
           </h2>
           {userInformation.role === "EDITOR" && (
             <span className="px-2 border border-custom-point body-md-pretendard rounded-full text-custom-point">
