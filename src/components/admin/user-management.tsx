@@ -121,15 +121,11 @@ export function UserManagement() {
                         src={user.profileUrl || "/placeholder.svg"}
                       />
                       <AvatarFallback>
-                        {(user.username ?? user.name)
-                          ?.charAt(0)
-                          .toUpperCase() ?? "?"}
+                        {user.userName?.charAt(0).toUpperCase() ?? "?"}
                       </AvatarFallback>
                     </Avatar>
                   </TableCell>
-                  <TableCell className="font-medium">
-                    {user.username ?? user.name}
-                  </TableCell>
+                  <TableCell className="font-medium">{user.userName}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>
                     <Badge variant={getRoleBadgeVariant(user.role)}>

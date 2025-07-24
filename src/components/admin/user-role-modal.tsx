@@ -66,11 +66,11 @@ export function UserRoleModal({ isOpen, onClose, user }: UserRoleModalProps) {
             <Avatar className="h-16 w-16">
               <AvatarImage src={user.profileUrl || "/placeholder.svg"} />
               <AvatarFallback>
-                {user.username.charAt(0).toUpperCase()}
+                {user.userName.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <div>
-              <h3 className="font-medium">{user.username}</h3>
+              <h3 className="font-medium">{user.userName}</h3>
               <p className="text-sm text-gray-500">{user.email}</p>
             </div>
           </div>

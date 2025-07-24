@@ -1,8 +1,7 @@
 export interface UserItem {
   userId: number;
   profileUrl: string;
-  username?: string;
-  name?: string;
+  userName: string;
   email: string;
   role: string;
 }
