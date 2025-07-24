@@ -22,6 +22,7 @@ export interface LikeTimeline {
 
 export interface ShortsLikeContent {
   likeTimeLines: LikeTimeline[];
+  liked: boolean;
 }
 
 export interface Comment {

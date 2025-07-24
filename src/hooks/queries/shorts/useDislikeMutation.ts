@@ -1,12 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postShortsDislike } from "@/apis/shorts/postShortsDislike";
-import type {
-  ShortsLikeContent,
-  LikeTimeline,
-  ShortsItem,
-  GetShortsResponse,
-} from "@/types/shorts";
-import type { InfiniteData } from "@tanstack/react-query";
+import type { ShortsLikeContent } from "@/types/shorts";
 
 export const useDislikeMutation = (shortsId: string) => {
   const queryClient = useQueryClient();
@@ -23,59 +17,8 @@ export const useDislikeMutation = (shortsId: string) => {
           shortsId,
         ]);
 
-        const previousShortsList = queryClient.getQueryData<
-          InfiniteData<GetShortsResponse>
-        >(["shorts"]);
-
-        const previousShortById = queryClient.getQueryData<ShortsItem>([
-          "shortsById",
-          shortsId,
-        ]);
-
-        if (previousLikeData) {
-          const updatedTimelines: LikeTimeline[] =
-            previousLikeData.likeTimeLines.map((entry) => ({
-              ...entry,
-              count: Math.max((entry.count ?? 1) - 1, 0),
-            }));
-
-          queryClient.setQueryData<ShortsLikeContent>(
-            ["shortsLike", shortsId],
-            {
-              ...previousLikeData,
-              likeTimeLines: updatedTimelines,
-            }
-          );
-        }
-
-        if (previousShortsList) {
-          queryClient.setQueryData<InfiniteData<GetShortsResponse>>(
-            ["shorts"],
-            {
-              ...previousShortsList,
-              pages: previousShortsList.pages.map((page) => ({
-                ...page,
-                items: page.items.map((item) =>
-                  item.shortsId === Number(shortsId)
-                    ? { ...item, liked: false }
-                    : item
-                ),
-              })),
-            }
-          );
-        }
-
-        if (previousShortById) {
-          queryClient.setQueryData<ShortsItem>(["shortsById", shortsId], {
-            ...previousShortById,
-            liked: false,
-          });
-        }
-
         return {
           previousLikeData,
-          previousShortsList,
-          previousShortById,
         };
       },
 
@@ -86,23 +29,10 @@ export const useDislikeMutation = (shortsId: string) => {
             ctx.previousLikeData
           );
         }
-
-        if (ctx?.previousShortsList) {
-          queryClient.setQueryData(["shorts"], ctx.previousShortsList);
-        }
-
-        if (ctx?.previousShortById) {
-          queryClient.setQueryData(
-            ["shortsById", shortsId],
-            ctx.previousShortById
-          );
-        }
       },
 
       onSettled: () => {
         queryClient.invalidateQueries({ queryKey: ["shortsLike", shortsId] });
-        queryClient.invalidateQueries({ queryKey: ["shortsById", shortsId] });
-        queryClient.invalidateQueries({ queryKey: ["shorts"] });
       },
     }
   );

@@ -10,12 +10,15 @@ export function useShortsLikeInfo({
   reel: ShortsItem;
   currentTime: number;
 }) {
-  const { shortsId, liked } = reel;
+  const { shortsId } = reel;
 
-  const shortsLikes = useLikeQuery({
+  const likeData = useLikeQuery({
     shortsId: String(shortsId),
     duration: "5",
   });
+
+  const shortsLikes = likeData?.likeTimeLines ?? [];
+  const liked = likeData?.liked ?? false;
 
   const totalLikeCount = useTotalLikeCount(shortsLikes);
   const { isLikeVisible } = useLikeTimeline(currentTime, 1, shortsLikes ?? []);
