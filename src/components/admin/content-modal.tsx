@@ -21,48 +21,60 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import type { Content } from "@/types/content";
+import usePatchContent from "@/hooks/queries/admin/usePatchContentMutation";
+import { usePostContentMutation } from "@/hooks/queries/admin/usePostContentMutation";
+import { useContentDetailQuery } from "@/hooks/queries/content/useContentDetailQuery";
+import type { ContentCreateRequest } from "@/types/content";
+import type { SearchContent } from "@/types/search";
 
 interface ContentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  content?: Content;
+  content?: SearchContent | null;
 }
 
 export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
-  const [formData, setFormData] = useState({
+  const isEditMode = !!content;
+
+  const [formData, setFormData] = useState<ContentCreateRequest>({
     title: "",
     description: "",
     videoUrl: "",
     postUrl: "",
     countryName: "",
     openDate: "",
-    runningTime: "",
-    totalRound: "",
+    runningTime: 0,
+    totalRound: 0,
     type: "",
-    genres: [] as string[],
-    actors: [] as string[],
+    genres: [],
+    actors: [],
     director: "",
   });
 
   const [genreInput, setGenreInput] = useState("");
   const [actorInput, setActorInput] = useState("");
 
+  const { content: contentDetail } = useContentDetailQuery(
+    String(content?.contentId)
+  );
+  const { mutatePostContent, isPosting } = usePostContentMutation();
+  const { mutatePatchContent } = usePatchContent();
+
   useEffect(() => {
-    if (content) {
+    if (isEditMode && contentDetail) {
       setFormData({
-        title: content.title || "",
-        description: content.description || "",
-        videoUrl: content.videoUrl || "",
-        postUrl: content.postUrl || "",
-        countryName: content.countryName || "",
-        openDate: content.openDate || "",
-        runningTime: content.runningTime || "",
-        totalRound: content.totalRound || "",
-        type: content.type || "",
-        genres: content.genres || [],
-        actors: content.actors || [],
-        director: content.director || "",
+        title: contentDetail.contentTitle,
+        description: contentDetail.contentDescription,
+        videoUrl: contentDetail.videoUrl ?? "",
+        postUrl: contentDetail.postUrl ?? "",
+        countryName: contentDetail.countryName ?? "",
+        openDate: contentDetail.openYear ?? "",
+        runningTime: contentDetail.contentRunningTime ?? 0,
+        totalRound: contentDetail.totalRound ?? 0,
+        type: contentDetail.contentType ?? "",
+        genres: contentDetail.contentGenres ?? [],
+        actors: contentDetail.actors ?? [],
+        director: contentDetail.director ?? "",
       });
     } else {
       setFormData({
@@ -72,17 +84,20 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
         postUrl: "",
         countryName: "",
         openDate: "",
-        runningTime: "",
-        totalRound: "",
+        runningTime: 0,
+        totalRound: 0,
         type: "",
         genres: [],
         actors: [],
         director: "",
       });
     }
-  }, [content]);
+  }, [content, contentDetail, isEditMode]);
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (
+    field: keyof ContentCreateRequest,
+    value: string | number
+  ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -121,7 +136,11 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
   };
 
   const handleSave = () => {
-    console.log("Save content:", formData);
+    if (isEditMode) {
+      mutatePatchContent(formData);
+    } else {
+      mutatePostContent(formData);
+    }
     onClose();
   };
 
@@ -217,7 +236,7 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
                 type="number"
                 value={formData.runningTime}
                 onChange={(e) =>
-                  handleInputChange("runningTime", e.target.value)
+                  handleInputChange("runningTime", Number(e.target.value))
                 }
               />
             </div>
@@ -228,7 +247,7 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
                 type="number"
                 value={formData.totalRound}
                 onChange={(e) =>
-                  handleInputChange("totalRound", e.target.value)
+                  handleInputChange("totalRound", Number(e.target.value))
                 }
               />
             </div>
@@ -279,7 +298,7 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
                 placeholder="배우 이름 입력"
                 value={actorInput}
                 onChange={(e) => setActorInput(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && addActor()}
+                onKeyDown={(e) => e.key === "Enter" && addActor()}
               />
               <Button type="button" onClick={addActor}>
                 추가
@@ -306,7 +325,9 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
           <Button variant="outline" onClick={onClose}>
             취소
           </Button>
-          <Button onClick={handleSave}>저장</Button>
+          <Button disabled={isPosting} onClick={handleSave}>
+            {isEditMode ? "수정" : "저장"}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -14,6 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useSearchContentsInfiniteQuery } from "@/hooks/queries/home/useSearchContentsInfiniteQuery";
+import type { SearchContent } from "@/types/search";
 import { ContentModal } from "./content-modal";
 
 export function ContentManagement() {
@@ -21,7 +22,9 @@ export function ContentManagement() {
   const [searchValue, setSearchValue] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingContent, setEditingContent] = useState(null);
+  const [editingContent, setEditingContent] = useState<SearchContent | null>(
+    null
+  );
 
   const { searchContents, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSearchContentsInfiniteQuery(searchValue);
@@ -31,7 +34,7 @@ export function ContentManagement() {
     setIsModalOpen(true);
   };
 
-  const handleEdit = (content: any) => {
+  const handleEdit = (content: SearchContent) => {
     setEditingContent(content);
     setIsModalOpen(true);
   };

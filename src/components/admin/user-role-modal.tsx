@@ -19,11 +19,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import usePatchUserRoleMutation from "@/hooks/queries/admin/usePatchUserRoleMutation";
+import type { UserItem } from "@/types/admin";
 
 interface UserRoleModalProps {
   isOpen: boolean;
   onClose: () => void;
-  user?: any;
+  user?: UserItem;
 }
 
 export function UserRoleModal({ isOpen, onClose, user }: UserRoleModalProps) {
@@ -41,7 +42,7 @@ export function UserRoleModal({ isOpen, onClose, user }: UserRoleModalProps) {
 
     mutateUserRole(
       {
-        userId: user.userId, // ✅ 주의: 기존 user.id가 아니라 user.userId
+        userId: user.userId,
         role: selectedRole,
       },
       {
