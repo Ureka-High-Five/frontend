@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { Plus, Edit, Trash2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -13,39 +13,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useSearchContentsInfiniteQuery } from "@/hooks/queries/home/useSearchContentsInfiniteQuery";
 import { ContentModal } from "./content-modal";
 
-// Mock data
-const mockContents = [
-  {
-    id: 1,
-    title: "어벤져스: 엔드게임",
-    type: "MOVIE",
-    openDate: "2019-04-26",
-    director: "안소니 루소, 조 루소",
-    posterUrl: "/placeholder.svg?height=80&width=60",
-  },
-  {
-    id: 2,
-    title: "기생충",
-    type: "MOVIE",
-    openDate: "2019-05-30",
-    director: "봉준호",
-    posterUrl: "/placeholder.svg?height=80&width=60",
-  },
-  {
-    id: 3,
-    title: "오징어 게임",
-    type: "TV",
-    openDate: "2021-09-17",
-    director: "황동혁",
-    posterUrl: "/placeholder.svg?height=80&width=60",
-  },
-];
-
 export function ContentManagement() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingContent, setEditingContent] = useState(null);
+
+  const { searchContents, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useSearchContentsInfiniteQuery(searchValue);
 
   const handleCreate = () => {
     setEditingContent(null);
@@ -60,6 +39,9 @@ export function ContentManagement() {
   const handleDelete = (id: number) => {
     console.log("Delete content:", id);
   };
+  const handleSearch = () => {
+    setSearchValue(searchTerm);
+  };
 
   return (
     <div className="space-y-6">
@@ -68,12 +50,26 @@ export function ContentManagement() {
           <h1 className="text-2xl font-bold text-gray-900">콘텐츠 관리</h1>
           <p className="text-gray-500">영화와 TV 프로그램을 관리하세요</p>
         </div>
-        <Button onClick={handleCreate}>
-          <Plus className="mr-2 h-4 w-4" />
-          콘텐츠 생성
-        </Button>
+        <div className="flex gap-2">
+          <Input
+            type="text"
+            placeholder="콘텐츠 제목 검색"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-[200px]"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
+          />
+          <Button onClick={handleSearch}>검색</Button>
+          <Button onClick={handleCreate}>
+            <Plus className="mr-2 h-4 w-4" />
+            콘텐츠 생성
+          </Button>
+        </div>
       </div>
-
       <Card>
         <CardHeader>
           <CardTitle>콘텐츠 목록</CardTitle>
@@ -84,33 +80,22 @@ export function ContentManagement() {
               <TableRow>
                 <TableHead>포스터</TableHead>
                 <TableHead>제목</TableHead>
-                <TableHead>타입</TableHead>
-                <TableHead>오픈일</TableHead>
-                <TableHead>감독</TableHead>
+                <TableHead>오픈 연도</TableHead>
                 <TableHead>액션</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {mockContents.map((content) => (
-                <TableRow key={content.id}>
+              {searchContents.map((content) => (
+                <TableRow key={content.contentId}>
                   <TableCell>
                     <img
-                      src={content.posterUrl || "/placeholder.svg"}
+                      src={content.thumbnailUrl || "/placeholder.svg"}
                       alt={content.title}
                       className="w-12 h-16 object-cover rounded"
                     />
                   </TableCell>
                   <TableCell className="font-medium">{content.title}</TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={
-                        content.type === "MOVIE" ? "default" : "secondary"
-                      }>
-                      {content.type}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>{content.openDate}</TableCell>
-                  <TableCell>{content.director}</TableCell>
+                  <TableCell>{content.openYear}</TableCell>
                   <TableCell>
                     <div className="flex space-x-2">
                       <Button
@@ -122,7 +107,7 @@ export function ContentManagement() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleDelete(content.id)}>
+                        onClick={() => handleDelete(content.contentId)}>
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
@@ -132,6 +117,17 @@ export function ContentManagement() {
             </TableBody>
           </Table>
         </CardContent>
+
+        {/* 페이지네이션 */}
+        {hasNextPage && (
+          <div className="flex justify-center mt-4 mb-8">
+            <Button
+              onClick={() => fetchNextPage()}
+              disabled={isFetchingNextPage}>
+              {isFetchingNextPage ? "불러오는 중..." : "더 보기"}
+            </Button>
+          </div>
+        )}
       </Card>
 
       <ContentModal
