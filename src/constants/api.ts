@@ -16,6 +16,9 @@ export const END_POINTS = {
   SHORTS_LIKE: "shorts/like",
   SHORTS_DISLIKE: "shorts/dislike",
   SHORTS_COMMENT: "shorts/comment",
+  MY_CURATION: "curation/me",
+  CURATION: "curation",
+  PRESIGNEDURL: "s3/presignedUrl",
   SHORTS_COMMENT_TIMELINE: (shortsId: string) => `/shorts/${shortsId}/comments`,
   WATCH_LOG: "content/watch-log",
 } as const;
