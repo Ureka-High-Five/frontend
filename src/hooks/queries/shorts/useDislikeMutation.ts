@@ -1,8 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postShortsDislike } from "@/apis/shorts/postShortsDislike";
-import type { ShortsLikeContent } from "@/types/shorts";
+import type { ShortsLikeContent, LikeTimeline } from "@/types/shorts";
 
-export const useDislikeMutation = (shortsId: string) => {
+export const useDislikeMutation = ({
+  shortsId,
+  time,
+}: {
+  shortsId: string;
+  time: number;
+}) => {
   const queryClient = useQueryClient();
 
   const { mutate: mutatePostShortsDislike, isPending: isPosting } = useMutation(
@@ -16,6 +22,23 @@ export const useDislikeMutation = (shortsId: string) => {
           "shortsLike",
           shortsId,
         ]);
+
+        if (previousLikeData) {
+          const updatedTimelines: LikeTimeline[] =
+            previousLikeData.likeTimeLines.map((entry) =>
+              entry.time === time
+                ? { ...entry, count: Math.max((entry.count ?? 0) - 1, 0) }
+                : entry
+            );
+
+          queryClient.setQueryData<ShortsLikeContent>(
+            ["shortsLike", shortsId],
+            {
+              ...previousLikeData,
+              likeTimeLines: updatedTimelines,
+            }
+          );
+        }
 
         return {
           previousLikeData,

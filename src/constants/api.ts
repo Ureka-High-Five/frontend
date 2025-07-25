@@ -5,6 +5,7 @@ export const END_POINTS = {
   KAKAOLOGIN: "auth/login",
   INIT_ONBOARDING: "content/init",
   RECOMMEND_ONBOARDING: "content/recommend",
+  CONTENT_DETAIL: (contentId: number) => `/content/${contentId}`,
   USER_PREFERENCE: "user/info",
   HOME_RECOMMEND: "/content/home",
   PREVIEW_VIDEO: (contentId: number) => `/content/${contentId}/video`,

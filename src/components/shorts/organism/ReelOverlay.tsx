@@ -12,6 +12,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { END_POINTS } from "@/constants/api";
 import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
 import { useCommentInfiniteQuery } from "@/hooks/queries/shorts/useCommentInfiniteQuery";
 import { useDislikeMutation } from "@/hooks/queries/shorts/useDislikeMutation";
@@ -67,7 +68,7 @@ export default function ReelOverlay({
     time: currentTime,
   });
   const { mutatePostShortsDislike, isPosting: isDisliking } =
-    useDislikeMutation(shortsId);
+    useDislikeMutation({ shortsId, time: currentTime });
   const handleHeartClick = () => {
     if (isUserLiked) {
       mutatePostShortsDislike();
@@ -88,7 +89,7 @@ export default function ReelOverlay({
   });
 
   const handleTitleClick = () => {
-    navigate(`/content/${contentId}`);
+    navigate(END_POINTS.CONTENT_DETAIL(contentId));
   };
 
   return (
