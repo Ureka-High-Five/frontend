@@ -85,7 +85,8 @@ export default function ReelOverlay({
     },
     hasNextPage,
     enabled: isDrawerOpen,
-    threshold: 1,
+    threshold: 0.1,
+    delayMs: 100,
   });
 
   const handleTitleClick = () => {
@@ -144,7 +145,7 @@ export default function ReelOverlay({
               )}
               <div
                 ref={targetRef}
-                className={`h-72  transition-opacity duration-300 ${
+                className={`h-20 transition-opacity duration-300 ${
                   hasNextPage ? "opacity-100" : "opacity-0 pointer-events-none"
                 }`}
               />
