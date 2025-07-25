@@ -12,13 +12,13 @@ const ShortsPage = () => {
 
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-   const activeShortsId = useActiveShortsId({
+  useActiveShortsId({
     shortsToShow,
     cardRefs,
     currentShortsId,
   });
-  
-  useShortsWatchTimeTracker({ activeShortsId }); 
+
+  useShortsWatchTimeTracker({ activeShortsId: currentShortsId });
 
   return (
     <ShortsLayout
