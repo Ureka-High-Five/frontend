@@ -10,12 +10,13 @@ export const END_POINTS = {
   PREVIEW_VIDEO: (contentId: number) => `/content/${contentId}/video`,
   CONTENT: "content",
   CONTENT_REVIEW: "content/review",
-  SEARCH_CONTENT: "/content/search",
   USER_INFORMATION: "user/me",
+  CONTENT_SEARCH: "/content/search",
   SHORTS: "/shorts",
   SHORTS_LIKE: "shorts/like",
   SHORTS_DISLIKE: "shorts/dislike",
   SHORTS_COMMENT: "shorts/comment",
+  SHORTS_COMMENT_TIMELINE: (shortsId: string) => `/shorts/${shortsId}/comments`,
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;

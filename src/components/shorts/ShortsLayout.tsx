@@ -20,16 +20,18 @@ export default function ShortsLayout({
   isLoading,
   cardRefs,
 }: ShortsLayoutProps) {
-  const loaderRef = useIntersectionObserver({
+  const { rootRef, targetRef } = useIntersectionObserver({
     onIntersect: fetchNextPage,
     hasNextPage,
-    enabled: !isLoading,
+    enabled: !isLoading && !!hasNextPage,
   });
 
   const cardRef = cardRefs;
 
   return (
-    <div className="relative w-full h-screen overflow-y-scroll snap-y snap-mandatory">
+    <div
+      ref={rootRef}
+      className="relative w-full h-screen overflow-y-scroll snap-y snap-mandatory">
       <div className="fixed top-4 left-2 z-10 text-white">
         <Button variant="ghost">
           <X className="w-6 h-6" />
@@ -46,7 +48,7 @@ export default function ShortsLayout({
         </div>
       ))}
 
-      <div ref={loaderRef} className="h-1" />
+      <div ref={targetRef} className="h-1" />
     </div>
   );
 }
