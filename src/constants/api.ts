@@ -25,6 +25,7 @@ export const END_POINTS = {
   PRESIGNEDURL: "s3/presignedUrl",
   SHORTS_COMMENT_TIMELINE: (shortsId: number) => `/shorts/${shortsId}/comments`,
   WATCH_LOG: "content/watch-log",
+  USER_REVIEW: "user/reviews",
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;

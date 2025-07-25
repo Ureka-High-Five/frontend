@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import getUserReview from "@/apis/user/getUserReview";
+import getUserReview from "@/apis/my/review/getUserReview";
 import type { UserReviewListResponse, UserReview } from "@/types/user";
 
 const useUserReviewInfiniteQuery = (size: number = 5) => {
