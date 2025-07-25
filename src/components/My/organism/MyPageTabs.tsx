@@ -13,21 +13,19 @@ const MyPageTabs = ({ userInformation }: MyPageTabsProps) => {
       <TabsList className="w-full justify-between border-b border-custom-darkgray bg-transparent">
         <TabsTrigger
           value="review"
-          className="flex-1 text-white border-b-4 border-transparent px-1 pb-2 bg-transparent data-[state=active]:shadow-[inset_0_-4px_0_0_white]">
-          나의 평가
+          className="flex-1 text-white border-b-4 border-transparent px-1 pb-2 bg-transparent data-[state=active]:shadow-[inset_0_-1px_0_0_white]">
+          나의 리뷰
         </TabsTrigger>
-        {userInformation?.role === "EDITOR" ? (
+        {userInformation?.role === "EDITOR" && (
           <TabsTrigger
             value="curation"
-            className="flex-1 text-white border-b-4 border-transparent px-1 pb-2 bg-transparent data-[state=active]:shadow-[inset_0_-4px_0_0_white]">
+            className="flex-1 text-white border-b-4 border-transparent px-1 pb-2 bg-transparent data-[state=active]:shadow-[inset_0_-1px_0_0_white]">
             큐레이션
           </TabsTrigger>
-        ) : (
-          <div className="flex-1" />
         )}
       </TabsList>
 
-      <TabsContent value="review">
+      <TabsContent value="review" className="flex-1 min-h-0">
         <ReviewTab />
       </TabsContent>
       <TabsContent value="curation" className="flex-1 min-h-0">
