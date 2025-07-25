@@ -28,7 +28,9 @@ export const useIntersectionObserver = ({
     const root = rootRef.current;
     const target = targetRef.current;
 
-    if (!enabled || !target || !hasNextPage) return;
+    if (!enabled || !target || !hasNextPage) {
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {

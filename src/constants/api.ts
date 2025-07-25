@@ -7,6 +7,7 @@ export const END_POINTS = {
   RECOMMEND_ONBOARDING: "content/recommend",
   USER: "/user",
   USER_ROLE: "/user/role",
+  CONTENT_DETAIL: (contentId: number) => `/content/${contentId}`,
   USER_PREFERENCE: "user/info",
   USER_NAME: (name: string) => `/user/${name}`,
   HOME_RECOMMEND: "/content/home",
@@ -19,7 +20,10 @@ export const END_POINTS = {
   SHORTS_LIKE: "shorts/like",
   SHORTS_DISLIKE: "shorts/dislike",
   SHORTS_COMMENT: "shorts/comment",
-  SHORTS_COMMENT_TIMELINE: (shortsId: string) => `/shorts/${shortsId}/comments`,
+  MY_CURATION: "curation/me",
+  CURATION: "curation",
+  PRESIGNEDURL: "s3/presignedUrl",
+  SHORTS_COMMENT_TIMELINE: (shortsId: number) => `/shorts/${shortsId}/comments`,
   WATCH_LOG: "content/watch-log",
 } as const;
 

@@ -4,11 +4,20 @@ import { emitVideoEvent, type VideoEventType } from "./videoEventBus";
 
 export function useHlsMedia(
   videoRef: React.RefObject<HTMLVideoElement | null>,
-  videoUrl: string
+  videoUrl: string,
+  isActive: boolean = false
 ) {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
+    // 비활성화된 경우 HLS 인스턴스 정리
+    if (!isActive) {
+      if (video.src) {
+        video.src = "";
+      }
+      return;
+    }
 
     const isHLS = videoUrl.endsWith(".m3u8");
 
@@ -53,5 +62,5 @@ export function useHlsMedia(
       });
       if (hls) hls.destroy();
     };
-  }, [videoUrl, videoRef]);
+  }, [videoUrl, videoRef, isActive]);
 }

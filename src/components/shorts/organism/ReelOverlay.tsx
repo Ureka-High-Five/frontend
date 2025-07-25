@@ -1,7 +1,20 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 import AvatarWithText from "@/components/common/AvatarWithText";
 import ReelTitle from "@/components/shorts/atom/ReelTitle";
+
+import {
+  Drawer,
+  DrawerTrigger,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer";
+import { END_POINTS } from "@/constants/api";
+import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
+import { useCommentInfiniteQuery } from "@/hooks/queries/shorts/useCommentInfiniteQuery";
 import { useDislikeMutation } from "@/hooks/queries/shorts/useDislikeMutation";
 import { useLikeMutation } from "@/hooks/queries/shorts/useLikeMutation";
 import type { CommentWithTime } from "@/types/shorts";
@@ -16,6 +29,7 @@ interface ReelOverlayProps {
   shortsId: number;
   videoRef: React.RefObject<HTMLVideoElement | null>;
   currentTime: number;
+  contentId: number;
 }
 
 export default function ReelOverlay({
@@ -27,13 +41,37 @@ export default function ReelOverlay({
   shortsId,
   videoRef,
   currentTime,
+  contentId,
 }: ReelOverlayProps) {
+  const navigate = useNavigate();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [activeComment, setActiveComment] = useState<CommentWithTime | null>(
+    null
+  );
+
+  useEffect(() => {
+    if (!isDrawerOpen && comment) {
+      setActiveComment(comment);
+    }
+  }, [isDrawerOpen, comment]);
+
+  const {
+    allComments,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+  } = useCommentInfiniteQuery(
+    shortsId,
+    activeComment?.commentId ?? 0,
+    isDrawerOpen
+  );
   const { mutatePostShortsLike, isPosting: isLiking } = useLikeMutation({
     shortsId,
     time: currentTime,
   });
   const { mutatePostShortsDislike, isPosting: isDisliking } =
-    useDislikeMutation(shortsId);
+    useDislikeMutation({ shortsId, time: currentTime });
   const handleHeartClick = () => {
     if (isUserLiked) {
       mutatePostShortsDislike();
@@ -42,30 +80,85 @@ export default function ReelOverlay({
     }
   };
 
+  const { rootRef, targetRef } = useIntersectionObserver({
+    onIntersect: () => {
+      if (!isFetchingNextPage && hasNextPage) {
+        fetchNextPage();
+      }
+    },
+    hasNextPage,
+    enabled: isDrawerOpen,
+    threshold: 0.1,
+    delayMs: 100,
+  });
+
+  const handleTitleClick = () => {
+    navigate(END_POINTS.CONTENT_DETAIL(contentId));
+  };
+
   return (
     <div className="absolute bottom-0 left-0 w-full px-4 pb-8 text-white bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col gap-2">
       <div className="relative h-14">
-        <AnimatePresence mode="wait">
-          {comment && (
-            <motion.div
-              key={`${comment.userId}-${comment.time}`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4 }}
-              className="inline-block">
-              <AvatarWithText
-                avatarUrl={comment.profileUrl}
-                subText={comment.comment}
-                className="bg-gray-500/30 px-3 py-2 rounded-xl"
+        <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+          <DrawerTrigger asChild>
+            {comment && (
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4 }}
+                className="inline-block text-left w-full">
+                <AvatarWithText
+                  avatarUrl={comment.profileUrl}
+                  subText={comment.comment}
+                  className="bg-gray-500/30 px-3 py-2 rounded-xl w-full"
+                />
+              </motion.button>
+            )}
+          </DrawerTrigger>
+
+          <DrawerContent className="h-[50vh] rounded-t-xl px-4 py-2 bg-[#1E1E1E] text-white border-none">
+            <DrawerHeader>
+              <DrawerTitle>댓글 전체 보기</DrawerTitle>
+            </DrawerHeader>
+            <div
+              ref={rootRef}
+              className="overflow-y-auto h-[calc(50vh-64px)] space-y-3 pr-1">
+              {allComments?.pages
+                .flatMap((page) => page.items)
+                .map((commentItem) => (
+                  <AvatarWithText
+                    key={commentItem.commentId}
+                    avatarUrl={commentItem.profileUrl}
+                    title={commentItem.userName}
+                    subText={commentItem.comment}
+                    className="bg-gray-500/30 px-3 py-2 rounded-xl"
+                    variant="compact"
+                  />
+                ))}
+              {isLoading && (
+                <p className="text-sm text-muted-foreground">
+                  댓글을 불러오는 중...
+                </p>
+              )}
+              {!isLoading && allComments?.pages[0]?.items?.length === 0 && (
+                <p className="text-sm text-muted-foreground">
+                  아직 댓글이 없습니다.
+                </p>
+              )}
+              <div
+                ref={targetRef}
+                className={`h-20 transition-opacity duration-300 ${
+                  hasNextPage ? "opacity-100" : "opacity-0 pointer-events-none"
+                }`}
               />
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </div>
+          </DrawerContent>
+        </Drawer>
       </div>
 
       <div className="flex items-center justify-between pt-2">
-        <ReelTitle title={title} />
+        <ReelTitle title={title} onClick={handleTitleClick} />
         <div className="flex items-center gap-1 relative">
           <button
             type="button"

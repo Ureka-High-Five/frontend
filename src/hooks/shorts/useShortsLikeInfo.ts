@@ -3,19 +3,27 @@ import { useTotalLikeCount } from "@/hooks/shorts/useTotalLikeCount";
 import type { ShortsItem } from "@/types/shorts";
 import { useLikeTimeline } from "./useLikeTimeline";
 
+const LIKE_DURATION = "5";
+
 export function useShortsLikeInfo({
   reel,
   currentTime,
+  isActive = false,
 }: {
   reel: ShortsItem;
   currentTime: number;
+  isActive?: boolean;
 }) {
-  const { shortsId, liked } = reel;
+  const { shortsId } = reel;
 
-  const shortsLikes = useLikeQuery({
+  const likeData = useLikeQuery({
     shortsId: String(shortsId),
-    duration: "5",
+    duration: LIKE_DURATION,
+    enabled: isActive,
   });
+
+  const shortsLikes = likeData?.likeTimeLines ?? [];
+  const liked = likeData?.liked ?? false;
 
   const totalLikeCount = useTotalLikeCount(shortsLikes);
   const { isLikeVisible } = useLikeTimeline(currentTime, 1, shortsLikes ?? []);

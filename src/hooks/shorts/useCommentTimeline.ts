@@ -6,10 +6,15 @@ import {
 } from "@/hooks/shorts/videoEventBus";
 import type { CommentWithTime } from "@/types/shorts";
 
-export function useCommentTimeline(shortsId: string, currentTime: number) {
+export function useCommentTimeline(
+  shortsId: number,
+  currentTime: number,
+  isActive: boolean = false
+) {
   const { commentTimelineMap } = useCommentTimelineQuery({
     shortsId,
     currentTime,
+    enabled: isActive,
   });
 
   const [activeComment, setActiveComment] = useState<CommentWithTime | null>(
