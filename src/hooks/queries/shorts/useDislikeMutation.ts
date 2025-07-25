@@ -36,6 +36,7 @@ export const useDislikeMutation = ({
             {
               ...previousLikeData,
               likeTimeLines: updatedTimelines,
+              liked: false,
             }
           );
         }

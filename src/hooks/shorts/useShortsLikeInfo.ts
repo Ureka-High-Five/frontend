@@ -3,6 +3,8 @@ import { useTotalLikeCount } from "@/hooks/shorts/useTotalLikeCount";
 import type { ShortsItem } from "@/types/shorts";
 import { useLikeTimeline } from "./useLikeTimeline";
 
+const LIKE_DURATION = "5";
+
 export function useShortsLikeInfo({
   reel,
   currentTime,
@@ -14,7 +16,7 @@ export function useShortsLikeInfo({
 
   const likeData = useLikeQuery({
     shortsId: String(shortsId),
-    duration: "5",
+    duration: LIKE_DURATION,
   });
 
   const shortsLikes = likeData?.likeTimeLines ?? [];

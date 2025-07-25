@@ -31,6 +31,7 @@ export const useLikeMutation = ({ shortsId, time }: ShortsTimeLine) => {
         queryClient.setQueryData<ShortsLikeContent>(["shortsLike", shortsId], {
           ...previousLikeData,
           likeTimeLines: updatedTimelines,
+          liked: true,
         });
       }
 
