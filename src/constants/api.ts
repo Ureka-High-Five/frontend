@@ -20,6 +20,7 @@ export const END_POINTS = {
   CURATION: "curation",
   PRESIGNEDURL: "s3/presignedUrl",
   SHORTS_COMMENT_TIMELINE: (shortsId: string) => `/shorts/${shortsId}/comments`,
+  WATCH_LOG: "content/watch-log",
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;
