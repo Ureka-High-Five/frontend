@@ -42,7 +42,8 @@ export default function ReelCard({ reel }: ReelCardProps) {
         isLikeVisible={isLikeVisible}
         totalLikeCount={totalLikeCount}
         isUserLiked={liked}
-        shortsId={String(reel.shortsId)}
+        shortsId={reel.shortsId}
+        videoRef={videoRef}
         currentTime={currentTime}
       />
       <ReelProgressBar
