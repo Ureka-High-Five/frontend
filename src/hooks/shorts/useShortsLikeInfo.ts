@@ -8,15 +8,18 @@ const LIKE_DURATION = "5";
 export function useShortsLikeInfo({
   reel,
   currentTime,
+  isActive = false,
 }: {
   reel: ShortsItem;
   currentTime: number;
+  isActive?: boolean;
 }) {
   const { shortsId } = reel;
 
   const likeData = useLikeQuery({
     shortsId: String(shortsId),
     duration: LIKE_DURATION,
+    enabled: isActive,
   });
 
   const shortsLikes = likeData?.likeTimeLines ?? [];
