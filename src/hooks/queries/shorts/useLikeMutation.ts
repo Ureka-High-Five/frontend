@@ -4,10 +4,7 @@ import type {
   ShortsTimeLine,
   ShortsLikeContent,
   LikeTimeline,
-  ShortsItem,
-  GetShortsResponse,
 } from "@/types/shorts";
-import type { InfiniteData } from "@tanstack/react-query";
 
 export const useLikeMutation = ({ shortsId, time }: ShortsTimeLine) => {
   const queryClient = useQueryClient();
@@ -23,15 +20,6 @@ export const useLikeMutation = ({ shortsId, time }: ShortsTimeLine) => {
         shortsId,
       ]);
 
-      const previousShortsList = queryClient.getQueryData<
-        InfiniteData<GetShortsResponse>
-      >(["shorts"]);
-
-      const previousShortById = queryClient.getQueryData<ShortsItem>([
-        "shortsById",
-        shortsId,
-      ]);
-
       if (previousLikeData) {
         const updatedTimelines: LikeTimeline[] =
           previousLikeData.likeTimeLines.map((entry) =>
@@ -43,34 +31,12 @@ export const useLikeMutation = ({ shortsId, time }: ShortsTimeLine) => {
         queryClient.setQueryData<ShortsLikeContent>(["shortsLike", shortsId], {
           ...previousLikeData,
           likeTimeLines: updatedTimelines,
-        });
-      }
-
-      if (previousShortsList) {
-        queryClient.setQueryData<InfiniteData<GetShortsResponse>>(["shorts"], {
-          ...previousShortsList,
-          pages: previousShortsList.pages.map((page) => ({
-            ...page,
-            items: page.items.map((item) =>
-              item.shortsId === Number(shortsId)
-                ? { ...item, liked: true }
-                : item
-            ),
-          })),
-        });
-      }
-
-      if (previousShortById) {
-        queryClient.setQueryData<ShortsItem>(["shortsById", shortsId], {
-          ...previousShortById,
           liked: true,
         });
       }
 
       return {
         previousLikeData,
-        previousShortsList,
-        previousShortById,
       };
     },
 
@@ -81,21 +47,10 @@ export const useLikeMutation = ({ shortsId, time }: ShortsTimeLine) => {
           ctx.previousLikeData
         );
       }
-      if (ctx?.previousShortsList) {
-        queryClient.setQueryData(["shorts"], ctx.previousShortsList);
-      }
-      if (ctx?.previousShortById) {
-        queryClient.setQueryData(
-          ["shortsById", shortsId],
-          ctx.previousShortById
-        );
-      }
     },
 
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["shortsLike", shortsId] });
-      queryClient.invalidateQueries({ queryKey: ["shortsById", shortsId] });
-      queryClient.invalidateQueries({ queryKey: ["shorts"] });
     },
   });
 

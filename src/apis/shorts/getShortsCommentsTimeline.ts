@@ -3,7 +3,7 @@ import { END_POINTS } from "@/constants/api";
 import type { CommentWithTime } from "@/types/shorts";
 
 interface GetShortsCommentsTimelineParams {
-  shortsId: string;
+  shortsId: number;
   time: number;
   duration?: number;
 }

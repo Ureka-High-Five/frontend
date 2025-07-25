@@ -22,6 +22,7 @@ export interface LikeTimeline {
 
 export interface ShortsLikeContent {
   likeTimeLines: LikeTimeline[];
+  liked: boolean;
 }
 
 export interface Comment {
@@ -29,6 +30,14 @@ export interface Comment {
   userName: string;
   profileUrl: string;
   userId: number;
+  createdAt?: string;
+  commentId: number;
+}
+
+export interface GetAllCommentsResponse {
+  nextCursor?: number | null;
+  hasNext: boolean;
+  items: Comment[];
 }
 
 export interface CommentWithTime extends Comment {
