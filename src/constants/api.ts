@@ -20,7 +20,7 @@ export const END_POINTS = {
   MY_CURATION: "curation/me",
   CURATION: "curation",
   PRESIGNEDURL: "s3/presignedUrl",
-  SHORTS_COMMENT_TIMELINE: (shortsId: string) => `/shorts/${shortsId}/comments`,
+  SHORTS_COMMENT_TIMELINE: (shortsId: number) => `/shorts/${shortsId}/comments`,
   WATCH_LOG: "content/watch-log",
 } as const;
 
