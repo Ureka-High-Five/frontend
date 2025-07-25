@@ -9,6 +9,27 @@ export interface Content {
   actors: string[];
   director: string;
   openYear: string;
+  videoUrl?: string;
+  postUrl?: string;
+  countryName?: string;
+  totalRound?: number;
+  contentType?: string;
+}
+
+export interface ContentCreateRequest {
+  contentId?: number;
+  title: string;
+  description: string;
+  videoUrl: string;
+  postUrl: string;
+  countryName: string;
+  openDate: string;
+  runningTime: number;
+  totalRound: number;
+  type: string;
+  genres: string[];
+  actors: string[];
+  director: string;
 }
 
 export interface Review {

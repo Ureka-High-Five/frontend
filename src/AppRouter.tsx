@@ -7,7 +7,8 @@ import LandingPage from "@/pages/LandingPage";
 import MyPage from "@/pages/MyPage";
 import OnBoardingPage from "@/pages/OnBoardingPage";
 import RedirectPage from "@/pages/RedirectPage";
-import ShortsPage from "@/pages/ShortsPage";
+import AdminPage from "./pages/AdminPage";
+import ShortsPage from "./pages/ShortsPage";
 import SearchPage from "./pages/SearchPage";
 
 const AppRouter = () => {
@@ -46,6 +47,10 @@ const AppRouter = () => {
         },
         { path: PATH.SEARCH, element: <SearchPage /> },
       ],
+    },
+    {
+      path: PATH.ADMIN,
+      element: <AdminPage />,
     },
   ]);
   return <RouterProvider router={router} />;
