@@ -11,3 +11,4 @@ export const useCommentQuery = ({ shortsId, time }: ShortsTimeLine) => {
 
   return shortsComment;
 };
+

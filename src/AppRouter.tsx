@@ -7,7 +7,8 @@ import LandingPage from "@/pages/LandingPage";
 import MyPage from "@/pages/MyPage";
 import OnBoardingPage from "@/pages/OnBoardingPage";
 import RedirectPage from "@/pages/RedirectPage";
-import ShortsPage from "./pages/ShortsPage";
+import ShortsPage from "@/pages/ShortsPage";
+import SearchPage from "./pages/SearchPage";
 
 const AppRouter = () => {
   const router = createBrowserRouter([
@@ -43,6 +44,7 @@ const AppRouter = () => {
           path: PATH.MYPAGE,
           element: <MyPage />,
         },
+        { path: PATH.SEARCH, element: <SearchPage /> },
       ],
     },
   ]);

@@ -1,12 +1,16 @@
+export type VideoType = "VIDEO" | "SHORTS";
+
 export interface ShortsItem {
-  contentId: string;
-  contentTitle: string;
-  shortsId: string;
+  shortsId: number;
   shortsUrl: string;
+  contentId: number;
+  contentTitle: string;
+  liked: boolean;
+  videoType: VideoType;
 }
 
 export interface GetShortsResponse {
-  nextCursor?: number;
+  nextCursor?: number | null;
   hasNext: boolean;
   items: ShortsItem[];
 }
@@ -17,7 +21,7 @@ export interface LikeTimeline {
 }
 
 export interface ShortsLikeContent {
-  likeTimelines: LikeTimeline[];
+  likeTimeLines: LikeTimeline[];
 }
 
 export interface Comment {
@@ -27,14 +31,18 @@ export interface Comment {
   userId: number;
 }
 
+export interface CommentWithTime extends Comment {
+  time: number;
+}
+
 export interface ShortsDuration {
   shortsId: string;
   duration: string;
 }
 
 interface ShortsTimeLine {
-  shortsId: string;
-  time: string;
+  shortsId: number;
+  time: number;
 }
 export interface ShortsCommentRequest extends ShortsTimeLine {
   comment: string;
@@ -42,6 +50,21 @@ export interface ShortsCommentRequest extends ShortsTimeLine {
 
 interface PostCommentRequest {
   shortsId: string;
-  time: string;
+  time: number;
   comment: string;
+}
+
+interface FlyingHeart {
+  id: string;
+  x: number;
+  y: number;
+  scale: number;
+  rotate: number;
+  color: string;
+}
+
+export interface WatchLogRequest {
+  id: number;
+  watchTime: number;
+  type: VideoType;
 }
