@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { ContentManagement } from "@/components/admin/content-management";
 import { AdminHeader } from "@/components/admin/header";

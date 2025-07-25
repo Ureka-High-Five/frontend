@@ -2,12 +2,12 @@ import { useMutation } from "@tanstack/react-query";
 import patchContent from "@/apis/admin/patchContent";
 
 const usePatchContent = () => {
-  const patchContentMutation = useMutation({
+  const { mutate: mutatePatchContent } = useMutation({
     mutationFn: patchContent,
   });
 
   return {
-    mutatePatchContent: patchContentMutation.mutate,
+    mutatePatchContent,
   };
 };
 

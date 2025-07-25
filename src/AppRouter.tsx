@@ -39,10 +39,6 @@ const AppRouter = () => {
           path: PATH.ONBOARDING,
           element: <OnBoardingPage />,
         },
-        {
-          path: PATH.ONBOARDING,
-          element: <OnBoardingPage />,
-        },
       ],
     },
     {

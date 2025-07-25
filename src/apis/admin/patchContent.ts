@@ -6,9 +6,7 @@ import type { ContentCreateRequest } from "@/types/content";
 const patchContent = async (
   body: ContentCreateRequest
 ): Promise<ExistingUserLogin> => {
-  const response = await axiosInstance.patch(END_POINTS.CONTENT, body, {
-    isAuthRequired: true,
-  });
+  const response = await axiosInstance.patch(END_POINTS.CONTENT, body);
 
   return response.data.content;
 };
