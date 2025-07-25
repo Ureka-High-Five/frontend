@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ShortsLayout from "@/components/shorts/ShortsLayout";
 import { useActiveShortsId } from "@/hooks/shorts/useActiveShortsId";
 import { useShortsToShow } from "@/hooks/shorts/useShortsToShow";
+import { useShortsWatchTimeTracker } from "@/hooks/shorts/useShortsWatchTimeTracker";
 
 const ShortsPage = () => {
   const { id: currentShortsId } = useParams<{ id: string }>();
@@ -16,6 +17,8 @@ const ShortsPage = () => {
     cardRefs,
     currentShortsId,
   });
+
+  useShortsWatchTimeTracker({ activeShortsId: currentShortsId });
 
   return (
     <ShortsLayout

@@ -18,6 +18,7 @@ import { useCommentInfiniteQuery } from "@/hooks/queries/shorts/useCommentInfini
 import { useDislikeMutation } from "@/hooks/queries/shorts/useDislikeMutation";
 import { useLikeMutation } from "@/hooks/queries/shorts/useLikeMutation";
 import type { CommentWithTime } from "@/types/shorts";
+import ReelCommentForm from "./ReelCommentForm";
 
 interface ReelOverlayProps {
   title: string;
@@ -25,7 +26,8 @@ interface ReelOverlayProps {
   isLikeVisible: boolean;
   totalLikeCount: number;
   isUserLiked: boolean;
-  shortsId: string;
+  shortsId: number;
+  videoRef: React.RefObject<HTMLVideoElement | null>;
   currentTime: number;
   contentId: number;
 }
@@ -37,6 +39,7 @@ export default function ReelOverlay({
   totalLikeCount,
   isUserLiked,
   shortsId,
+  videoRef,
   currentTime,
   contentId,
 }: ReelOverlayProps) {
@@ -186,8 +189,7 @@ export default function ReelOverlay({
           </AnimatePresence>
         </div>
       </div>
-
-      <ReelActionBar />
+      <ReelCommentForm shortsId={shortsId} videoRef={videoRef} />
     </div>
   );
 }

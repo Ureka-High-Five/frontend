@@ -3,14 +3,9 @@ import { useShortsByIdQuery } from "@/hooks/queries/shorts/useShortsByIdQuery";
 import { useShortsInfiniteQuery } from "@/hooks/queries/shorts/useShortsInfiniteQuery";
 
 export function useShortsToShow(currentShortsId?: string) {
-  const shortsIdNum =
-    currentShortsId && Number(currentShortsId)
-      ? Number(currentShortsId)
-      : undefined;
-
   const { shorts, fetchNextPage, hasNextPage, isLoading } =
-    useShortsInfiniteQuery(shortsIdNum);
-
+    useShortsInfiniteQuery(); 
+    
   const alreadyHasShort = useMemo(
     () => shorts.some((s) => String(s.shortsId) === currentShortsId),
     [shorts, currentShortsId]

@@ -1,4 +1,5 @@
 import ReviewItem from "@/components/contentDetail/molecules/ReviewItem";
+import useUserInformationQuery from "@/hooks/queries/user/useUserInformationQuery";
 import type { Review, MyReview } from "@/types/content";
 
 interface ReviewListProps {
@@ -7,13 +8,15 @@ interface ReviewListProps {
 }
 
 const ReviewList = ({ reviews, myReview }: ReviewListProps) => {
+  const { userInformation } = useUserInformationQuery();
+
   return (
     <section className="flex flex-col">
       <h2 className="body-lg-dohyeon text-custom-gray pb-4">리뷰</h2>
       {myReview && (
         <ReviewItem
           key="my-review"
-          userProfileUrl=""
+          userProfileUrl={userInformation?.profileUrl ?? ""}
           userRating={myReview.rating}
           userReview={myReview.review}
           isMyReview

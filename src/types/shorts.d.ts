@@ -50,7 +50,7 @@ export interface ShortsDuration {
 }
 
 interface ShortsTimeLine {
-  shortsId: string;
+  shortsId: number;
   time: number;
 }
 export interface ShortsCommentRequest extends ShortsTimeLine {
@@ -70,4 +70,10 @@ interface FlyingHeart {
   scale: number;
   rotate: number;
   color: string;
+}
+
+export interface WatchLogRequest {
+  id: number;
+  watchTime: number;
+  type: VideoType;
 }
