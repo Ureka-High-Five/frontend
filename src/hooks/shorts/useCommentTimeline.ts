@@ -7,7 +7,7 @@ import {
 import type { CommentWithTime } from "@/types/shorts";
 
 export function useCommentTimeline(
-  shortsId: string,
+  shortsId: number,
   currentTime: number,
   isActive: boolean = false
 ) {

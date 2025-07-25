@@ -6,7 +6,7 @@ import type { CommentWithTime } from "@/types/shorts";
 const CHUNK_SIZE = 10;
 
 interface useCommentTimelineQueryParams {
-  shortsId: string;
+  shortsId: number;
   currentTime: number;
   enabled?: boolean;
 }

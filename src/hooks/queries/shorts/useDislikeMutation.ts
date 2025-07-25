@@ -6,7 +6,7 @@ export const useDislikeMutation = ({
   shortsId,
   time,
 }: {
-  shortsId: string;
+  shortsId: number;
   time: number;
 }) => {
   const queryClient = useQueryClient();

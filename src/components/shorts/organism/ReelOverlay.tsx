@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 import AvatarWithText from "@/components/common/AvatarWithText";
 import ReelTitle from "@/components/shorts/atom/ReelTitle";
-import ReelActionBar from "@/components/shorts/molecules/ReelActionBar";
+
 import {
   Drawer,
   DrawerTrigger,

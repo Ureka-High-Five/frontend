@@ -20,7 +20,7 @@ export default function ReelCard({ reel }: ReelCardProps) {
   );
 
   const { commentTimelineMap, activeComment } = useCommentTimeline(
-    String(reel.shortsId),
+    reel.shortsId,
     currentTime,
     isActive
   );

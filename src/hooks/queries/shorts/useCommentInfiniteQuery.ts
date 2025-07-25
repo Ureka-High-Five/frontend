@@ -3,7 +3,7 @@ import { getAllShortsComments } from "@/apis/shorts/getAllShortsComments";
 import type { GetAllCommentsResponse } from "@/types/shorts";
 
 export const useCommentInfiniteQuery = (
-  shortsId: string,
+  shortsId: number,
   commentId: number,
   isDrawerOpen: boolean
 ) => {

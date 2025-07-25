@@ -3,7 +3,7 @@ import { END_POINTS } from "@/constants/api";
 import type { GetAllCommentsResponse } from "@/types/shorts";
 
 interface GetCommentsParams {
-  shortsId: string;
+  shortsId: number;
   cursor?: number;
   size?: number;
 }
