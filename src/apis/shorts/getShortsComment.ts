@@ -3,8 +3,8 @@ import { END_POINTS } from "@/constants/api";
 import type { Comment } from "@/types/shorts";
 
 export const getShortsComment = async (
-  shortsId: string,
-  time: string
+  shortsId: number,
+  time: number
 ): Promise<Comment> => {
   const response = await axiosInstance.get(`/${END_POINTS.SHORTS_COMMENT}`, {
     params: {

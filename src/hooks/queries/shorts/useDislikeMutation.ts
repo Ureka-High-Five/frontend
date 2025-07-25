@@ -8,7 +8,7 @@ import type {
 } from "@/types/shorts";
 import type { InfiniteData } from "@tanstack/react-query";
 
-export const useDislikeMutation = (shortsId: string) => {
+export const useDislikeMutation = (shortsId: number) => {
   const queryClient = useQueryClient();
 
   const { mutate: mutatePostShortsDislike, isPending: isPosting } = useMutation(

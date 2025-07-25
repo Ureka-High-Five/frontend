@@ -2,18 +2,15 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getShorts } from "@/apis/shorts/getShorts";
 import type { GetShortsResponse } from "@/types/shorts";
 
-export const useShortsInfiniteQuery = (
-  initialCursor?: number,
-  options?: { enabled?: boolean }
-) => {
+export const useShortsInfiniteQuery = (options?: { enabled?: boolean }) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteQuery<GetShortsResponse>({
       queryKey: ["shorts"],
-      queryFn: ({ pageParam = initialCursor }) =>
-        getShorts({ cursor: pageParam as number | undefined }),
+      queryFn: ({ pageParam = null }) =>
+        getShorts({ cursor: pageParam as number | undefined }), 
       getNextPageParam: (lastPage) =>
         lastPage.hasNext ? lastPage.nextCursor : undefined,
-      initialPageParam: initialCursor,
+      initialPageParam: null, 
       staleTime: 60 * 1000,
       enabled: options?.enabled ?? true,
     });

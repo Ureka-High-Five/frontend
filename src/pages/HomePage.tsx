@@ -18,7 +18,7 @@ const HomePage = () => {
     <div className="relative bg-black text-white h-screen flex flex-col overflow-hidden">
       <Header scrolled={isScrolled} />
 
-      <main className="flex flex-col gap-8 py-24 px-8 md:px-10 overflow-y-auto no-scrollbar">
+      <main className="flex flex-col flex-1 gap-8 py-16 px-8 md:px-10 overflow-y-auto no-scrollbar">
         <div ref={sentinelRef} className="h-1" />
 
         {recommendContents.mainRecommend && (
