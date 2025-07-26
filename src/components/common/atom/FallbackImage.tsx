@@ -12,9 +12,9 @@ const FallbackImage = ({
     return (
       <div
         role="img"
-        aria-label="이미지를 불러올 수 없습니다"
-        className="w-full h-full flex items-center justify-center rounded-xl bg-custom-darkgray text-white body-md-pretendard">
-        이미지 없음
+        aria-label="이미지를 표시할 수 없습니다"
+        className="w-full h-full flex items-center justify-center rounded-xl p-2 bg-custom-darkgray text-white body-md-pretendard">
+        이미지를 표시할 수 없습니다
       </div>
     );
   }
