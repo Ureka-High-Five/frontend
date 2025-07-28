@@ -15,14 +15,14 @@ export interface RecommendGenreContent {
   contents: RecommendContent[];
 }
 
-type RecommendCuration = {
+export interface RecommendCuration {
   curationId: number;
   userId: number;
   userName: string;
   title: string;
-  thumbnailUrl: string;
   profileUrl: string;
-};
+  contents: RecommendContent[];
+}
 
 export interface RecommendContentsResponse {
   mainRecommend: MainRecommend;
