@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { HTTPError } from "@/apis/HTTPError";
 import { Button } from "@/components/ui/button";
+import { HTTP_ERROR_MESSAGES } from "@/constants/api";
 import { PATH } from "@/constants/path";
 
 interface ErrorFallbackProps {
@@ -11,19 +12,19 @@ interface ErrorFallbackProps {
 const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {
   const navigate = useNavigate();
 
-  const getMessage = (err: Error) => {
+  const getMessage = (err: Error): string => {
     if (err instanceof HTTPError) {
-      switch (err.status) {
-        case 404:
-          return "리소스를 찾을 수 없습니다.";
-        case 500:
-          return "서버 오류가 발생했습니다.";
-        default:
-          return `${err.status}: 알 수 없는 오류입니다.`;
+      const message =
+        HTTP_ERROR_MESSAGES[err.status as keyof typeof HTTP_ERROR_MESSAGES];
+
+      if (typeof message === "function") {
+        return message(err.status);
       }
+
+      return message ?? HTTP_ERROR_MESSAGES.DEFAULT(err.status);
     }
 
-    return err.message || "예상치 못한 오류가 발생했습니다.";
+    return err.message || HTTP_ERROR_MESSAGES.UNKNOWN;
   };
 
   return (
