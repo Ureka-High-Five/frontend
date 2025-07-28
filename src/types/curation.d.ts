@@ -15,6 +15,7 @@ interface CurationDetail {
   id: number;
   title: string;
   thumbnailUrl: string;
+  description: string;
 }
 
 export interface CurationDetailResponse {
