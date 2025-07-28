@@ -32,19 +32,33 @@ const CurationTab = () => {
         onClick={open}>
         큐레이션 등록
       </Button>
-      <div ref={rootRef} className="w-full flex-1 overflow-y-auto no-scrollbar">
-        <ul className="flex flex-col gap-6">
-          {curations.map((curation) => (
-            <MyCurationItem
-              key={curation.curationId}
-              curationId={curation.curationId}
-              title={curation.title}
-              thumbnailUrl={curation.thumbnailUrl}
-              description={curation.description}
-              onDeleteClick={handleDeleteClick}
-            />
-          ))}
-        </ul>
+      <div
+        ref={rootRef}
+        className="w-full flex flex-1 flex-col overflow-y-auto no-scrollbar">
+        {curations.length === 0 ? (
+          <div className="flex flex-col flex-1 items-center justify-center text-custom-gray">
+            <p className="heading-h2-pretendard">
+              아직 생성된 큐레이션이 없어요
+            </p>
+            <p className="body-lg-pretendard mt-2">
+              상단 버튼으로 새 큐레이션을 등록해보세요!
+            </p>
+          </div>
+        ) : (
+          <ul className="flex flex-col gap-6">
+            {curations.map((curation) => (
+              <MyCurationItem
+                key={curation.curationId}
+                curationId={curation.curationId}
+                title={curation.title}
+                thumbnailUrl={curation.thumbnailUrl}
+                description={curation.description}
+                onDeleteClick={handleDeleteClick}
+              />
+            ))}
+          </ul>
+        )}
+
         <div ref={targetRef} className="h-6" />
         {isFetchingNextPage && (
           <div className="flex items-center w-full justify-center">
