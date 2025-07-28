@@ -4,7 +4,6 @@ import useOnBoardingContentMutation from "@/hooks/queries/onboarding/useOnBoardi
 import useOnBoardingContentQuery from "@/hooks/queries/onboarding/useOnBoardingContentQuery";
 import useUserPreferenceMutation from "@/hooks/queries/onboarding/useUserPreferenceMutation";
 import useUserStore from "@/stores/useUserStore";
-import mergeUniqueContents from "@/utils/mergeUniqueContents";
 import type { OnBoardingContent } from "@/types/content";
 import type { OnBoardingStep } from "@/types/onBoarding";
 
@@ -36,11 +35,14 @@ const OnBoardingPage = () => {
       removeContentId(id);
     } else {
       addContentId(id);
-      const newContents = await mutatePostOnBoardingContent([
-        ...selectedIds,
-        id,
-      ]);
-      setContents((prev) => mergeUniqueContents(prev, newContents));
+
+      const recommendedIds = contents.map((content) => content.contentId);
+      const newContents = await mutatePostOnBoardingContent({
+        selectedContentIds: [...selectedIds, id],
+        recommendedContentIds: recommendedIds,
+      });
+
+      setContents((prev) => [...prev, ...newContents]);
     }
   };
 

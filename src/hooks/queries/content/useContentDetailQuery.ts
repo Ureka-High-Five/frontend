@@ -1,16 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { getContentDetail } from "@/apis/content/getContentDetail";
 
-export const useContentDetailQuery = (contentId?: number) => {
-  const {
-    data: content,
-    isLoading,
-    error,
-  } = useQuery({
+export const useContentDetailQuery = (contentId: string) => {
+  const { data: content } = useSuspenseQuery({
     queryKey: ["contentDetail", contentId],
-    queryFn: () => getContentDetail(String(contentId)),
-    enabled: !!contentId,
+    queryFn: () => getContentDetail(contentId),
+    retry: false,
   });
 
-  return { content, isLoading, error };
+  return { content };
 };
