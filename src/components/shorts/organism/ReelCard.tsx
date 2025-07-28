@@ -3,6 +3,7 @@ import ReelProgressBar from "@/components/shorts/molecules/ReelProgressBar";
 import { useCommentTimeline } from "@/hooks/shorts/useCommentTimeline";
 import { useShortsLikeInfo } from "@/hooks/shorts/useShortsLikeInfo";
 import { useVideoPlayer } from "@/hooks/shorts/useVideoPlayer";
+import { useAudioStore } from "@/stores/useAudioStore";
 import type { ShortsItem } from "@/types/shorts";
 import ReelOverlay from "./ReelOverlay";
 
@@ -13,6 +14,7 @@ interface ReelCardProps {
 export default function ReelCard({ reel }: ReelCardProps) {
   const { id: currentShortsId } = useParams<{ id: string }>();
   const isActive = String(reel.shortsId) === currentShortsId;
+  const { isMuted } = useAudioStore();
 
   const { videoRef, currentTime, duration, handleSeek } = useVideoPlayer(
     reel.shortsUrl,
@@ -39,12 +41,13 @@ export default function ReelCard({ reel }: ReelCardProps) {
           ref={videoRef}
           autoPlay
           loop
-          muted
+          muted={isMuted}
           playsInline
           preload="auto"
           className="object-cover w-full h-full"
-          controls={false}
-        />
+          controls={false}>
+          <track kind="captions" />
+        </video>
       ) : (
         <div className="object-cover w-full h-full bg-black" />
       )}
