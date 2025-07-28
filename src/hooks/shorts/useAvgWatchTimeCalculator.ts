@@ -9,11 +9,20 @@ export function useAvgWatchTimeCalculator() {
     // 시청 시간 추가
     watchTimesRef.current.push(watchTime);
 
-    // 최근 10개의 시청 시간으로 평균 계산
-    const recentWatchTimes = watchTimesRef.current.slice(-10);
-    const avgWatchTime =
-      recentWatchTimes.reduce((sum, time) => sum + time, 0) /
-      recentWatchTimes.length;
+    // 최근 5개의 시청 시간으로 가중 평균 계산 (쇼츠 특성 고려)
+    const recentWatchTimes = watchTimesRef.current.slice(-5);
+
+    // 최근 시청 시간에 더 높은 가중치 적용
+    const weightedSum = recentWatchTimes.reduce((sum, time, index) => {
+      const weight = index + 1; // 최근일수록 높은 가중치 (1, 2, 3, 4, 5)
+      return sum + time * weight;
+    }, 0);
+
+    const totalWeight = recentWatchTimes.reduce(
+      (sum, _, index) => sum + (index + 1),
+      0
+    );
+    const avgWatchTime = weightedSum / totalWeight;
 
     // 사용자 행동 스토어에 평균 시청 시간 저장
     setAvgWatchTime(avgWatchTime);
