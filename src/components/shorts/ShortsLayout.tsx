@@ -1,6 +1,8 @@
 import type { MutableRefObject } from "react";
+import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PATH } from "@/constants/path";
 import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
 import type { ShortsItem } from "@/types/shorts";
 import ReelCard from "./organism/ReelCard";
@@ -20,6 +22,8 @@ export default function ShortsLayout({
   isLoading,
   cardRefs,
 }: ShortsLayoutProps) {
+  const navigate = useNavigate();
+
   const { rootRef, targetRef } = useIntersectionObserver({
     onIntersect: fetchNextPage,
     hasNextPage,
@@ -30,12 +34,17 @@ export default function ShortsLayout({
 
   const cardRef = cardRefs;
 
+  // shorts 나가기 (홈으로 이동)
+  const handleExitShorts = () => {
+    navigate(PATH.HOME);
+  };
+
   return (
     <div
       ref={rootRef}
       className="relative w-full h-screen overflow-y-scroll snap-y snap-mandatory">
-      <div className="fixed top-4 left-2 z-10 text-white">
-        <Button variant="ghost">
+      <div className="absolute top-4 left-2 z-10 text-white">
+        <Button variant="ghost" onClick={handleExitShorts}>
           <X className="w-6 h-6" />
         </Button>
       </div>
