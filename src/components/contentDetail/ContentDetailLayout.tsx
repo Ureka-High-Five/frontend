@@ -31,7 +31,7 @@ const ContentDetailLayout = ({
       {/* 오버레이 컨텐츠 */}
       <div
         ref={rootRef}
-        className="relative z-10 px-8 mt-60 flex flex-col gap-6 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto hide-scrollbar">
+        className="relative z-10 px-8 mt-60 flex flex-col gap-8 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto hide-scrollbar">
         <ContentMainInfo
           contentTitle={content.contentTitle}
           contentCountry={content.contentCountry}
