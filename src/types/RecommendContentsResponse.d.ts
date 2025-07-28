@@ -3,6 +3,7 @@ export interface MainRecommend {
   posterUrl: string;
   description: string;
   genre: string[];
+  videoUrl: string;
 }
 
 export interface RecommendContent {
