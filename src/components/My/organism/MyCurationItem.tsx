@@ -33,11 +33,11 @@ const MyCurationItem = ({
         <FallbackImage
           src={thumbnailUrl}
           alt={title}
-          className="w-[120px] h-[180px] rounded-md"
+          className="w-[100px] h-[150px] rounded-md"
         />
         <div className="flex flex-col flex-1 text-white py-1 gap-2 text-left items-start">
-          <h2 className="heading-h2-pretendard break-all">{title}</h2>
-          <p className="body-lg-pretendard text-gray-300 break-all">
+          <p className="body-lg-pretendard break-all">{title}</p>
+          <p className="body-md-pretendard text-gray-300 break-all">
             {description}
           </p>
         </div>

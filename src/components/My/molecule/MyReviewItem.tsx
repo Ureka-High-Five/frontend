@@ -1,4 +1,5 @@
 import { Star, Trash2 } from "lucide-react";
+import FallbackImage from "@/components/common/atom/FallbackImage";
 
 interface MyReviewItemProps {
   reviewId: number;
@@ -19,13 +20,13 @@ const MyReviewItem = ({
 }: MyReviewItemProps) => {
   return (
     <li className="flex gap-4 border-b border-custom-darkgray pb-4">
-      <img
+      <FallbackImage
         src={thumbnailUrl}
         alt={title}
-        className="w-[120px] h-[180px] rounded-md"
+        className="w-[100px] h-[150px] rounded-md"
       />
       <div className="flex flex-col flex-1 text-white py-1 gap-2">
-        <h2 className="heading-h2-pretendard break-all">{title}</h2>
+        <p className="body-lg-pretendard break-all">{title}</p>
         <div className="flex gap-1">
           {[1, 2, 3, 4, 5].map((num) => (
             <Star
@@ -38,7 +39,7 @@ const MyReviewItem = ({
             />
           ))}
         </div>
-        <p className="body-lg-pretendard text-gray-300 break-all">{review}</p>
+        <p className="body-md-pretendard text-gray-300 break-all">{review}</p>
       </div>
       <button
         type="button"

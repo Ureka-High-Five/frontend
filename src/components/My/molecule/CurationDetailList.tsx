@@ -14,7 +14,7 @@ const CurationDetailList = ({ curationId }: CurationDetailListProps) => {
           <img
             src={item.thumbnailUrl}
             alt={item.thumbnailUrl}
-            className="w-[120px] h-[180px] rounded-md"
+            className="w-[100px] h-[150px] rounded-md"
           />
           <div className="flex flex-col flex-1 text-white py-1 gap-2 text-left">
             <p className="body-lg-pretendard break-words">{item.title}</p>
