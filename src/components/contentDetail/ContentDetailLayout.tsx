@@ -37,6 +37,7 @@ const ContentDetailLayout = ({
           contentCountry={content.contentCountry}
           contentGenres={content.contentGenres}
           contentRunningTime={content.contentRunningTime}
+          shortsId={content.shortsId}
         />
         {myReview == null && <ReviewForm contentId={contentId} />}
         <ContentDescription
