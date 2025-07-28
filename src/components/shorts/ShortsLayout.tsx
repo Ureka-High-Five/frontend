@@ -1,5 +1,7 @@
-import type { MutableRefObject } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { X } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
 import type { ShortsItem } from "@/types/shorts";
@@ -8,35 +10,43 @@ import ReelCard from "./organism/ReelCard";
 interface ShortsLayoutProps {
   shorts: ShortsItem[];
   fetchNextPage: () => void;
-  hasNextPage?: boolean;
-  isLoading?: boolean;
-  cardRefs: MutableRefObject<(HTMLDivElement | null)[]>;
+  hasNextPage: boolean;
+  isLoading: boolean;
+  cardRefs: React.MutableRefObject<(HTMLDivElement | null)[]>;
 }
 
-export default function ShortsLayout({
+const ShortsLayout = ({
   shorts,
   fetchNextPage,
   hasNextPage,
   isLoading,
   cardRefs,
-}: ShortsLayoutProps) {
+}: ShortsLayoutProps) => {
+  const navigate = useNavigate();
+  const cardRef = cardRefs;
+
   const { rootRef, targetRef } = useIntersectionObserver({
-    onIntersect: fetchNextPage,
+    onIntersect: () => {
+      if (!isLoading && hasNextPage) {
+        fetchNextPage();
+      }
+    },
     hasNextPage,
-    enabled: !isLoading && !!hasNextPage,
-    threshold: 0.1, // 10%만 보여도 트리거
-    delayMs: 300, // 지연 시간 단축
-    rootMargin: "100px", // 100px 전에 미리 트리거
+    enabled: true,
+    threshold: 0.1,
+    delayMs: 100,
   });
 
-  const cardRef = cardRefs;
+  const handleClose = () => {
+    navigate(-1); // 뒤로 가기
+  };
 
   return (
     <div
       ref={rootRef}
       className="relative w-full h-screen overflow-y-scroll snap-y snap-mandatory">
       <div className="fixed top-4 left-2 z-10 text-white">
-        <Button variant="ghost">
+        <Button variant="ghost" onClick={handleClose}>
           <X className="w-6 h-6" />
         </Button>
       </div>
@@ -57,4 +67,6 @@ export default function ShortsLayout({
       {shorts.length <= 3 && <div ref={targetRef} className="h-1" />}
     </div>
   );
-}
+};
+
+export default ShortsLayout;
