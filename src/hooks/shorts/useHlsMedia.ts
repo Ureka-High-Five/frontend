@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Hls from "hls.js";
-import useUserBehaviorStore from "@/stores/useUserBehaviorStore";
-import { classifyUser } from "@/utils/classifyUser";
+import { useHlsConfig } from "./useHlsConfig";
+import { useHlsLevelManager } from "./useHlsLevelManager";
 import { emitVideoEvent, type VideoEventType } from "./videoEventBus";
 
 export function useHlsMedia(
@@ -9,7 +9,8 @@ export function useHlsMedia(
   videoUrl: string,
   isActive: boolean = false
 ) {
-  const { userBehavior } = useUserBehaviorStore();
+  const { hlsConfig } = useHlsConfig();
+  const { setupLevelManager } = useHlsLevelManager();
 
   useEffect(() => {
     const video = videoRef.current;
@@ -31,60 +32,15 @@ export function useHlsMedia(
     }
 
     let hls: Hls | null = null;
+    let levelManagerCleanup: (() => void) | null = null;
+
     if (Hls.isSupported()) {
-      // 사용자 행동에 따른 설정
-      const userType = classifyUser(userBehavior.avgWatchTime);
-
-      // 사용자 유형별 HLS 설정
-      const hlsConfig =
-        userType === "swiper"
-          ? {
-              // swiper: 빠른 전환, 낮은 버퍼
-              startLevel: 0,
-              abrEwmaFastLive: 2.0,
-              abrEwmaSlowLive: 5.0,
-              maxBufferLength: 10,
-              abrBandwidthFactor: 0.8,
-              abrBandwidthUpFactor: 0.75,
-              autoLevelEnabled: true,
-            }
-          : {
-              // settler: 안정적 전환, 높은 버퍼
-              startLevel: 1,
-              abrEwmaFastLive: 4.0,
-              abrEwmaSlowLive: 9.0,
-              maxBufferLength: 30,
-              abrBandwidthFactor: 0.95,
-              abrBandwidthUpFactor: 0.95,
-              autoLevelEnabled: true,
-            };
-
       hls = new Hls(hlsConfig);
       hls.loadSource(videoUrl);
       hls.attachMedia(video);
 
-      // 초기 레벨 설정 추적
-      let isInitialLevelSet = false;
-
-      // 실제 레벨이 설정되는 시점 확인
-      hls.on(Hls.Events.LEVEL_SWITCHED, (_, data) => {
-        if (!isInitialLevelSet) {
-          // 네트워크 상황을 고려한 스마트 설정
-          if (data.level !== hlsConfig.startLevel && hls) {
-            const targetLevelData = hls?.levels?.[hlsConfig.startLevel];
-
-            // 현재 레벨이 목표 레벨보다 낮으면 (네트워크 안 좋음) 그대로 유지
-            if (targetLevelData && data.level < hlsConfig.startLevel) {
-              isInitialLevelSet = true;
-            } else {
-              // 그 외의 경우는 강제 설정
-              hls.currentLevel = hlsConfig.startLevel;
-            }
-          } else {
-            isInitialLevelSet = true;
-          }
-        }
-      });
+      // HLS 레벨 관리자 설정
+      levelManagerCleanup = setupLevelManager(hls, hlsConfig.startLevel);
     }
 
     const eventTypes: VideoEventType[] = [
@@ -114,7 +70,8 @@ export function useHlsMedia(
       eventTypes.forEach((type) => {
         video.removeEventListener(type, handlers[type]);
       });
+      if (levelManagerCleanup) levelManagerCleanup();
       if (hls) hls.destroy();
     };
-  }, [videoUrl, videoRef, isActive]);
+  }, [videoUrl, videoRef, isActive, hlsConfig, setupLevelManager]);
 }
