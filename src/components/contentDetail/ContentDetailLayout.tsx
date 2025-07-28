@@ -1,4 +1,6 @@
-import { Loader2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Loader2, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import type { Content, Review, MyReview } from "@/types/content";
 import ContentDescription from "./organism/ContentDescription";
 import ContentMainInfo from "./organism/ContentMainInfo";
@@ -25,9 +27,26 @@ const ContentDetailLayout = ({
   targetRef,
   isFetchingNextPage,
 }: ContentDetailLayoutProps) => {
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    navigate(-1); // 뒤로 가기
+  };
+
   return (
     <div className="relative w-full h-screen justify-center flex flex-col items-center">
       <ContentPoster posterUrl={content.posterUrl} />
+
+      {/* X 버튼 */}
+      <div className="fixed top-4 left-4 z-20">
+        <Button
+          variant="ghost"
+          onClick={handleClose}
+          className="text-white hover:bg-white/20">
+          <X className="w-6 h-6" />
+        </Button>
+      </div>
+
       {/* 오버레이 컨텐츠 */}
       <div
         ref={rootRef}
