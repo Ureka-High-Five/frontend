@@ -1,13 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { getMyReview } from "@/apis/content/getMyReview";
-import type { MyReview } from "@/types/content";
 
 export const useMyReviewQuery = (contentId: string) => {
-  const { data: myReview } = useQuery<MyReview>({
+  const { data: myReview } = useSuspenseQuery({
     queryKey: ["myReview", contentId],
     queryFn: () => getMyReview(contentId),
-    enabled: !!contentId,
   });
 
-  return myReview;
+  return { myReview };
 };
