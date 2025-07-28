@@ -8,8 +8,8 @@ import MyPage from "@/pages/MyPage";
 import OnBoardingPage from "@/pages/OnBoardingPage";
 import RedirectPage from "@/pages/RedirectPage";
 import AdminPage from "./pages/AdminPage";
-import ShortsPage from "./pages/ShortsPage";
 import SearchPage from "./pages/SearchPage";
+import ShortsPage from "./pages/ShortsPage";
 
 const AppRouter = () => {
   const router = createBrowserRouter([
