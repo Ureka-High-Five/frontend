@@ -1,4 +1,5 @@
 import { CheckCircle } from "lucide-react";
+import FallbackImage from "@/components/common/atom/FallbackImage";
 
 interface OnBoardingContentCardProps {
   contentId: number;
@@ -23,7 +24,7 @@ const OnBoardingContentCard = ({
         type="button"
         onClick={() => toggleSelect(contentId)}
         className="relative rounded-xl w-full aspect-[2/3] border border-[#262626]">
-        <img
+        <FallbackImage
           src={thumbnailUrl}
           alt={title}
           className="transition duration-300 w-full h-full object-cover rounded-xl"

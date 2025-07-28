@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import ContentCard from "@/components/Home/atom/ContentCard";
+import { PATH } from "@/constants/path";
 import type { RecommendContent } from "@/types/RecommendContentsResponse";
 
 interface RecommendationSectionProps {
@@ -12,6 +14,7 @@ const RecommendationSection = ({
   customHeader,
   contents,
 }: RecommendationSectionProps) => {
+  const navigate = useNavigate();
   return (
     <section className="mt-6">
       {customHeader ? (
@@ -25,7 +28,14 @@ const RecommendationSection = ({
       <ul className="flex overflow-x-auto gap-2 no-scrollbar">
         {contents.map((content) => (
           <li key={content.contentId} className="flex-shrink-0 w-[100px]">
-            <ContentCard thumbnailUrl={content.thumbnailUrl} />
+            <ContentCard
+              thumbnailUrl={content.thumbnailUrl}
+              onClick={() =>
+                navigate(
+                  PATH.CONTENT_DETAIL.replace(":id", String(content.contentId))
+                )
+              }
+            />
           </li>
         ))}
       </ul>

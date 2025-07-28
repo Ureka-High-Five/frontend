@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Trash2, ChevronDown } from "lucide-react";
+import FallbackImage from "@/components/common/atom/FallbackImage";
 import CurationDetailList from "@/components/My/molecule/CurationDetailList";
 import { useOverlay } from "@/hooks/common/useOverlay";
 
@@ -29,7 +30,7 @@ const MyCurationItem = ({
     <li className="flex flex-col gap-4 border-b border-custom-darkgray pb-4">
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus */}
       <div role="button" className="flex gap-4 cursor-pointer" onClick={toggle}>
-        <img
+        <FallbackImage
           src={thumbnailUrl}
           alt={title}
           className="w-[120px] h-[180px] rounded-md"
