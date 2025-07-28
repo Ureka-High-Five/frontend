@@ -1,3 +1,5 @@
+import FallbackImage from "@/components/common/atom/FallbackImage";
+
 interface ContentCardProps {
   thumbnailUrl: string;
   width?: string;
@@ -14,7 +16,7 @@ const ContentCard = ({
       onClick={onClick}
       type="button"
       className={`overflow-hidden rounded-xl aspect-[2/3] ${width}`}>
-      <img
+      <FallbackImage
         src={thumbnailUrl}
         alt="콘텐츠 썸네일"
         className="w-full h-full object-cover"
