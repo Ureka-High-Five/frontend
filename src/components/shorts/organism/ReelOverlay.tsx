@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart } from "lucide-react";
+import { Heart, Volume2, VolumeX } from "lucide-react";
 import AvatarWithText from "@/components/common/AvatarWithText";
 import ReelTitle from "@/components/shorts/atom/ReelTitle";
 
@@ -30,6 +30,9 @@ interface ReelOverlayProps {
   videoRef: React.RefObject<HTMLVideoElement | null>;
   currentTime: number;
   contentId: number;
+  isMuted: boolean;
+  onMuteToggle: () => void;
+  hasAudio: boolean;
 }
 
 export default function ReelOverlay({
@@ -42,6 +45,9 @@ export default function ReelOverlay({
   videoRef,
   currentTime,
   contentId,
+  isMuted,
+  onMuteToggle,
+  hasAudio,
 }: ReelOverlayProps) {
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -54,6 +60,14 @@ export default function ReelOverlay({
       setActiveComment(comment);
     }
   }, [isDrawerOpen, comment]);
+
+  const handleMuteToggle = () => {
+    if (!hasAudio) {
+      alert("이 비디오는 무음입니다. 오디오가 포함되지 않은 비디오입니다.");
+      return;
+    }
+    onMuteToggle();
+  };
 
   const {
     allComments,
@@ -159,7 +173,20 @@ export default function ReelOverlay({
 
       <div className="flex items-center justify-between pt-2">
         <ReelTitle title={title} onClick={handleTitleClick} />
-        <div className="flex items-center gap-1 relative">
+        <div className="flex items-center gap-2 relative">
+          {hasAudio && (
+            <button
+              type="button"
+              onClick={handleMuteToggle}
+              className="relative"
+              aria-label="소리 토글">
+              {isMuted ? (
+                <VolumeX className="w-5 h-5 text-white" />
+              ) : (
+                <Volume2 className="w-5 h-5 text-white" />
+              )}
+            </button>
+          )}
           <button
             type="button"
             onClick={handleHeartClick}
