@@ -13,7 +13,7 @@ const ContentCard = ({
     <button
       onClick={onClick}
       type="button"
-      className={`overflow-hidden rounded-xl aspect-[2/3] ${width}`}>
+      className={`overflow-hidden rounded-xl aspect-[2/3] ${width} md:w-[10rem]`}>
       <img
         src={thumbnailUrl}
         alt="콘텐츠 썸네일"
