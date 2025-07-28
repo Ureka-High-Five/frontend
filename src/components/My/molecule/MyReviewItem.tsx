@@ -43,7 +43,7 @@ const MyReviewItem = ({
       <button
         type="button"
         onClick={() => onDeleteClick(reviewId)}
-        className="flex flex-start text-white hover:text-red-500 transition-colors">
+        className="text-white hover:text-red-500 transition-colors self-start">
         <Trash2 size={18} />
       </button>
     </li>
