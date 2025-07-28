@@ -18,14 +18,14 @@ const Header = ({ scrolled }: HeaderProps) => {
         "absolute top-0 w-full z-10 transition-colors backdrop-blur-sm",
         scrolled ? "bg-custom-black/50 backdrop-blur-sm" : "bg-custom-black"
       )}>
-      <div className="max-w-screen-md mx-auto flex h-14 items-center justify-between px-4 md:px-10">
-        <img src={logoImg} alt="logo" className="h-8" />
+      <div className="max-w-screen-md mx-auto flex h-14 md:h-16 items-center justify-between px-4 md:px-10 md:pt-3">
+        <img src={logoImg} alt="logo" className="h-8 md:h-12" />
         <div className="flex items-center gap-1">
           <Button
             variant="ghost"
             onClick={() => navigate(PATH.SEARCH)}
             className="hover:text-white hover:bg-transparent">
-            <Search />
+            <Search className="md:!h-7 md:!w-7" />
           </Button>
         </div>
       </div>

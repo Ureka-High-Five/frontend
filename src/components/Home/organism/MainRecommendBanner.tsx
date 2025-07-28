@@ -11,7 +11,7 @@ const getFirstTwoSentences = (text: string) => {
 
 const MainRecommendBanner = ({ content }: Props) => {
   return (
-    <section className="relative w-full max-w-[600px] mx-auto">
+    <section className="relative w-full max-w-[600px] mx-auto ">
       <img
         src={content.posterUrl}
         alt="메인 포스터"
