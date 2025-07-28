@@ -7,6 +7,7 @@ interface MyCurationItemProps {
   curationId: number;
   title: string;
   thumbnailUrl: string;
+  description: string;
   onDeleteClick: (id: number) => void;
 }
 
@@ -14,6 +15,7 @@ const MyCurationItem = ({
   curationId,
   title,
   thumbnailUrl,
+  description,
   onDeleteClick,
 }: MyCurationItemProps) => {
   const { isOpen, toggle } = useOverlay();
@@ -25,18 +27,19 @@ const MyCurationItem = ({
 
   return (
     <li className="flex flex-col gap-4 border-b border-custom-darkgray pb-4">
-      <button
-        className="flex gap-4 cursor-pointer"
-        type="button"
-        onClick={toggle}>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus */}
+      <div role="button" className="flex gap-4 cursor-pointer" onClick={toggle}>
         <img
           src={thumbnailUrl}
           alt={title}
-          className="aspect-[3/2] w-[30%] min-w-[140px] rounded-md"
+          className="w-[120px] h-[180px] rounded-md"
         />
-        <span className="text-white text-left body-lg-pretendard py-2 whitespace-normal break-words flex-1">
-          {title}
-        </span>
+        <div className="flex flex-col flex-1 text-white py-1 gap-2 text-left items-start">
+          <h2 className="heading-h2-pretendard break-words">{title}</h2>
+          <p className="body-lg-pretendard text-gray-300 break-words">
+            {description}
+          </p>
+        </div>
         <div className="flex flex-col justify-between">
           <button
             type="button"
@@ -51,8 +54,7 @@ const MyCurationItem = ({
             }`}
           />
         </div>
-      </button>
-
+      </div>
       <AnimatePresence>
         {isOpen && (
           <motion.div
