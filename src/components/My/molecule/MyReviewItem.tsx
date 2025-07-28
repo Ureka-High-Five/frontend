@@ -22,10 +22,10 @@ const MyReviewItem = ({
       <img
         src={thumbnailUrl}
         alt={title}
-        className="w-[100px] h-[150px] rounded-md"
+        className="w-[120px] h-[180px] rounded-md"
       />
-      <div className="flex flex-col flex-1 text-white py-2 gap-2">
-        <p className="text-white body-lg-pretendard break-words">{title}</p>
+      <div className="flex flex-col flex-1 text-white py-1 gap-2">
+        <h2 className="heading-h2-pretendard break-words">{title}</h2>
         <div className="flex gap-1">
           {[1, 2, 3, 4, 5].map((num) => (
             <Star
@@ -38,7 +38,7 @@ const MyReviewItem = ({
             />
           ))}
         </div>
-        <p className="text-white body-md-pretendard  break-words">{review}</p>
+        <p className="body-lg-pretendard text-gray-300 break-words">{review}</p>
       </div>
       <button
         type="button"
