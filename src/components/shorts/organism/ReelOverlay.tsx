@@ -17,6 +17,7 @@ import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver"
 import { useCommentInfiniteQuery } from "@/hooks/queries/shorts/useCommentInfiniteQuery";
 import { useDislikeMutation } from "@/hooks/queries/shorts/useDislikeMutation";
 import { useLikeMutation } from "@/hooks/queries/shorts/useLikeMutation";
+import { useTemporaryUserComment } from "@/hooks/shorts/useTemporaryUserComment";
 import type { CommentWithTime } from "@/types/shorts";
 import ReelCommentForm from "./ReelCommentForm";
 
@@ -48,6 +49,8 @@ export default function ReelOverlay({
   const [activeComment, setActiveComment] = useState<CommentWithTime | null>(
     null
   );
+
+  const { visibleComment, setLocalComment } = useTemporaryUserComment(comment);
 
   useEffect(() => {
     if (!isDrawerOpen && comment) {
@@ -101,20 +104,28 @@ export default function ReelOverlay({
       <div className="relative h-14">
         <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
           <DrawerTrigger asChild>
-            {comment && (
-              <motion.button
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.4 }}
-                className="inline-block text-left w-full">
-                <AvatarWithText
-                  avatarUrl={comment.profileUrl}
-                  subText={comment.comment}
-                  className="bg-gray-500/30 px-3 py-2 rounded-xl w-full"
-                />
-              </motion.button>
-            )}
+            <motion.button
+              initial={false}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="inline-block text-left w-full">
+              <AnimatePresence mode="wait">
+                {visibleComment && (
+                  <motion.div
+                    key={visibleComment.commentId}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.4 }}>
+                    <AvatarWithText
+                      avatarUrl={visibleComment.profileUrl}
+                      subText={visibleComment.comment}
+                      className="bg-gray-500/30 px-3 py-2 rounded-xl w-full"
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
           </DrawerTrigger>
 
           <DrawerContent className="h-[50vh] rounded-t-xl px-4 py-2 bg-[#1E1E1E] text-white border-none">
@@ -189,7 +200,11 @@ export default function ReelOverlay({
           </AnimatePresence>
         </div>
       </div>
-      <ReelCommentForm shortsId={shortsId} videoRef={videoRef} />
+      <ReelCommentForm
+        shortsId={shortsId}
+        videoRef={videoRef}
+        onCommentSubmit={setLocalComment}
+      />
     </div>
   );
 }
