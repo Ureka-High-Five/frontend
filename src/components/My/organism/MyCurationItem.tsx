@@ -36,12 +36,12 @@ const MyCurationItem = ({
           className="w-[120px] h-[180px] rounded-md"
         />
         <div className="flex flex-col flex-1 text-white py-1 gap-2 text-left items-start">
-          <h2 className="heading-h2-pretendard break-words">{title}</h2>
-          <p className="body-lg-pretendard text-gray-300 break-words">
+          <h2 className="heading-h2-pretendard break-all">{title}</h2>
+          <p className="body-lg-pretendard text-gray-300 break-all">
             {description}
           </p>
         </div>
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col justify-between items-center">
           <button
             type="button"
             onClick={handleCurationDelete}

@@ -25,7 +25,7 @@ const MyReviewItem = ({
         className="w-[120px] h-[180px] rounded-md"
       />
       <div className="flex flex-col flex-1 text-white py-1 gap-2">
-        <h2 className="heading-h2-pretendard break-words">{title}</h2>
+        <h2 className="heading-h2-pretendard break-all">{title}</h2>
         <div className="flex gap-1">
           {[1, 2, 3, 4, 5].map((num) => (
             <Star
@@ -38,7 +38,7 @@ const MyReviewItem = ({
             />
           ))}
         </div>
-        <p className="body-lg-pretendard text-gray-300 break-words">{review}</p>
+        <p className="body-lg-pretendard text-gray-300 break-all">{review}</p>
       </div>
       <button
         type="button"
