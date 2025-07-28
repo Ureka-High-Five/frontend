@@ -15,17 +15,18 @@ export interface RecommendGenreContent {
   contents: RecommendContent[];
 }
 
-export interface RecommendCuration {
+type RecommendCuration = {
+  curationId: number;
+  userId: number;
   userName: string;
-  userProfile: string;
-  curationTitle: string;
-  contents: RecommendContent[];
-}
+  title: string;
+  thumbnailUrl: string;
+  profileUrl: string;
+};
 
 export interface RecommendContentsResponse {
   mainRecommend: MainRecommend;
   personalRecommends: RecommendContent[];
   genre: Record<string, RecommendContent[]>;
-  recommendCuration: RecommendCuration;
-  recommendSecondCuration: RecommendCuration;
+  curation: RecommendCuration[];
 }
