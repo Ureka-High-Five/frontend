@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Trash2, ChevronDown } from "lucide-react";
+import FallbackImage from "@/components/common/atom/FallbackImage";
 import CurationDetailList from "@/components/My/molecule/CurationDetailList";
 import { useOverlay } from "@/hooks/common/useOverlay";
 
@@ -29,7 +30,7 @@ const MyCurationItem = ({
         className="flex gap-4 cursor-pointer"
         type="button"
         onClick={toggle}>
-        <img
+        <FallbackImage
           src={thumbnailUrl}
           alt={title}
           className="aspect-[3/2] w-[30%] min-w-[140px] rounded-md"
