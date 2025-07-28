@@ -26,8 +26,7 @@ export const setAuthorizedRequest = (config: InternalAxiosRequestConfig) => {
     return config;
   }
 
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0MzQ5OTIxNjgxIiwicm9sZXMiOlsiQURNSU4iXSwiaWF0IjoxNzUzMzI5NzI2LCJleHAiOjE3NTU5MjE3MjZ9.Xb5j8GNH3O7_Tu32HfSbGyr3dgOY8jXGEoeSeTrhMVI";
+  const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
 
   if (!accessToken) {
     window.location.href = PATH.ROOT;
