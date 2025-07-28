@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ImageOff } from "lucide-react";
 
 const FallbackImage = ({
   src,
@@ -13,8 +14,8 @@ const FallbackImage = ({
       <div
         role="img"
         aria-label="이미지를 표시할 수 없습니다"
-        className="w-full h-full flex items-center justify-center rounded-xl p-2 bg-custom-darkgray text-white body-md-pretendard">
-        이미지를 표시할 수 없습니다
+        className="w-full h-full flex items-center justify-center rounded-xl p-2 bg-custom-darkgray">
+        <ImageOff className="w-8 h-8 text-white/70" />
       </div>
     );
   }
