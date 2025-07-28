@@ -57,19 +57,6 @@ export function useHlsMedia(
 
       hls.loadSource(videoUrl);
       hls.attachMedia(video);
-
-      // 사용자 행동에 따른 버퍼링 전략 최적화 (오디오 안전)
-      // hls.on(Hls.Events.MANIFEST_LOADED, () => {
-      //   const userType = classifyUser(userBehavior.avgWatchTime);
-
-      //   if (userType === "swiper") {
-      //     // 스와이퍼: 더 공격적인 다운그레이드, 보수적 업그레이드
-      //     hls!.autoLevelCapping = 1; // 최대 레벨 제한
-      //   } else {
-      //     // 정착자: 더 높은 품질까지 허용
-      //     hls!.autoLevelCapping = 3; // 더 높은 레벨까지 허용
-      //   }
-      // });
     }
 
     const eventTypes: VideoEventType[] = [
