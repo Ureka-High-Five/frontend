@@ -2,6 +2,7 @@ export interface Curation {
   curationId: number;
   title: string;
   thumbnailUrl: string;
+  description: string;
 }
 
 export interface MyCurationResponse {

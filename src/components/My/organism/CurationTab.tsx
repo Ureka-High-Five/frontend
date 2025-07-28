@@ -40,6 +40,7 @@ const CurationTab = () => {
               curationId={curation.curationId}
               title={curation.title}
               thumbnailUrl={curation.thumbnailUrl}
+              description={curation.description}
               onDeleteClick={handleDeleteClick}
             />
           ))}
