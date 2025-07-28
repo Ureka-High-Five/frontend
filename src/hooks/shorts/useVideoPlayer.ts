@@ -1,10 +1,11 @@
-import { useRef, useCallback, useState, useEffect } from "react";
+import { useRef, useCallback, useEffect } from "react";
+import { useAudioStore } from "@/stores/useAudioStore";
 import { useHlsMedia } from "./useHlsMedia";
 import { useVideoTimeTracker } from "./useVideoTimeTracker";
 
 export function useVideoPlayer(videoUrl: string, isActive: boolean = false) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMuted, setIsMuted] = useState(true);
+  const { isMuted, toggleMute } = useAudioStore();
 
   useHlsMedia(videoRef, videoUrl, isActive);
   const { currentTime, duration } = useVideoTimeTracker(videoRef);
@@ -20,10 +21,6 @@ export function useVideoPlayer(videoUrl: string, isActive: boolean = false) {
   const handleSeek = useCallback((value: number) => {
     const video = videoRef.current;
     if (video) video.currentTime = value;
-  }, []);
-
-  const toggleMute = useCallback(() => {
-    setIsMuted((prev) => !prev);
   }, []);
 
   return {
