@@ -24,6 +24,9 @@ export default function ShortsLayout({
     onIntersect: fetchNextPage,
     hasNextPage,
     enabled: !isLoading && !!hasNextPage,
+    threshold: 0.1, // 10%만 보여도 트리거
+    delayMs: 300, // 지연 시간 단축
+    rootMargin: "100px", // 100px 전에 미리 트리거
   });
 
   const cardRef = cardRefs;
