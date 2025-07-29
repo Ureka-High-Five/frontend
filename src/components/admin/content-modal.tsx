@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
+import { X, Plus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +19,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { GENRE_LIST, COUNTRY_CODE_LIST } from "@/constants/admin";
+import useFileUpload from "@/hooks/common/useFileUpload";
 import usePatchContent from "@/hooks/queries/admin/usePatchContentMutation";
 import { usePostContentMutation } from "@/hooks/queries/admin/usePostContentMutation";
 import { useContentDetailQuery } from "@/hooks/queries/content/useContentDetailQuery";
@@ -33,6 +35,7 @@ interface ContentModalProps {
 
 export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
   const isEditMode = !!content;
+
   const [formData, setFormData] = useState<ContentCreateRequest>({
     title: "",
     description: "",
@@ -46,17 +49,44 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
     genres: [],
     actors: [],
     director: "",
+    trailerTime: 0,
   });
 
   const [genreInput, setGenreInput] = useState("");
   const [actorInput, setActorInput] = useState("");
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [posterFile, setPosterFile] = useState<File | null>(null);
 
   const { content: contentDetail } = useContentDetailQuery(
     isEditMode && content?.contentId ? String(content.contentId) : ""
   );
-
   const { mutatePostContent, isPosting } = usePostContentMutation();
   const { mutatePatchContent } = usePatchContent();
+  const { uploadFile } = useFileUpload();
+
+  const previewVideoUrl = useMemo(() => {
+    if (!videoFile) return "";
+
+    return URL.createObjectURL(videoFile);
+  }, [videoFile]);
+
+  const previewPosterUrl = useMemo(() => {
+    if (!posterFile) return "";
+
+    return URL.createObjectURL(posterFile);
+  }, [posterFile]);
+
+  useEffect(() => {
+    return () => {
+      if (previewPosterUrl) URL.revokeObjectURL(previewPosterUrl);
+    };
+  }, [previewPosterUrl]);
+
+  useEffect(() => {
+    return () => {
+      if (previewVideoUrl) URL.revokeObjectURL(previewVideoUrl);
+    };
+  }, [previewVideoUrl]);
 
   useEffect(() => {
     if (isEditMode && contentDetail && content?.contentId) {
@@ -73,6 +103,7 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
         genres: contentDetail.contentGenres ?? [],
         actors: contentDetail.actors ?? [],
         director: contentDetail.director ?? "",
+        trailerTime: contentDetail.contentRunningTime ?? 0,
       });
     } else {
       setFormData({
@@ -88,7 +119,12 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
         genres: [],
         actors: [],
         director: "",
+        trailerTime: 0,
       });
+      setGenreInput("");
+      setActorInput("");
+      setVideoFile(null);
+      setPosterFile(null);
     }
   }, [content, contentDetail, isEditMode]);
   if (isEditMode && !content?.contentId) return null;
@@ -134,12 +170,24 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
     }));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (isEditMode) {
       mutatePatchContent(formData);
-    } else {
-      mutatePostContent(formData);
+    } else if (videoFile && posterFile) {
+      const [videoUrl, postUrl] = await Promise.all([
+        uploadFile(videoFile, "video"),
+        uploadFile(posterFile, "image"),
+      ]);
+
+      if (videoUrl && postUrl) {
+        mutatePostContent({
+          ...formData,
+          videoUrl,
+          postUrl,
+        });
+      }
     }
+
     onClose();
   };
 
@@ -161,11 +209,12 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="type">타입</Label>
+              <Label id="type">타입</Label>
               <Select
+                aria-labelledby="type-"
                 value={formData.type}
                 onValueChange={(value) => handleInputChange("type", value)}>
-                <SelectTrigger>
+                <SelectTrigger className="h-9 text-sm">
                   <SelectValue placeholder="타입 선택" />
                 </SelectTrigger>
                 <SelectContent>
@@ -188,33 +237,118 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="videoUrl">비디오 URL</Label>
-              <Input
-                id="videoUrl"
-                value={formData.videoUrl}
-                onChange={(e) => handleInputChange("videoUrl", e.target.value)}
-              />
+              <Label htmlFor="videoFile">비디오</Label>
+              <div className="relative w-full aspect-[2/3] border-2 border-dashed rounded-md cursor-pointer hover:border-primary overflow-hidden flex items-center justify-center">
+                <label
+                  htmlFor="videoFile"
+                  className="w-full h-full flex items-center justify-center">
+                  {videoFile ? (
+                    <video
+                      src={previewVideoUrl}
+                      className="object-cover h-full w-full"
+                      onLoadedMetadata={(e) => {
+                        const duration = Math.round(e.currentTarget.duration);
+
+                        setFormData((prev) => ({
+                          ...prev,
+                          trailerTime: duration,
+                        }));
+                      }}
+                      controls>
+                      <track kind="captions" srcLang="ko" label="자막" />
+                    </video>
+                  ) : (
+                    <div className="text-muted-foreground text-sm flex flex-col items-center">
+                      <Plus className="w-6 h-6 mb-1" />
+                      비디오 파일 선택
+                    </div>
+                  )}
+                </label>
+                {videoFile && (
+                  <button
+                    type="button"
+                    onClick={() => setVideoFile(null)}
+                    className="absolute top-1 right-1 bg-white rounded-full p-1 shadow">
+                    <X className="w-4 h-4 text-black" />
+                  </button>
+                )}
+                <input
+                  id="videoFile"
+                  type="file"
+                  accept="video/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+
+                    if (file) setVideoFile(file);
+                    e.target.value = "";
+                  }}
+                  className="hidden"
+                />
+              </div>
             </div>
+
             <div className="space-y-2">
-              <Label htmlFor="postUrl">포스터 URL</Label>
-              <Input
-                id="postUrl"
-                value={formData.postUrl}
-                onChange={(e) => handleInputChange("postUrl", e.target.value)}
-              />
+              <Label htmlFor="posterFile">포스터</Label>
+              <div className="relative w-full aspect-[2/3] border-2 border-dashed rounded-md cursor-pointer hover:border-primary overflow-hidden flex items-center justify-center">
+                <label
+                  htmlFor="posterFile"
+                  className="w-full h-full flex items-center justify-center">
+                  {posterFile ? (
+                    <img
+                      src={previewPosterUrl}
+                      alt="포스터 미리보기"
+                      className="absolute top-0 left-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="text-muted-foreground text-sm flex flex-col items-center">
+                      <Plus className="w-6 h-6 mb-1" />
+                      포스터 이미지 선택
+                    </div>
+                  )}
+                </label>
+                {posterFile && (
+                  <button
+                    type="button"
+                    onClick={() => setPosterFile(null)}
+                    className="absolute top-1 right-1 bg-white rounded-full p-1 shadow">
+                    <X className="w-4 h-4 text-black" />
+                  </button>
+                )}
+                <input
+                  id="posterFile"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+
+                    if (file) setPosterFile(file);
+                    e.target.value = "";
+                  }}
+                  className="hidden"
+                />
+              </div>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="countryName">국가</Label>
-              <Input
-                id="countryName"
+              <Select
                 value={formData.countryName}
-                onChange={(e) =>
-                  handleInputChange("countryName", e.target.value)
-                }
-              />
+                onValueChange={(value) =>
+                  handleInputChange("countryName", value)
+                }>
+                <SelectTrigger id="countryName" className="h-9 text-sm">
+                  <SelectValue placeholder="국가를 선택하세요" />
+                </SelectTrigger>
+                <SelectContent>
+                  {COUNTRY_CODE_LIST.map((code) => (
+                    <SelectItem key={code} value={code}>
+                      {code}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="space-y-2">
               <Label htmlFor="openDate">개봉일</Label>
@@ -262,9 +396,11 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
           </div>
 
           <div className="space-y-2">
-            <Label>장르</Label>
+            <Label htmlFor="genre">장르</Label>
+            <div className="text-xs">{GENRE_LIST.join(", ")}</div>
             <div className="flex gap-2">
               <Input
+                id="genre"
                 placeholder="장르 입력"
                 value={genreInput}
                 onChange={(e) => setGenreInput(e.target.value)}
@@ -291,9 +427,10 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
           </div>
 
           <div className="space-y-2">
-            <Label>출연진</Label>
+            <Label htmlFor="actor">출연진</Label>
             <div className="flex gap-2">
               <Input
+                id="actor"
                 placeholder="배우 이름 입력"
                 value={actorInput}
                 onChange={(e) => setActorInput(e.target.value)}
