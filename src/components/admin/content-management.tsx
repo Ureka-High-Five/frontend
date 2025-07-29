@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import useDeleteContentMutation from "@/hooks/queries/admin/useDeleteContentMutation";
 import { useSearchContentsInfiniteQuery } from "@/hooks/queries/home/useSearchContentsInfiniteQuery";
 import type { SearchContent } from "@/types/search";
 import { ContentModal } from "./content-modal";
@@ -26,6 +27,7 @@ export function ContentManagement() {
 
   const { searchContents, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSearchContentsInfiniteQuery(searchValue);
+  const { mutateDeleteContent } = useDeleteContentMutation(searchValue);
 
   const handleCreate = () => {
     setEditingContent(null);
@@ -38,8 +40,9 @@ export function ContentManagement() {
   };
 
   const handleDelete = (id: number) => {
-    console.log("Delete content:", id);
+    mutateDeleteContent(id);
   };
+
   const handleSearch = () => {
     setSearchValue(searchTerm);
   };
