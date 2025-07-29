@@ -41,7 +41,7 @@ const ContentMainInfo = ({
       <Button
         onClick={handlePreviewClick}
         disabled={!shortsId}
-        className="w-full bg-custom-point text-custom-black flex items-center justify-center gap-2 max-w-[350px] disabled:opacity-50">
+        className="w-full bg-custom-point text-custom-black flex items-center justify-center gap-2 max-w-[350px] disabled:opacity-50 hover:bg-custom-point/90 hover:text-custom-black">
         <Play className="w-5 h-5 text-black" />
         미리보기
       </Button>

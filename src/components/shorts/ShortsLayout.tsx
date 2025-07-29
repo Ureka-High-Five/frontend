@@ -48,8 +48,11 @@ export default function ShortsLayout({
     <div
       ref={rootRef}
       className="relative w-full h-screen-mobile overflow-y-scroll">
-      <div className="absolute top-4 left-2 z-10 text-white">
-        <Button variant="ghost" onClick={handleExitShorts}>
+      <div className="absolute top-4 left-2 z-10">
+        <Button
+          variant="ghost"
+          onClick={handleExitShorts}
+          className="text-white hover:bg-white/20 hover:text-white">
           <X className="w-6 h-6" />
         </Button>
       </div>
