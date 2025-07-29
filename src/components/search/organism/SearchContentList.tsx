@@ -28,7 +28,7 @@ export default function SearchContentList() {
       ref={(el) => {
         rootRef.current = el as HTMLDivElement | null;
       }}
-      className="w-full flex flex-col py-4 max-h-[80vh] overflow-y-auto no-scrollbar">
+      className="w-full flex flex-col py-4 max-h-[80vh] overflow-y-auto no-scrollbar gap-5 md:px-8 md:py-8">
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/70" />
         <Input
@@ -51,6 +51,13 @@ export default function SearchContentList() {
             onClick={handleItemClick}
           />
         ))}
+        {searchKeyword &&
+          searchContents.length === 0 &&
+          !isFetchingNextPage && (
+            <div className="text-center text-gray-400 py-28">
+              컨텐츠가 없습니다
+            </div>
+          )}
       </ul>
 
       {searchKeyword && <div ref={targetRef} className="h-6" />}

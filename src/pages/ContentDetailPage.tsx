@@ -19,6 +19,10 @@ const ContentDetailContainer = ({ contentId }: { contentId: string }) => {
     enabled: !!hasNextPage && !isFetchingNextPage,
   });
 
+  if (!content) {
+    return null;
+  }
+
   return (
     <ContentDetailLayout
       contentId={contentId}
@@ -34,11 +38,14 @@ const ContentDetailContainer = ({ contentId }: { contentId: string }) => {
 
 const ContentDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const contentId = id ?? "";
+
+  if (!id) {
+    return <div>잘못된 접근입니다.</div>;
+  }
 
   return (
     <AsyncBoundary>
-      <ContentDetailContainer contentId={contentId} />
+      <ContentDetailContainer contentId={id} />
     </AsyncBoundary>
   );
 };

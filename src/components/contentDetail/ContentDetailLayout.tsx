@@ -35,7 +35,7 @@ const ContentDetailLayout = ({
   };
 
   return (
-    <div className="relative w-full h-screen justify-center flex flex-col items-center">
+    <div className="relative w-full h-screen-mobile justify-center flex flex-col items-center">
       <ContentPoster posterUrl={content.posterUrl} />
       {/* X 버튼 */}
       <div className="absolute top-4 left-4 z-20">
@@ -50,12 +50,13 @@ const ContentDetailLayout = ({
       {/* 오버레이 컨텐츠 */}
       <div
         ref={rootRef}
-        className="relative z-10 px-8 mt-60 flex flex-col gap-6 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto hide-scrollbar">
+        className="relative z-10 px-8 mt-60 flex flex-col gap-8 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto hide-scrollbar">
         <ContentMainInfo
           contentTitle={content.contentTitle}
           contentCountry={content.contentCountry}
           contentGenres={content.contentGenres}
           contentRunningTime={content.contentRunningTime}
+          shortsId={content.shortsId}
         />
         {myReview == null && <ReviewForm contentId={contentId} />}
         <ContentDescription
