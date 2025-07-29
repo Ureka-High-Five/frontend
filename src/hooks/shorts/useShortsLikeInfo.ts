@@ -17,7 +17,7 @@ export function useShortsLikeInfo({
   const { shortsId } = reel;
 
   const likeData = useLikeQuery({
-    shortsId: String(shortsId),
+    shortsId,
     duration: LIKE_DURATION,
     enabled: isActive,
   });

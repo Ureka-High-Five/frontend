@@ -3,7 +3,7 @@ import { END_POINTS } from "@/constants/api";
 import type { ShortsLikeContent } from "@/types/shorts";
 
 export const getShortsLike = async (
-  shortsId: string,
+  shortsId: number,
   duration: string
 ): Promise<ShortsLikeContent> => {
   const response = await axiosInstance.get(`/${END_POINTS.SHORTS_LIKE}`, {

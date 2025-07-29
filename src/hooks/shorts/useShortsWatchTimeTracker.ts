@@ -6,7 +6,10 @@ interface Props {
   type?: "SHORTS" | "VIDEO";
 }
 
-export function useShortsWatchTimeTracker({ activeShortsId, type = "SHORTS" }: Props) {
+export function useShortsWatchTimeTracker({
+  activeShortsId,
+  type = "SHORTS",
+}: Props) {
   const prevShortsIdRef = useRef<string | undefined>(undefined);
   const prevActivatedAtRef = useRef<number>(performance.now());
 
