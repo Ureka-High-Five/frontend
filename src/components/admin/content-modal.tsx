@@ -55,6 +55,7 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
   const { content: contentDetail } = useContentDetailQuery(
     content?.contentId?.toString() ?? ""
   );
+
   const { mutatePostContent, isPosting } = usePostContentMutation();
   const { mutatePatchContent } = usePatchContent();
 
