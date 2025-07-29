@@ -9,7 +9,7 @@ export interface Content {
   actors: string[];
   director: string;
   openYear: string;
-  videoUrl?: string;
+  videoUrl: string;
   postUrl?: string;
   countryName?: string;
   totalRound?: number;

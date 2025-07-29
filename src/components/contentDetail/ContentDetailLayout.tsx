@@ -2,7 +2,7 @@ import { Loader2 } from "lucide-react";
 import type { Content, Review, MyReview } from "@/types/content";
 import ContentDescription from "./organism/ContentDescription";
 import ContentMainInfo from "./organism/ContentMainInfo";
-import ContentPoster from "./organism/ContentPoster";
+import ContentVideo from "./organism/ContentVideo";
 import ReviewForm from "./organism/ReviewForm";
 import ReviewList from "./organism/ReviewList";
 
@@ -27,8 +27,8 @@ const ContentDetailLayout = ({
 }: ContentDetailLayoutProps) => {
   return (
     <div className="relative w-full h-screen justify-center flex flex-col items-center">
-      <ContentPoster posterUrl={content.posterUrl} />
-      {/* 오버레이 컨텐츠 */}
+      <ContentVideo videoUrl={content.videoUrl} />
+      {/* 오버레이 콘텐츠 */}
       <div
         ref={rootRef}
         className="relative z-10 px-8 mt-60 flex flex-col gap-6 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto hide-scrollbar">
