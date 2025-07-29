@@ -31,7 +31,7 @@ export interface ContentCreateRequest {
   genres: string[];
   actors: string[];
   director: string;
-  trailerTime: numeber;
+  trailerTime: number;
 }
 
 export interface Review {
