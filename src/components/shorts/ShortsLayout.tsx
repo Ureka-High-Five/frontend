@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PATH } from "@/constants/path";
 import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
+import { useScrollSnap } from "@/hooks/shorts/useScrollSnap";
 import type { ShortsItem } from "@/types/shorts";
 import ReelCard from "./organism/ReelCard";
 
@@ -32,7 +33,11 @@ export default function ShortsLayout({
     delayMs: 300,
   });
 
-  const cardRef = cardRefs;
+  // 스크롤 스냅 훅 사용
+  useScrollSnap({
+    containerRef: rootRef,
+    cardRefs,
+  });
 
   // shorts 나가기 (홈으로 이동)
   const handleExitShorts = () => {
@@ -42,7 +47,7 @@ export default function ShortsLayout({
   return (
     <div
       ref={rootRef}
-      className="relative w-full h-screen-mobile overflow-y-scroll snap-y snap-mandatory">
+      className="relative w-full h-screen-mobile overflow-y-scroll">
       <div className="absolute top-4 left-2 z-10 text-white">
         <Button variant="ghost" onClick={handleExitShorts}>
           <X className="w-6 h-6" />
@@ -53,7 +58,8 @@ export default function ShortsLayout({
         <div
           key={reel.shortsId}
           ref={(el) => {
-            cardRef.current[idx] = el;
+            // eslint-disable-next-line no-param-reassign
+            cardRefs.current[idx] = el;
           }}>
           <ReelCard reel={reel} />
           {/* 마지막에서 세 번째 쇼츠에서 트리거 (더 빠른 로딩) */}

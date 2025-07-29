@@ -46,7 +46,7 @@ export default function ReelCard({ reel }: ReelCardProps) {
     setIsVideoLoaded(true);
   };
   return (
-    <div className="w-full h-screen-mobile snap-start relative bg-black overflow-hidden">
+    <div className="w-full h-screen-mobile relative bg-black overflow-hidden">
       {/* 이미지 & 비디오를 absolute로 겹침 */}
       <img
         src={reel.shortsThumbnail}
