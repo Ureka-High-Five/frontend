@@ -50,7 +50,7 @@ const ContentDetailLayout = ({
       />
       <div
         ref={rootRef}
-        className="relative z-10 px-8 mt-60 flex flex-col gap-8 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto hide-scrollbar">
+        className="relative z-10 px-8 mt-60 flex flex-col gap-8 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto hide-scrollbar bg-gradient-to-b from-transparent via-custom-black/50 to-custom-black">
         <ContentMainInfo
           contentTitle={content.contentTitle}
           contentCountry={content.contentCountry}

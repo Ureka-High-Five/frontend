@@ -26,9 +26,10 @@ const ContentVideo = ({ videoUrl, isMuted = true }: ContentVideoProps) => {
         muted={isMuted}
         playsInline
         loop
-        controls={false}
-      />
-      <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-b from-transparent to-custom-black" />
+        controls={false}>
+        <track kind="captions" />
+      </video>
+      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-b from-transparent via-custom-black/30 to-custom-black" />
     </div>
   );
 };

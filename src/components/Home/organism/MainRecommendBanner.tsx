@@ -1,5 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Volume2, VolumeX } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { PATH } from "@/constants/path";
 import { useAutoPlayVideo } from "@/hooks/common/useAutoPlayVideo";
 import type { MainRecommend } from "@/types/RecommendContentsResponse";
@@ -17,6 +19,7 @@ const MainRecommendBanner = ({ content }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
+  const [isMuted, setIsMuted] = useState(true);
 
   const isPlaying = useAutoPlayVideo({
     videoRef,
@@ -27,6 +30,11 @@ const MainRecommendBanner = ({ content }: Props) => {
 
   const handleClick = () => {
     navigate(PATH.CONTENT_DETAIL.replace(":id", String(content.contentId)));
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsMuted(!isMuted);
   };
 
   return (
@@ -47,18 +55,32 @@ const MainRecommendBanner = ({ content }: Props) => {
         <video
           ref={videoRef}
           poster={content.posterUrl}
-          muted
+          muted={isMuted}
           playsInline
           controls={false}
           preload="metadata"
-          className="w-full h-full object-cover"
-        />
+          className="w-full h-full object-fill">
+          <track kind="captions" />
+        </video>
 
         {isPlaying && (
           <div className="absolute top-[2px] left-1 text-white text-body-lg md:text-heading-h1 font-bmDohyeon">
             {content.title}
           </div>
         )}
+
+        <div className="absolute bottom-2 right-2 z-10">
+          <Button
+            variant="ghost"
+            onClick={toggleMute}
+            className="!text-white hover:bg-transparent bg-transparent">
+            {isMuted ? (
+              <VolumeX className="w-5 h-5" />
+            ) : (
+              <Volume2 className="w-5 h-5" />
+            )}
+          </Button>
+        </div>
 
         <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-b from-transparent to-custom-black" />
       </div>
