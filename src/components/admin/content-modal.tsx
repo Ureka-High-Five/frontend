@@ -33,7 +33,7 @@ interface ContentModalProps {
 
 export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
   const isEditMode = !!content;
-
+  if (isEditMode && !content?.contentId) return null;
   const [formData, setFormData] = useState<ContentCreateRequest>({
     title: "",
     description: "",
@@ -52,7 +52,9 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
   const [genreInput, setGenreInput] = useState("");
   const [actorInput, setActorInput] = useState("");
 
-  const { content: contentDetail } = useContentDetailQuery(content?.contentId);
+  const { content: contentDetail } = isEditMode
+    ? useContentDetailQuery(content!.contentId)
+    : { content: null };
   const { mutatePostContent, isPosting } = usePostContentMutation();
   const { mutatePatchContent } = usePatchContent();
 
