@@ -5,7 +5,7 @@ import { PATH } from "@/constants/path";
 import type { Content, Review, MyReview } from "@/types/content";
 import ContentDescription from "./organism/ContentDescription";
 import ContentMainInfo from "./organism/ContentMainInfo";
-import ContentPoster from "./organism/ContentPoster";
+import ContentVideo from "./organism/ContentVideo";
 import ReviewForm from "./organism/ReviewForm";
 import ReviewList from "./organism/ReviewList";
 
@@ -35,9 +35,8 @@ const ContentDetailLayout = ({
   };
 
   return (
-    <div className="relative w-full h-screen-mobile justify-center flex flex-col items-center">
-      <ContentPoster posterUrl={content.posterUrl} />
-      {/* X 버튼 */}
+    <div className="relative w-full h-screen justify-center flex flex-col items-center">
+      <ContentVideo videoUrl={content.videoUrl} />
       <div className="absolute top-4 left-4 z-20">
         <Button
           variant="ghost"
@@ -46,8 +45,6 @@ const ContentDetailLayout = ({
           <X className="w-6 h-6" />
         </Button>
       </div>
-
-      {/* 오버레이 컨텐츠 */}
       <div
         ref={rootRef}
         className="relative z-10 px-8 mt-60 flex flex-col gap-8 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto hide-scrollbar">

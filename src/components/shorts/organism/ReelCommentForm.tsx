@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useCommentMutation } from "@/hooks/queries/shorts/useCommentMutation";
+import type { CommentWithTime } from "@/types/shorts";
 
 interface ReelCommentFormProps {
   shortsId: number;
   videoRef: React.RefObject<HTMLVideoElement | null>;
+  onCommentSubmit?: (comment: CommentWithTime) => void;
 }
 
 export default function ReelCommentForm({
   shortsId,
   videoRef,
+  onCommentSubmit,
 }: ReelCommentFormProps) {
   const [text, setText] = useState("");
   const { mutatePostShortsComment, isPosting } = useCommentMutation();
@@ -20,15 +23,20 @@ export default function ReelCommentForm({
     e?: React.FormEvent | React.KeyboardEvent | React.MouseEvent
   ) => {
     e?.preventDefault();
-
     const trimmed = text.trim();
     if (!trimmed || !videoRef.current) return;
+    const time = Math.floor(videoRef.current.currentTime);
 
-    mutatePostShortsComment({
-      shortsId: shortsId,
-      time: Math.floor(videoRef.current.currentTime),
-      comment: trimmed,
-    });
+    mutatePostShortsComment(
+      { shortsId, time, comment: trimmed },
+      {
+        onSuccess: (comment) => {
+          if (onCommentSubmit) {
+            onCommentSubmit({ ...comment, time });
+          }
+        },
+      }
+    );
 
     setText("");
   };
@@ -55,8 +63,7 @@ export default function ReelCommentForm({
           disabled={!text.trim() || isPosting}
           size="icon"
           variant="ghost"
-          className="absolute right-2 top-1/2 -translate-y-1/2 text-white hover:text-white hover:bg-transparent body-sm-pretendard"
-        >
+          className="absolute right-2 top-1/2 -translate-y-1/2 text-white hover:text-white hover:bg-transparent body-sm-pretendard">
           <Send size={18} />
         </Button>
       </div>

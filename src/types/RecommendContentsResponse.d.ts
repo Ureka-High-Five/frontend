@@ -3,6 +3,8 @@ export interface MainRecommend {
   posterUrl: string;
   description: string;
   genre: string[];
+  title: string;
+  videoUrl: string;
 }
 
 export interface RecommendContent {
@@ -15,14 +17,14 @@ export interface RecommendGenreContent {
   contents: RecommendContent[];
 }
 
-type RecommendCuration = {
+export interface RecommendCuration {
   curationId: number;
   userId: number;
   userName: string;
   title: string;
-  thumbnailUrl: string;
   profileUrl: string;
-};
+  contents: RecommendContent[];
+}
 
 export interface RecommendContentsResponse {
   mainRecommend: MainRecommend;

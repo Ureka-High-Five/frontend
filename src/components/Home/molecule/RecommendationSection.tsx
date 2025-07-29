@@ -25,9 +25,12 @@ const RecommendationSection = ({
         <h2 className="heading-h2-pretendard mb-2">{title}</h2>
       )}
 
-      <ul className="flex overflow-x-auto gap-4 no-scrollbar md:gap-24">
+      <ul className="flex overflow-x-auto gap-4 no-scrollbar md:gap-10">
         {contents.map((content) => (
-          <li key={content.contentId} className="flex-shrink-0 w-[100px]">
+          <li
+            key={content.contentId}
+            className="flex-shrink-0"
+            style={{ width: "clamp(100px, 22vw, 160px)" }}>
             <ContentCard
               thumbnailUrl={content.thumbnailUrl}
               onClick={() =>

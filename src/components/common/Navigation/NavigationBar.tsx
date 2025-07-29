@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Tv, Zap } from "lucide-react";
 import NavItem from "@/components/common/Navigation/NavItem";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -7,19 +7,22 @@ import useUserInformationQuery from "@/hooks/queries/user/useUserInformationQuer
 
 const NavigationBar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { userInformation } = useUserInformationQuery();
 
   return (
-    <nav className="flex h-20 w-full py-4 justify-around bg-custom-darkgray/80">
+    <nav className="flex h-20 w-full py-4 justify-around bg-custom-darkgray/80 backdrop-blur-md transition-opacity duration-300">
       <NavItem
-        icon={<Tv className="stroke-white" />}
+        icon={<Tv className="stroke-current w-full h-full" />}
         label="HOME"
         onClick={() => navigate(PATH.HOME)}
+        active={location.pathname === PATH.HOME}
       />
       <NavItem
-        icon={<Zap className="stroke-white" />}
+        icon={<Zap className="stroke-current w-full h-full" />}
         label="SHORTS"
         onClick={() => navigate(PATH.SHORTS_LIST)}
+        active={location.pathname.startsWith("/shorts")}
       />
       <NavItem
         icon={
@@ -33,6 +36,7 @@ const NavigationBar = () => {
         }
         label="MY"
         onClick={() => navigate(PATH.MYPAGE)}
+        active={location.pathname === PATH.MYPAGE}
       />
     </nav>
   );
