@@ -2,6 +2,7 @@ export interface Curation {
   curationId: number;
   title: string;
   thumbnailUrl: string;
+  description: string;
 }
 
 export interface MyCurationResponse {
@@ -14,6 +15,7 @@ interface CurationDetail {
   id: number;
   title: string;
   thumbnailUrl: string;
+  description: string;
 }
 
 export interface CurationDetailResponse {
