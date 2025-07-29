@@ -42,10 +42,13 @@ const CurationForm = ({
           ref={descriptionRef}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          maxLength={50}
+          maxLength={100}
           placeholder="설명을 입력하세요"
           className="placeholder:text-gray-500 bg-white text-custom-black h-20 body-lg-pretendard no-scrollbar"
         />
+        <p className="text-right body-md-pretendard text-custom-gray">
+          {description.trim().length} / 100
+        </p>
       </div>
 
       <div className="flex flex-col gap-2">

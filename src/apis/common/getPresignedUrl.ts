@@ -6,8 +6,10 @@ interface PresignedUrlResponse {
   imageUrl: string;
 }
 
-const getPresignedUrl = async (): Promise<PresignedUrlResponse> => {
-  const response = await axiosInstance.get(END_POINTS.PRESIGNEDURL);
+const getPresignedUrl = async (type: string): Promise<PresignedUrlResponse> => {
+  const response = await axiosInstance.get(
+    `${END_POINTS.PRESIGNEDURL}/${type}`
+  );
 
   return response.data.content;
 };

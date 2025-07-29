@@ -4,9 +4,11 @@ import { AdminHeader } from "@/components/admin/header";
 import { AdminSidebar } from "@/components/admin/sidebar";
 import { UserManagement } from "@/components/admin/user-management";
 import { useIsMobile } from "@/hooks/common/useIsMobile";
+import useUserInformationQuery from "@/hooks/queries/user/useUserInformationQuery";
 
 export default function AdminPage() {
   const isMobile = useIsMobile();
+  const { userInformation } = useUserInformationQuery();
   const [activeTab, setActiveTab] = useState("content");
 
   if (isMobile) {
@@ -17,6 +19,17 @@ export default function AdminPage() {
           <p className="text-lg">
             관리자 페이지는 PC 화면에서만 접속 가능합니다.
           </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!userInformation || userInformation.role !== "ADMIN") {
+    return (
+      <div className="flex items-center justify-center h-screen w-full bg-white text-gray-800 text-center p-8">
+        <div>
+          <h2 className="text-2xl font-bold mb-4">🚫 접근 권한 없음</h2>
+          <p className="text-lg">관리자 권한이 필요합니다.</p>
         </div>
       </div>
     );

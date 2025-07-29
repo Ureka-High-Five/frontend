@@ -22,7 +22,7 @@ const SearchContentItem = ({
         <img
           src={thumbnailUrl}
           alt={title}
-          className="w-14 h-20 object-cover rounded-md flex-shrink-0"
+          className="w-14 h-20 object-cover rounded-md flex-shrink-0 md:w-20 md:h-28"
         />
         <div className="flex flex-col items-start justify-center text-left">
           <span className="text-white text-sm font-semibold">{title}</span>

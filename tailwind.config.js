@@ -9,6 +9,14 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      height: {
+        "screen-mobile": "100svh", // small viewport height - 모바일에서 안전한 높이
+        "screen-dynamic": "100dvh", // dynamic viewport height - 동적으로 변하는 높이
+      },
+      minHeight: {
+        "screen-mobile": "100svh",
+        "screen-dynamic": "100dvh",
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

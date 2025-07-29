@@ -7,7 +7,7 @@
   justify-content: center;
   box-sizing: border-box;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
 }
 
 .no-scrollbar::-webkit-scrollbar {

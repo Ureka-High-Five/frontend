@@ -14,6 +14,7 @@ export interface Content {
   countryName?: string;
   totalRound?: number;
   contentType?: string;
+  shortsId?: number;
 }
 
 export interface ContentCreateRequest {

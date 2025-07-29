@@ -14,11 +14,12 @@ const CurationDetailList = ({ curationId }: CurationDetailListProps) => {
           <img
             src={item.thumbnailUrl}
             alt={item.thumbnailUrl}
-            className="aspect-[3/2] w-[25%] min-w-[100px] rounded-md"
+            className="w-[100px] h-[150px] rounded-md"
           />
-          <span className="text-white body-md-pretendard py-2 whitespace-normal break-words flex-1">
-            {item.title}
-          </span>
+          <div className="flex flex-col flex-1 text-white py-1 gap-2 text-left">
+            <p className="body-lg-pretendard break-words">{item.title}</p>
+            <p className="body-md-pretendard break-words">{item.description}</p>
+          </div>
         </li>
       ))}
     </ul>
