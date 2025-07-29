@@ -28,7 +28,7 @@ const CurationTab = () => {
     <section className="flex flex-col h-full items-center pt-8 gap-8">
       <Button
         size="lg"
-        className="w-[90%] max-w-sm bg-custom-point text-custom-black body-lg-dohyeon flex items-center justify-center"
+        className="w-[90%] max-w-sm bg-custom-point text-custom-black body-lg-dohyeon flex items-center justify-center hover:bg-custom-point/90 hover:text-custom-black"
         onClick={open}>
         큐레이션 등록
       </Button>

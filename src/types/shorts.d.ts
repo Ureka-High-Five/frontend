@@ -3,6 +3,7 @@ export type VideoType = "VIDEO" | "SHORTS";
 export interface ShortsItem {
   shortsId: number;
   shortsUrl: string;
+  shortsThumbnail: string;
   contentId: number;
   contentTitle: string;
   liked: boolean;

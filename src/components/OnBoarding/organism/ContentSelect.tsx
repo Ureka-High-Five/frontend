@@ -73,7 +73,7 @@ const ContentSelect = ({
       <Button
         size="lg"
         disabled={selectedIds.length < REQUIRED_COUNT}
-        className="w-[90%] max-w-sm bg-custom-point text-custom-black body-lg-dohyeon flex items-center justify-center"
+        className="w-[90%] max-w-sm bg-custom-point text-custom-black body-lg-dohyeon flex items-center justify-center hover:bg-custom-point/90 hover:text-custom-black"
         onClick={onSubmitOnBoarding}>
         시작하기
       </Button>

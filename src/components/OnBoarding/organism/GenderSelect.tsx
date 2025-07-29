@@ -40,7 +40,7 @@ const GenderSelect = ({ setStep }: GenderSelectProps) => {
       {!!gender && (
         <Button
           size="lg"
-          className="w-full bg-custom-point text-custom-black body-lg-dohyeon"
+          className="w-full bg-custom-point text-custom-black body-lg-dohyeon hover:bg-custom-point/90 hover:text-custom-black"
           onClick={() => setStep("content")}>
           다음으로
         </Button>

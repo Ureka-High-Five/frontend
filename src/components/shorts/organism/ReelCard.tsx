@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ReelProgressBar from "@/components/shorts/molecules/ReelProgressBar";
 import { useCommentTimeline } from "@/hooks/shorts/useCommentTimeline";
@@ -15,6 +16,14 @@ export default function ReelCard({ reel }: ReelCardProps) {
   const { id: currentShortsId } = useParams<{ id: string }>();
   const isActive = String(reel.shortsId) === currentShortsId;
   const { isMuted } = useAudioStore();
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
+  // isActive가 변경될 때 비디오 로드 상태 초기화
+  useEffect(() => {
+    if (!isActive) {
+      setIsVideoLoaded(false);
+    }
+  }, [isActive]);
 
   const { videoRef, currentTime, duration, handleSeek } = useVideoPlayer(
     reel.shortsUrl,
@@ -33,9 +42,20 @@ export default function ReelCard({ reel }: ReelCardProps) {
     isActive,
   });
 
+  const handleVideoPlaying = () => {
+    setIsVideoLoaded(true);
+  };
   return (
-    <div className="w-full h-screen-mobile snap-start relative bg-black">
-      {isActive ? (
+    <div className="w-full h-screen-mobile relative bg-black overflow-hidden">
+      {/* 이미지 & 비디오를 absolute로 겹침 */}
+      <img
+        src={reel.shortsThumbnail}
+        alt="video thumbnail"
+        className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-500 ${
+          isActive && isVideoLoaded ? "opacity-0" : "opacity-100"
+        }`}
+      />
+      {isActive && (
         <video
           key={reel.shortsId}
           ref={videoRef}
@@ -44,13 +64,15 @@ export default function ReelCard({ reel }: ReelCardProps) {
           muted={isMuted}
           playsInline
           preload="auto"
-          className="object-cover w-full h-full"
-          controls={false}>
+          className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-500 ${
+            isVideoLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          controls={false}
+          onCanPlay={handleVideoPlaying}>
           <track kind="captions" />
         </video>
-      ) : (
-        <div className="object-cover w-full h-full bg-black" />
       )}
+
       <ReelOverlay
         title={reel.contentTitle}
         contentId={reel.contentId}

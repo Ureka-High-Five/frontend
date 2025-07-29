@@ -23,7 +23,10 @@ export function useActiveShortsId({
       (short) => String(short.shortsId) === currentShortsId
     );
     if (idx >= 0 && cardRefs.current[idx]) {
-      cardRefs.current[idx]?.scrollIntoView({ behavior: "auto" });
+      cardRefs.current[idx]?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }
   }, [currentShortsId, shortsToShow.length]);
 
@@ -40,7 +43,7 @@ export function useActiveShortsId({
             setActiveShortsId(shortsId);
           }
         },
-        { threshold: 0.7 }
+        { threshold: 0.5 }
       );
       observer.observe(ref);
       observers.push(observer);

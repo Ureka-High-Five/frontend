@@ -9,7 +9,7 @@ interface GetShortsParams {
 
 export const getShorts = async ({
   cursor,
-  size = 1,
+  size = 5,
 }: GetShortsParams): Promise<GetShortsResponse> => {
   const response = await axiosInstance.get(END_POINTS.SHORTS, {
     params: { cursor, size },

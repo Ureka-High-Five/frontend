@@ -83,7 +83,7 @@ const CreateCurationModal = ({ onClose }: CreateCurationModalProps) => {
           <Button
             type="submit"
             size="lg"
-            className="w-full bg-custom-point text-custom-black body-lg-dohyeon flex items-center justify-center">
+            className="w-full bg-custom-point text-custom-black body-lg-dohyeon flex items-center justify-center hover:bg-custom-point/90 hover:text-custom-black">
             등록
           </Button>
         </form>
