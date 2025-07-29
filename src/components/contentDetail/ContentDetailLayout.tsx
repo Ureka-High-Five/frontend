@@ -26,7 +26,7 @@ const ContentDetailLayout = ({
   isFetchingNextPage,
 }: ContentDetailLayoutProps) => {
   return (
-    <div className="relative w-full h-screen justify-center flex flex-col items-center">
+    <div className="relative w-full h-screen-mobile justify-center flex flex-col items-center">
       <ContentPoster posterUrl={content.posterUrl} />
       {/* 오버레이 컨텐츠 */}
       <div

@@ -32,7 +32,7 @@ export default function ReelCard({ reel }: ReelCardProps) {
   });
 
   return (
-    <div className="w-full h-screen snap-start relative bg-black">
+    <div className="w-full h-screen-mobile snap-start relative bg-black">
       {isActive ? (
         <video
           key={reel.shortsId}

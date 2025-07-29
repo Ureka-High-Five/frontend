@@ -31,7 +31,7 @@ export default function ShortsLayout({
   return (
     <div
       ref={rootRef}
-      className="relative w-full h-screen overflow-y-scroll snap-y snap-mandatory">
+      className="relative w-full h-screen-mobile overflow-y-scroll snap-y snap-mandatory">
       <div className="absolute top-4 left-4 z-10 text-white">
         <Button variant="ghost">
           <X className="w-6 h-6" />
