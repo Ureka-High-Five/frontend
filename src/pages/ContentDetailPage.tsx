@@ -19,6 +19,10 @@ const ContentDetailContainer = ({ contentId }: { contentId: string }) => {
     enabled: !!hasNextPage && !isFetchingNextPage,
   });
 
+  if (!content) {
+    return null;
+  }
+
   return (
     <ContentDetailLayout
       contentId={contentId}
