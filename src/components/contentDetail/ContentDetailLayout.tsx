@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Loader2, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 import { PATH } from "@/constants/path";
 import type { Content, Review, MyReview } from "@/types/content";
+import ContentDetailHeader from "./molecules/ContentDetailHeader";
 import ContentDescription from "./organism/ContentDescription";
 import ContentMainInfo from "./organism/ContentMainInfo";
 import ContentVideo from "./organism/ContentVideo";
@@ -29,22 +30,24 @@ const ContentDetailLayout = ({
   isFetchingNextPage,
 }: ContentDetailLayoutProps) => {
   const navigate = useNavigate();
+  const [isMuted, setIsMuted] = useState(true);
 
   const handleClose = () => {
     navigate(PATH.HOME);
   };
 
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
+
   return (
     <div className="relative w-full h-screen justify-center flex flex-col items-center">
-      <ContentVideo videoUrl={content.videoUrl} />
-      <div className="absolute top-4 left-4 z-20">
-        <Button
-          variant="ghost"
-          onClick={handleClose}
-          className="text-white hover:bg-white/20">
-          <X className="w-6 h-6" />
-        </Button>
-      </div>
+      <ContentVideo videoUrl={content.videoUrl} isMuted={isMuted} />
+      <ContentDetailHeader
+        onClose={handleClose}
+        isMuted={isMuted}
+        onToggleMute={toggleMute}
+      />
       <div
         ref={rootRef}
         className="relative z-10 px-8 mt-60 flex flex-col gap-8 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto hide-scrollbar">

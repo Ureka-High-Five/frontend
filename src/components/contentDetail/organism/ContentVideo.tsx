@@ -3,9 +3,10 @@ import { useAutoPlayVideo } from "@/hooks/common/useAutoPlayVideo";
 
 interface ContentVideoProps {
   videoUrl: string;
+  isMuted?: boolean;
 }
 
-const ContentVideo = ({ videoUrl }: ContentVideoProps) => {
+const ContentVideo = ({ videoUrl, isMuted = true }: ContentVideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -22,7 +23,7 @@ const ContentVideo = ({ videoUrl }: ContentVideoProps) => {
       <video
         ref={videoRef}
         className="w-full h-full object-cover"
-        muted
+        muted={isMuted}
         playsInline
         loop
         controls={false}
