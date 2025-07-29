@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ReelProgressBar from "@/components/shorts/molecules/ReelProgressBar";
 import { useCommentTimeline } from "@/hooks/shorts/useCommentTimeline";
@@ -18,6 +18,13 @@ export default function ReelCard({ reel }: ReelCardProps) {
   const { isMuted } = useAudioStore();
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
+  // isActive가 변경될 때 비디오 로드 상태 초기화
+  useEffect(() => {
+    if (!isActive) {
+      setIsVideoLoaded(false);
+    }
+  }, [isActive]);
+
   const { videoRef, currentTime, duration, handleSeek } = useVideoPlayer(
     reel.shortsUrl,
     isActive
@@ -36,7 +43,6 @@ export default function ReelCard({ reel }: ReelCardProps) {
   });
 
   const handleVideoPlaying = () => {
-    console.log("handleVideoPlaying");
     setIsVideoLoaded(true);
   };
   return (
