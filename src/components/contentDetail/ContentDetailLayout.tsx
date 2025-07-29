@@ -1,4 +1,7 @@
-import { Loader2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Loader2, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { PATH } from "@/constants/path";
 import type { Content, Review, MyReview } from "@/types/content";
 import ContentDescription from "./organism/ContentDescription";
 import ContentMainInfo from "./organism/ContentMainInfo";
@@ -25,18 +28,35 @@ const ContentDetailLayout = ({
   targetRef,
   isFetchingNextPage,
 }: ContentDetailLayoutProps) => {
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    navigate(PATH.HOME);
+  };
+
   return (
-    <div className="relative w-full h-screen justify-center flex flex-col items-center">
+    <div className="relative w-full h-screen-mobile justify-center flex flex-col items-center">
       <ContentPoster posterUrl={content.posterUrl} />
+      {/* X 버튼 */}
+      <div className="absolute top-4 left-4 z-20">
+        <Button
+          variant="ghost"
+          onClick={handleClose}
+          className="text-white hover:bg-white/20">
+          <X className="w-6 h-6" />
+        </Button>
+      </div>
+
       {/* 오버레이 컨텐츠 */}
       <div
         ref={rootRef}
-        className="relative z-10 px-8 mt-60 flex flex-col gap-6 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto hide-scrollbar">
+        className="relative z-10 px-8 mt-60 flex flex-col gap-8 md:mt-96 max-w-[768px] w-full mx-auto overflow-y-auto hide-scrollbar">
         <ContentMainInfo
           contentTitle={content.contentTitle}
           contentCountry={content.contentCountry}
           contentGenres={content.contentGenres}
           contentRunningTime={content.contentRunningTime}
+          shortsId={content.shortsId}
         />
         {myReview == null && <ReviewForm contentId={contentId} />}
         <ContentDescription

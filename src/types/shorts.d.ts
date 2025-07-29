@@ -45,7 +45,7 @@ export interface CommentWithTime extends Comment {
 }
 
 export interface ShortsDuration {
-  shortsId: string;
+  shortsId: number;
   duration: string;
 }
 

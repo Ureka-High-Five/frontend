@@ -25,7 +25,7 @@ const RecommendationSection = ({
         <h2 className="heading-h2-pretendard mb-2">{title}</h2>
       )}
 
-      <ul className="flex overflow-x-auto gap-2 no-scrollbar">
+      <ul className="flex overflow-x-auto gap-4 no-scrollbar md:gap-24">
         {contents.map((content) => (
           <li key={content.contentId} className="flex-shrink-0 w-[100px]">
             <ContentCard

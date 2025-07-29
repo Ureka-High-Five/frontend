@@ -9,7 +9,7 @@ const HomePage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   return (
-    <div className="relative bg-black text-white h-screen flex flex-col overflow-hidden">
+    <div className="relative bg-black text-white h-screen-mobile flex flex-col overflow-hidden">
       <Header scrolled={isScrolled} />
       <AsyncBoundary ErrorFallbackComponent={HomeErrorFallback}>
         <HomeContentContainer onScrollChange={setIsScrolled} />

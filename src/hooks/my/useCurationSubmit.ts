@@ -65,7 +65,7 @@ const useCurationSubmit = ({
       return;
     }
 
-    const thumbnailUrl = await uploadFile(file);
+    const thumbnailUrl = await uploadFile(file, "image");
     if (thumbnailUrl) {
       mutateCreateMyCuration({
         title,

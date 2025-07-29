@@ -5,9 +5,9 @@ import { makeToast } from "@/utils/makeToast";
 const useFileUpload = () => {
   const { mutateFileUpload } = useFileUploadMutation();
 
-  const uploadFile = async (file: File) => {
+  const uploadFile = async (file: File, type: string) => {
     try {
-      const { presignedUrl, imageUrl } = await getPresignedUrl();
+      const { presignedUrl, imageUrl } = await getPresignedUrl(type);
       await mutateFileUpload({ presignedUrl, file });
 
       return imageUrl;

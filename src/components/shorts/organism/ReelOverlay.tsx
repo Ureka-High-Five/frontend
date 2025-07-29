@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart } from "lucide-react";
+import { Heart, Volume2, VolumeX } from "lucide-react";
 import AvatarWithText from "@/components/common/AvatarWithText";
 import ReelTitle from "@/components/shorts/atom/ReelTitle";
 
@@ -17,6 +17,7 @@ import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver"
 import { useCommentInfiniteQuery } from "@/hooks/queries/shorts/useCommentInfiniteQuery";
 import { useDislikeMutation } from "@/hooks/queries/shorts/useDislikeMutation";
 import { useLikeMutation } from "@/hooks/queries/shorts/useLikeMutation";
+import { useAudioStore } from "@/stores/useAudioStore";
 import type { CommentWithTime } from "@/types/shorts";
 import ReelCommentForm from "./ReelCommentForm";
 
@@ -48,12 +49,17 @@ export default function ReelOverlay({
   const [activeComment, setActiveComment] = useState<CommentWithTime | null>(
     null
   );
+  const { isMuted, setMuted } = useAudioStore();
 
   useEffect(() => {
     if (!isDrawerOpen && comment) {
       setActiveComment(comment);
     }
   }, [isDrawerOpen, comment]);
+
+  const handleMuteToggle = () => {
+    setMuted(!isMuted);
+  };
 
   const {
     allComments,
@@ -160,6 +166,18 @@ export default function ReelOverlay({
       <div className="flex items-center justify-between pt-2">
         <ReelTitle title={title} onClick={handleTitleClick} />
         <div className="flex items-center gap-1 relative">
+          <button
+            type="button"
+            onClick={handleMuteToggle}
+            className="relative"
+            aria-label="소리 토글"
+            disabled={isLiking || isDisliking}>
+            {isMuted ? (
+              <VolumeX className="w-5 h-5 text-white" />
+            ) : (
+              <Volume2 className="w-5 h-5 text-white" />
+            )}
+          </button>
           <button
             type="button"
             onClick={handleHeartClick}

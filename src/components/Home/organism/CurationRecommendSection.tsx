@@ -1,5 +1,5 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import RecommendationSection from "@/components/Home/molecule/RecommendationSection";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { RecommendCuration } from "@/types/RecommendContentsResponse";
 
 interface Props {
