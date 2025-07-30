@@ -1,8 +1,4 @@
 import type { MutableRefObject } from "react";
-import { useNavigate } from "react-router-dom";
-import { X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { PATH } from "@/constants/path";
 import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
 import { useScrollSnap } from "@/hooks/shorts/useScrollSnap";
 import type { ShortsItem } from "@/types/shorts";
@@ -23,8 +19,6 @@ export default function ShortsLayout({
   isLoading,
   cardRefs,
 }: ShortsLayoutProps) {
-  const navigate = useNavigate();
-
   const { rootRef, targetRef } = useIntersectionObserver({
     onIntersect: fetchNextPage,
     hasNextPage,
@@ -39,24 +33,10 @@ export default function ShortsLayout({
     cardRefs,
   });
 
-  // shorts 나가기 (홈으로 이동)
-  const handleExitShorts = () => {
-    navigate(PATH.HOME);
-  };
-
   return (
     <div
       ref={rootRef}
       className="relative w-full h-screen-mobile overflow-y-scroll">
-      <div className="absolute top-4 left-2 z-10">
-        <Button
-          variant="ghost"
-          onClick={handleExitShorts}
-          className="text-white hover:bg-white/20 hover:text-white">
-          <X className="w-6 h-6" />
-        </Button>
-      </div>
-
       {shorts.map((reel, idx) => (
         <div
           key={reel.shortsId}

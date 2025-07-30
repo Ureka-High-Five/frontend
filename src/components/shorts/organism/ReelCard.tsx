@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { X } from "lucide-react";
 import ReelProgressBar from "@/components/shorts/molecules/ReelProgressBar";
+import { Button } from "@/components/ui/button";
+import { PATH } from "@/constants/path";
 import { useCommentTimeline } from "@/hooks/shorts/useCommentTimeline";
 import { useShortsLikeInfo } from "@/hooks/shorts/useShortsLikeInfo";
 import { useVideoPlayer } from "@/hooks/shorts/useVideoPlayer";
@@ -16,6 +19,7 @@ export default function ReelCard({ reel }: ReelCardProps) {
   const { id: currentShortsId } = useParams<{ id: string }>();
   const isActive = String(reel.shortsId) === currentShortsId;
   const { isMuted } = useAudioStore();
+  const navigate = useNavigate();
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   // isActive가 변경될 때 비디오 로드 상태 초기화
@@ -45,8 +49,21 @@ export default function ReelCard({ reel }: ReelCardProps) {
   const handleVideoPlaying = () => {
     setIsVideoLoaded(true);
   };
+
+  const handleExitShorts = () => {
+    navigate(PATH.HOME);
+  };
+
   return (
     <div className="w-full h-screen-mobile relative bg-black overflow-hidden">
+      <div className="absolute top-4 left-2 z-30">
+        <Button
+          variant="ghost"
+          onClick={handleExitShorts}
+          className="text-white hover:bg-white/20 hover:text-white">
+          <X className="w-6 h-6" />
+        </Button>
+      </div>
       {/* 이미지 & 비디오를 absolute로 겹침 */}
       <img
         src={reel.shortsThumbnail}
