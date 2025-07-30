@@ -51,12 +51,17 @@ export default function SearchContentList() {
             onClick={handleItemClick}
           />
         ))}
+
         {searchKeyword &&
           searchContents.length === 0 &&
           !isFetchingNextPage && (
-            <div className="text-center text-gray-400 py-28">
-              컨텐츠가 없습니다
-            </div>
+            <p className="body-lg-pretendard text-center text-custom-gray py-28">
+              검색 결과가 없어요
+              <br />
+              <span className="body-md-pretendard mt-2">
+                다른 키워드로 다시 검색해보세요!
+              </span>
+            </p>
           )}
       </ul>
 

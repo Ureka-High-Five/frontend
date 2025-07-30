@@ -69,6 +69,18 @@ const ContentSelect = ({
             <Loader2 className="h-10 w-10 animate-spin text-custom-point mb-4" />
           </div>
         )}
+
+        {searchKeyword &&
+          searchContents.length === 0 &&
+          !isFetchingNextPage && (
+            <p className="body-lg-pretendard text-center text-custom-gray py-28">
+              검색 결과가 없어요
+              <br />
+              <span className="body-md-pretendard mt-2">
+                다른 키워드로 다시 검색해보세요!
+              </span>
+            </p>
+          )}
       </div>
       <Button
         size="lg"
