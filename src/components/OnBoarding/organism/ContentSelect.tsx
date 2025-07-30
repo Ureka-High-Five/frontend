@@ -48,7 +48,7 @@ const ContentSelect = ({
           rootRef.current = el;
           scrollContainerRef.current = el;
         }}
-        className="w-[90%] max-w-sm overflow-y-auto no-scrollbar flex-1">
+        className="w-[90%] max-w-sm overflow-y-auto overflow-x-hidden no-scrollbar flex-1">
         <ul className="grid grid-cols-3 gap-x-10 gap-y-6">
           {displayContents.map((content) => (
             <OnBoardingContentCard
