@@ -23,6 +23,7 @@ export const END_POINTS = {
   MY_CURATION: "curation/me",
   CURATION: "curation",
   PRESIGNEDURL_CURATION: "s3/presignedUrl/curation",
+  PRESIGNEDURL_CONTENT: "s3/presignedUrl/contents",
   SHORTS_COMMENT_TIMELINE: (shortsId: number) => `/shorts/${shortsId}/comments`,
   WATCH_LOG: "content/watch-log",
   USER_REVIEW: "user/reviews",
