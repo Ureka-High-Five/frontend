@@ -11,12 +11,12 @@ const SelectedContentList = ({
   onRemove,
 }: SelectedContentListProps) => {
   return (
-    <div className="h-[120px] flex items-center overflow-x-auto no-scrollbar">
+    <div className="h-[100px] md:h-[120px] flex items-center overflow-x-auto no-scrollbar">
       {selectedContents.length > 0 ? (
         selectedContents.map((content) => (
           <div
             key={content.contentId}
-            className="relative flex-shrink-0 w-20 aspect-[2/3] rounded-md overflow-hidden mr-2">
+            className="relative flex-shrink-0 w-16 md:w-20 aspect-[2/3] rounded-md overflow-hidden mr-2">
             <img
               src={content.thumbnailUrl}
               alt={content.title}
