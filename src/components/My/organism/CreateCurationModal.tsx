@@ -18,6 +18,7 @@ const CreateCurationModal = ({ onClose }: CreateCurationModalProps) => {
   const [description, setDescription] = useState("");
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const { contentId, selectedContents, toggleSelect } = useContentSelector();
   const { handleSubmit } = useCurationSubmit({
@@ -63,6 +64,7 @@ const CreateCurationModal = ({ onClose }: CreateCurationModalProps) => {
             setSearchInput={setSearchInput}
             titleRef={titleRef}
             descriptionRef={descriptionRef}
+            searchInputRef={searchInputRef}
           />
 
           <SelectedContentList
