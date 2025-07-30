@@ -84,6 +84,12 @@ const ContentSelect = ({
     return () => container.removeEventListener("scroll", handleScroll);
   }, [showNewContentNotice]);
 
+  useEffect(() => {
+    if (searchKeyword.length > 0 && showNewContentNotice) {
+      setShowNewContentNotice(false);
+    }
+  }, [searchKeyword, showNewContentNotice]);
+
   const scrollToBottom = () => {
     const container = scrollContainerRef.current;
 
