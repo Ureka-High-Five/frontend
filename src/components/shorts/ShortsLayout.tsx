@@ -22,11 +22,18 @@ export default function ShortsLayout({
   const triggerIndex = Math.max(0, shorts.length - 3);
 
   const { rootRef, targetRef } = useIntersectionObserver({
-    onIntersect: fetchNextPage,
+    onIntersect: () => {
+      // DOM 업데이트를 보장하기 위한 setTimeout
+      setTimeout(() => {
+        if (hasNextPage && !isLoading) {
+          fetchNextPage();
+        }
+      }, 0);
+    },
     hasNextPage,
     enabled: !isLoading && !!hasNextPage,
     threshold: 0.1,
-    delayMs: 300,
+    delayMs: 100,
   });
 
   // 스크롤 스냅 훅 사용
@@ -41,7 +48,7 @@ export default function ShortsLayout({
       className="relative w-full h-screen-mobile overflow-y-scroll">
       {shorts.map((reel, idx) => (
         <div
-          key={reel.shortsId}
+          key={`${reel.shortsId}-${shorts.length}`} // 더 안정적인 key
           ref={(el) => {
             // eslint-disable-next-line no-param-reassign
             cardRefs.current[idx] = el;

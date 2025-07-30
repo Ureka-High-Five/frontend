@@ -4,8 +4,8 @@ import { useShortsInfiniteQuery } from "@/hooks/queries/shorts/useShortsInfinite
 
 export function useShortsToShow(currentShortsId?: string) {
   const { shorts, fetchNextPage, hasNextPage, isLoading } =
-    useShortsInfiniteQuery(); 
-    
+    useShortsInfiniteQuery();
+
   const alreadyHasShort = useMemo(
     () => shorts.some((s) => String(s.shortsId) === currentShortsId),
     [shorts, currentShortsId]
