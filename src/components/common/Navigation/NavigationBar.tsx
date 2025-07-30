@@ -22,7 +22,7 @@ const NavigationBar = () => {
         icon={<Zap className="stroke-current w-full h-full" />}
         label="SHORTS"
         onClick={() => navigate(PATH.SHORTS_LIST)}
-        active={location.pathname.startsWith("/shorts")}
+        active={location.pathname === PATH.SHORTS_LIST}
       />
       <NavItem
         icon={
