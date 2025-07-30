@@ -18,7 +18,7 @@ export default function ReelProgressBar({
   };
 
   return (
-    <div className="absolute bottom-3 left-4 right-4 z-10">
+    <div className="absolute bottom-3 left-4 right-4 z-20">
       <input
         type="range"
         min={0}
