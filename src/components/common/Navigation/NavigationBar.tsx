@@ -11,7 +11,7 @@ const NavigationBar = () => {
   const { userInformation } = useUserInformationQuery();
 
   return (
-    <nav className="flex h-20 w-full py-4 justify-around bg-custom-darkgray/80 backdrop-blur-md transition-opacity duration-300">
+    <nav className="flex h-20 w-full py-4 items-center justify-around bg-custom-darkgray/80 backdrop-blur-md transition-opacity duration-300">
       <NavItem
         icon={<Tv className="stroke-current w-full h-full" />}
         label="HOME"
@@ -22,7 +22,7 @@ const NavigationBar = () => {
         icon={<Zap className="stroke-current w-full h-full" />}
         label="SHORTS"
         onClick={() => navigate(PATH.SHORTS_LIST)}
-        active={location.pathname.startsWith("/shorts")}
+        active={location.pathname === PATH.SHORTS_LIST}
       />
       <NavItem
         icon={

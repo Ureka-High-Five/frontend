@@ -9,7 +9,7 @@ interface NavItemProps {
 
 const NavItem = ({ icon, label, onClick, active }: NavItemProps) => (
   <Button
-    className={`flex flex-col flex-1 items-center hover:bg-transparent transition-colors duration-300 ${
+    className={`flex flex-col flex-1 items-center hover:bg-transparent transition-colors duration-300 hover:text-custom-point ${
       active ? "text-custom-point" : "text-white"
     }`}
     variant="ghost"

@@ -59,7 +59,7 @@ const MainRecommendBanner = ({ content }: Props) => {
           playsInline
           controls={false}
           preload="metadata"
-          className="w-full h-full object-fill">
+          className="w-full h-full object-fit">
           <track kind="captions" />
         </video>
 
