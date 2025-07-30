@@ -11,6 +11,7 @@ export const useMyReviewMutation = (contentId: string) => {
     mutationFn: (body: PostMyReviewRequest) => postMyReview(body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["myReview", contentId] });
+      queryClient.invalidateQueries({ queryKey: ["userReview"] });
       makeToast("리뷰 작성 성공", "success");
     },
   });
