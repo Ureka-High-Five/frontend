@@ -18,7 +18,7 @@ export function useActiveShortsId({
 
   // 최초 진입 시 해당 id로 스크롤
   useEffect(() => {
-    if (!currentShortsId) return;
+    if (!currentShortsId || shortsToShow.length === 0) return;
     const idx = shortsToShow.findIndex(
       (short) => String(short.shortsId) === currentShortsId
     );
