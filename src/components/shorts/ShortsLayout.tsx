@@ -29,8 +29,6 @@ export default function ShortsLayout({
     onIntersect: fetchNextPage,
     hasNextPage,
     enabled: !isLoading && !!hasNextPage,
-    threshold: 0.1,
-    delayMs: 300,
   });
 
   // 스크롤 스냅 훅 사용
