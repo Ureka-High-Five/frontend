@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postMyReview } from "@/apis/content/postMyReview";
+import { makeToast } from "@/utils/makeToast";
 import type { PostMyReviewRequest } from "@/types/content";
 
 export const useMyReviewMutation = (contentId: string) => {
@@ -10,6 +11,7 @@ export const useMyReviewMutation = (contentId: string) => {
     mutationFn: (body: PostMyReviewRequest) => postMyReview(body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["myReview", contentId] });
+      makeToast("리뷰 작성 성공", "success");
     },
   });
 
