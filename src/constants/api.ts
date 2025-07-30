@@ -22,7 +22,7 @@ export const END_POINTS = {
   SHORTS_COMMENT: "shorts/comment",
   MY_CURATION: "curation/me",
   CURATION: "curation",
-  PRESIGNEDURL: "s3/presignedUrl",
+  PRESIGNEDURL_CURATION: "s3/presignedUrl/curation",
   SHORTS_COMMENT_TIMELINE: (shortsId: number) => `/shorts/${shortsId}/comments`,
   WATCH_LOG: "content/watch-log",
   USER_REVIEW: "user/reviews",
