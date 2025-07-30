@@ -19,6 +19,8 @@ export default function ShortsLayout({
   isLoading,
   cardRefs,
 }: ShortsLayoutProps) {
+  const triggerIndex = Math.max(0, shorts.length - 3);
+
   const { rootRef, targetRef } = useIntersectionObserver({
     onIntersect: fetchNextPage,
     hasNextPage,
@@ -46,12 +48,9 @@ export default function ShortsLayout({
           }}>
           <ReelCard reel={reel} />
           {/* 마지막에서 세 번째 쇼츠에서 트리거 (더 빠른 로딩) */}
-          {idx === shorts.length - 3 && <div ref={targetRef} className="h-1" />}
+          {idx === triggerIndex && <div ref={targetRef} className="h-1" />}
         </div>
       ))}
-
-      {/* 마지막 쇼츠가 3개 이하로 남았을 때를 위한 fallback */}
-      {shorts.length <= 3 && <div ref={targetRef} className="h-1" />}
     </div>
   );
 }
