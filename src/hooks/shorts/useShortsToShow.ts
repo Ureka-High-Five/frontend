@@ -6,8 +6,15 @@ export function useShortsToShow(currentShortsId?: string) {
   const { shorts, fetchNextPage, hasNextPage, isLoading } =
     useShortsInfiniteQuery();
 
+  // 타입 안전한 ID 비교 함수
+  const isSameShortsId = (shortsId: number, targetId: string) => {
+    return String(shortsId) === targetId && targetId !== "";
+  };
+
   const alreadyHasShort = useMemo(
-    () => shorts.some((s) => String(s.shortsId) === currentShortsId),
+    () =>
+      !!currentShortsId &&
+      shorts.some((s) => isSameShortsId(s.shortsId, currentShortsId)),
     [shorts, currentShortsId]
   );
 
@@ -36,7 +43,7 @@ export function useShortsToShow(currentShortsId?: string) {
     if (singleShorts) {
       return [
         singleShorts,
-        ...shorts.filter((s) => String(s.shortsId) !== currentShortsId),
+        ...shorts.filter((s) => !isSameShortsId(s.shortsId, currentShortsId)),
       ];
     }
 
