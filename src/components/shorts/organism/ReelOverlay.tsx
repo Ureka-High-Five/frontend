@@ -126,7 +126,7 @@ export default function ReelOverlay({
                     <AvatarWithText
                       avatarUrl={visibleComment.profileUrl}
                       subText={visibleComment.comment}
-                      className="bg-gray-500/30 px-3 py-2 rounded-xl w-full"
+                      className="bg-gray-500/30 px-3 py-2 rounded-full max-w-fit inline-flex"
                     />
                   </motion.div>
                 )}
@@ -174,7 +174,7 @@ export default function ReelOverlay({
         </Drawer>
       </div>
 
-      <div className="flex items-center justify-between pt-2">
+      <div className="flex items-center justify-between">
         <ReelTitle title={title} onClick={handleTitleClick} />
         <div className="flex items-center gap-1 relative">
           <button

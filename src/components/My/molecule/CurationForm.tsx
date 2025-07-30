@@ -10,6 +10,7 @@ interface CurationFormProps {
   setSearchInput: (value: string) => void;
   titleRef: React.RefObject<HTMLInputElement | null>;
   descriptionRef: React.RefObject<HTMLTextAreaElement | null>;
+  searchInputRef: React.RefObject<HTMLInputElement | null>;
 }
 
 const CurationForm = ({
@@ -21,6 +22,7 @@ const CurationForm = ({
   setSearchInput,
   titleRef,
   descriptionRef,
+  searchInputRef,
 }: CurationFormProps) => {
   return (
     <>
@@ -54,10 +56,17 @@ const CurationForm = ({
       <div className="flex flex-col gap-2">
         <p className="body-lg-pretendard text-white">콘텐츠 검색</p>
         <Input
+          ref={searchInputRef}
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="좋아하는 작품을 검색해보세요"
           className="placeholder:text-gray-500 bg-white text-custom-black h-10 body-lg-pretendard"
+          onFocus={() => {
+            searchInputRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }}
         />
       </div>
     </>

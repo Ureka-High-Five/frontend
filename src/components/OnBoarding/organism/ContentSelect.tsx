@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
 import OnBoardingContentCard from "@/components/OnBoarding/molecule/OnBoardingContentCard";
 import { Button } from "@/components/ui/button";
@@ -32,7 +33,71 @@ const ContentSelect = ({
     rootRef,
     targetRef,
   } = useSearchContent(ONBOARDING_SEARCH_COUNT);
+
   const displayContents = searchKeyword.length > 0 ? searchContents : contents;
+  const prevContentLengthRef = useRef(displayContents.length);
+  const [showNewContentNotice, setShowNewContentNotice] = useState(false);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const isAtBottom =
+      container.scrollHeight - container.scrollTop - container.clientHeight <
+      250;
+
+    if (
+      searchKeyword.length === 0 &&
+      displayContents.length > prevContentLengthRef.current
+    ) {
+      if (!isAtBottom) {
+        setShowNewContentNotice(true);
+      } else {
+        requestAnimationFrame(() => {
+          container.scrollTo({
+            top: container.scrollHeight,
+            behavior: "smooth",
+          });
+        });
+      }
+    }
+
+    prevContentLengthRef.current = displayContents.length;
+  }, [displayContents.length]);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const scrollGap =
+        container.scrollHeight - container.scrollTop - container.clientHeight;
+
+      if (scrollGap <= 150 && showNewContentNotice) {
+        setShowNewContentNotice(false);
+      }
+    };
+
+    container.addEventListener("scroll", handleScroll);
+
+    // eslint-disable-next-line consistent-return
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [showNewContentNotice]);
+
+  useEffect(() => {
+    if (searchKeyword.length > 0 && showNewContentNotice) {
+      setShowNewContentNotice(false);
+    }
+  }, [searchKeyword, showNewContentNotice]);
+
+  const scrollToBottom = () => {
+    const container = scrollContainerRef.current;
+
+    if (container) {
+      container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+      setShowNewContentNotice(false);
+    }
+  };
 
   return (
     <>
@@ -48,8 +113,8 @@ const ContentSelect = ({
           rootRef.current = el;
           scrollContainerRef.current = el;
         }}
-        className="w-[90%] max-w-sm overflow-y-auto no-scrollbar flex-1">
-        <ul className="grid grid-cols-3 gap-10">
+        className="relative w-[90%] max-w-sm overflow-y-auto overflow-x-hidden no-scrollbar flex-1">
+        <ul className="grid grid-cols-3 gap-x-10 gap-y-6">
           {displayContents.map((content) => (
             <OnBoardingContentCard
               key={content.contentId}
@@ -69,7 +134,33 @@ const ContentSelect = ({
             <Loader2 className="h-10 w-10 animate-spin text-custom-point mb-4" />
           </div>
         )}
+
+        {searchKeyword &&
+          searchContents.length === 0 &&
+          !isFetchingNextPage && (
+            <p className="body-lg-pretendard text-center text-custom-gray py-28">
+              검색 결과가 없어요
+              <br />
+              <span className="body-md-pretendard mt-2">
+                다른 키워드로 다시 검색해보세요!
+              </span>
+            </p>
+          )}
       </div>
+
+      {showNewContentNotice && (
+        <div className="fixed bottom-[96px] z-20">
+          <Button
+            variant="ghost"
+            className="body-md-pretendard px-8 py-2 rounded-lg
+                 bg-white/60 backdrop-blur-sm shadow-lg
+                 text-custom-black transition hover:bg-white/80"
+            onClick={scrollToBottom}>
+            🎬 새로운 콘텐츠가 추가됐어요
+          </Button>
+        </div>
+      )}
+
       <Button
         size="lg"
         disabled={selectedIds.length < REQUIRED_COUNT}
