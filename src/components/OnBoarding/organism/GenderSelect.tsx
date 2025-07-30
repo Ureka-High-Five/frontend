@@ -19,7 +19,7 @@ const GenderSelect = ({ setStep }: GenderSelectProps) => {
   const setGender = useUserStore((state) => state.setGender);
 
   return (
-    <div className="flex flex-col gap-6 w-[90%] max-w-sm">
+    <div className="flex flex-col gap-9 w-[90%] max-w-sm">
       <Select
         value={gender}
         onValueChange={(value: "MALE" | "FEMALE") => setGender(value)}>
