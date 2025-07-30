@@ -88,5 +88,5 @@ export function useHlsMedia(
       });
       if (hls) hls.destroy();
     };
-  }, [videoUrl, videoRef, isActive]);
+  }, [videoUrl, videoRef, isActive, userBehavior]);
 }
