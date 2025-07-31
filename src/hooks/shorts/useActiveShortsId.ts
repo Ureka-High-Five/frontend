@@ -16,16 +16,18 @@ export function useActiveShortsId({
     currentShortsId
   );
   const initialScrollCompleted = useRef(false);
+  const hasRedirected = useRef(false); // 리다이렉트 완료 여부 추적
 
   // 타입 안전한 ID 비교 함수
   const isSameShortsId = (shortsId: number, targetId: string) => {
     return String(shortsId) === targetId && targetId !== "";
   };
 
-  // /shorts 경로로 접근했을 때 첫 번째 영상으로 자동 리다이렉트
+  // /shorts 경로로 접근했을 때 첫 번째 영상으로 자동 리다이렉트 (한 번만)
   useEffect(() => {
-    if (!currentShortsId && shortsToShow.length > 0) {
+    if (!currentShortsId && shortsToShow.length > 0 && !hasRedirected.current) {
       const firstShortsId = String(shortsToShow[0].shortsId);
+      hasRedirected.current = true;
       navigate(`/shorts/${firstShortsId}`, { replace: true });
     }
   }, [currentShortsId, shortsToShow, navigate]);
