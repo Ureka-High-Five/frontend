@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ContentCard from "@/components/Home/atom/ContentCard";
 import { PATH } from "@/constants/path";
 import type { RecommendContent } from "@/types/RecommendContentsResponse";
@@ -14,13 +14,10 @@ const RecommendationSection = ({
   customHeader,
   contents,
 }: RecommendationSectionProps) => {
-  const navigate = useNavigate();
   return (
     <section className="mt-6">
       {customHeader ? (
-        <div className="flex items-center gap-2 heading-h2-pretendard mb-2">
-          {customHeader}
-        </div>
+        <div className="mb-2">{customHeader}</div>
       ) : (
         <h2 className="heading-h2-pretendard mb-2">{title}</h2>
       )}
@@ -31,14 +28,11 @@ const RecommendationSection = ({
             key={content.contentId}
             className="flex-shrink-0"
             style={{ width: "clamp(100px, 22vw, 160px)" }}>
-            <ContentCard
-              thumbnailUrl={content.thumbnailUrl}
-              onClick={() =>
-                navigate(
-                  PATH.CONTENT_DETAIL.replace(":id", String(content.contentId))
-                )
-              }
-            />
+            <Link
+              to={PATH.CONTENT_DETAIL.replace(":id", String(content.contentId))}
+              className="block focus:outline-none focus-visible:ring-2 ring-offset-2 ring-custom-point">
+              <ContentCard thumbnailUrl={content.thumbnailUrl} />
+            </Link>
           </li>
         ))}
       </ul>

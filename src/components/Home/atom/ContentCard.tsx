@@ -3,18 +3,11 @@ import LazyImage from "@/components/common/atom/LazyImage";
 interface ContentCardProps {
   thumbnailUrl: string;
   width?: string;
-  onClick?: () => void;
 }
 
-const ContentCard = ({
-  thumbnailUrl,
-  width = "w-full",
-  onClick,
-}: ContentCardProps) => {
+const ContentCard = ({ thumbnailUrl, width = "w-full" }: ContentCardProps) => {
   return (
-    <button
-      onClick={onClick}
-      type="button"
+    <div
       className={`overflow-hidden rounded-xl aspect-[2/3] ${width} md:w-[10rem]`}>
       <LazyImage
         src={thumbnailUrl}
@@ -22,7 +15,7 @@ const ContentCard = ({
         className="w-full h-full object-cover rounded-xl"
         skeletonClassName="rounded-xl"
       />
-    </button>
+    </div>
   );
 };
 
