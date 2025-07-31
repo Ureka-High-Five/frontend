@@ -1,10 +1,8 @@
 import { useMemo } from "react";
-import { useLocation } from "react-router-dom";
 import { useShortsByIdQuery } from "@/hooks/queries/shorts/useShortsByIdQuery";
 import { useShortsInfiniteQuery } from "@/hooks/queries/shorts/useShortsInfiniteQuery";
 
 export function useShortsToShow(currentShortsId?: string) {
-  const location = useLocation();
   const { shorts, fetchNextPage, hasNextPage, isLoading } =
     useShortsInfiniteQuery();
 
@@ -20,19 +18,14 @@ export function useShortsToShow(currentShortsId?: string) {
     [shorts, currentShortsId]
   );
 
-  // /shorts 경로로 접근했을 때는 단일 쇼츠 쿼리를 비활성화하여 중복 호출 방지
-  const isDirectShortsAccess = location.pathname === "/shorts";
-  const shouldFetchSingleShorts =
-    !!currentShortsId && !alreadyHasShort && !isDirectShortsAccess;
-
   const { shorts: singleShorts, isLoading: isSingleShortsLoading } =
     useShortsByIdQuery(currentShortsId ?? "", {
-      enabled: shouldFetchSingleShorts,
+      enabled: !!currentShortsId && !alreadyHasShort,
     });
 
   const shortsToShow = useMemo(() => {
-    // currentShortsId가 없거나 /shorts 경로로 직접 접근한 경우 기존 목록 반환
-    if (!currentShortsId || isDirectShortsAccess) {
+    // currentShortsId가 없으면 기존 목록 반환
+    if (!currentShortsId) {
       return shorts.filter(Boolean);
     }
 
@@ -58,7 +51,6 @@ export function useShortsToShow(currentShortsId?: string) {
     return shorts.filter(Boolean);
   }, [
     currentShortsId,
-    isDirectShortsAccess,
     alreadyHasShort,
     isSingleShortsLoading,
     singleShorts,
@@ -69,6 +61,6 @@ export function useShortsToShow(currentShortsId?: string) {
     shortsToShow,
     fetchNextPage,
     hasNextPage,
-    isLoading: isLoading || (shouldFetchSingleShorts && isSingleShortsLoading),
+    isLoading: isLoading || isSingleShortsLoading,
   };
 }
