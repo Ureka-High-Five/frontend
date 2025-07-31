@@ -25,7 +25,12 @@ const CurationTab = () => {
   };
 
   return (
-    <section className="flex flex-col h-full items-center pt-8 gap-8">
+    <section
+      aria-labelledby="curation-tab-title"
+      className="flex flex-col h-full items-center pt-8 gap-8">
+      <h2 id="curation-tab-title" className="sr-only">
+        나의 큐레이션 목록
+      </h2>
       <Button
         size="lg"
         className="w-[90%] max-w-sm bg-custom-point text-custom-black body-lg-dohyeon flex items-center justify-center hover:bg-custom-point/90 hover:text-custom-black"
@@ -37,9 +42,9 @@ const CurationTab = () => {
         className="w-full flex flex-1 flex-col overflow-y-auto no-scrollbar">
         {curations.length === 0 ? (
           <div className="flex flex-col flex-1 items-center justify-center text-custom-gray">
-            <p className="heading-h2-pretendard">
+            <h3 className="heading-h2-pretendard">
               아직 생성된 큐레이션이 없어요
-            </p>
+            </h3>
             <p className="body-lg-pretendard mt-2">
               상단 버튼으로 새 큐레이션을 등록해보세요!
             </p>
@@ -61,7 +66,9 @@ const CurationTab = () => {
 
         <div ref={targetRef} className="h-6" />
         {isFetchingNextPage && (
-          <div className="flex items-center w-full justify-center">
+          <div
+            role="status"
+            className="flex items-center w-full justify-center">
             <Loader2 className="h-10 w-10 animate-spin text-custom-point mb-4" />
           </div>
         )}

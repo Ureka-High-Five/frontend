@@ -36,7 +36,7 @@ const MyCurationItem = ({
           className="w-[100px] h-[150px] rounded-md"
         />
         <div className="flex flex-col flex-1 text-white py-1 gap-2 text-left items-start">
-          <p className="body-lg-pretendard break-all">{title}</p>
+          <h3 className="body-lg-pretendard break-all">{title}</h3>
           <p className="body-md-pretendard text-gray-300 break-all">
             {description}
           </p>
@@ -45,6 +45,7 @@ const MyCurationItem = ({
           <button
             type="button"
             onClick={handleCurationDelete}
+            aria-label="큐레이션 삭제"
             className="text-white hover:text-red-500 transition-colors">
             <Trash2 size={18} />
           </button>
