@@ -64,9 +64,9 @@ const MainRecommendBanner = ({ content }: Props) => {
         </video>
 
         {isPlaying && (
-          <div className="absolute top-[2px] left-1 text-white text-body-lg md:text-heading-h1 font-bmDohyeon">
+          <h1 className="absolute top-[2px] left-1 text-white text-body-lg md:text-heading-h1 font-bmDohyeon">
             {content.title}
-          </div>
+          </h1>
         )}
 
         <div className="absolute bottom-2 right-2 z-10">

@@ -65,19 +65,22 @@ export default function ReelCard({ reel }: ReelCardProps) {
   };
 
   return (
-    <div className="w-full h-screen-mobile relative bg-black overflow-hidden">
-      <div className="absolute top-4 left-2 z-30">
+    <article
+      className="w-full h-screen-mobile relative bg-black overflow-hidden"
+      aria-label={`${reel.contentTitle} 쇼츠 비디오`}>
+      <header className="absolute top-4 left-2 z-30">
         <Button
           variant="ghost"
           onClick={handleExitShorts}
+          aria-label="쇼츠 페이지 나가기"
           className="text-white hover:bg-white/20 hover:text-white">
-          <X className="w-6 h-6" />
+          <X className="w-6 h-6" aria-hidden="true" />
         </Button>
-      </div>
+      </header>
       {/* 이미지 & 비디오를 absolute로 겹침 */}
       <img
         src={reel.shortsThumbnail}
-        alt="video thumbnail"
+        alt={`${reel.contentTitle} 썸네일`}
         className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-500 ${
           isActive && isVideoLoaded ? "opacity-0" : "opacity-100"
         }`}
@@ -95,10 +98,16 @@ export default function ReelCard({ reel }: ReelCardProps) {
             isVideoLoaded ? "opacity-100" : "opacity-0"
           }`}
           controls={false}
-          onCanPlay={handleVideoPlaying}>
+          onCanPlay={handleVideoPlaying}
+          aria-label={`${reel.contentTitle} 쇼츠 비디오 재생 중`}
+          aria-describedby={`video-description-${reel.shortsId}`}>
           <track kind="captions" />
         </video>
       )}
+      <div id={`video-description-${reel.shortsId}`} className="sr-only">
+        {reel.contentTitle}의 쇼츠 비디오입니다.
+        {isMuted ? "음소거 상태로" : "소리와 함께"} 재생되고 있습니다.
+      </div>
 
       <ReelOverlay
         title={reel.contentTitle}
@@ -117,6 +126,6 @@ export default function ReelCard({ reel }: ReelCardProps) {
         onSeek={handleSeek}
         commentTimelineMap={commentTimelineMap}
       />
-    </div>
+    </article>
   );
 }
