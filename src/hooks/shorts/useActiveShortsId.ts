@@ -71,8 +71,11 @@ export function useActiveShortsId({
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            const shortsId = String(shortsToShow[idx]?.shortsId);
-            setActiveShortsId(shortsId);
+            const shortsItem = shortsToShow[idx];
+            if (shortsItem) {
+              const shortsId = String(shortsItem.shortsId);
+              setActiveShortsId(shortsId);
+            }
           }
         },
         { threshold: 0.5 }

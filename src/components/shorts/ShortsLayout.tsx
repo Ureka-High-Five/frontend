@@ -1,6 +1,6 @@
 import type { MutableRefObject } from "react";
+import { useMemo } from "react";
 import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
-import { useScrollSnap } from "@/hooks/shorts/useScrollSnap";
 import type { ShortsItem } from "@/types/shorts";
 import ReelCard from "./organism/ReelCard";
 
@@ -19,7 +19,15 @@ export default function ShortsLayout({
   isLoading,
   cardRefs,
 }: ShortsLayoutProps) {
-  const triggerIndex = Math.max(0, shorts.length - 3);
+  const triggerIndex = Math.max(0, shorts.length - 2); // 더 빠른 트리거를 위해 -2로 변경
+
+  // 각 쇼츠에 고유한 렌더링 ID 생성 (중복 구분용)
+  const shortsWithRenderingId = useMemo(() => {
+    return shorts.map((reel) => ({
+      ...reel,
+      renderingId: `shorts-${reel.shortsId}-${crypto.randomUUID()}`,
+    }));
+  }, [shorts]);
 
   const { rootRef, targetRef } = useIntersectionObserver({
     onIntersect: () => {
@@ -32,18 +40,18 @@ export default function ShortsLayout({
     },
     hasNextPage,
     enabled: !isLoading && !!hasNextPage,
-  });
-
-  // 스크롤 스냅 훅 사용
-  useScrollSnap({
-    containerRef: rootRef,
-    cardRefs,
+    threshold: 0.1, // 더 민감하게 트리거 (10%만 보여도 트리거)
+    rootMargin: "100px", // 100px 먼저 트리거
   });
 
   return (
     <section
       ref={rootRef}
       className="relative w-full h-screen-mobile overflow-y-scroll"
+      style={{
+        scrollSnapType: isLoading ? "none" : "y mandatory", // 로딩 중에는 스냅 비활성화
+        overscrollBehavior: "contain",
+      }}
       aria-label="쇼츠 비디오 목록"
       role="main">
       <h1 className="sr-only">쇼츠 비디오</h1>
@@ -51,11 +59,11 @@ export default function ShortsLayout({
         className="list-none p-0 m-0"
         aria-live="polite"
         aria-label={`총 ${shorts.length}개의 쇼츠 비디오`}>
-        {shorts.map((reel, idx) => (
+        {shortsWithRenderingId.map((reel, idx) => (
           <li
-            key={`${reel.shortsId}-${shorts.length}`}
+            key={reel.renderingId}
             className="snap-start"
-            aria-setsize={shorts.length}
+            aria-setsize={shortsWithRenderingId.length}
             aria-posinset={idx + 1}
             aria-label={`${idx + 1}번째 쇼츠: ${reel.contentTitle}`}>
             <div
