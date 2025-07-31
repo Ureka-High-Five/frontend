@@ -4,9 +4,14 @@ import { useAutoPlayVideo } from "@/hooks/common/useAutoPlayVideo";
 interface ContentVideoProps {
   videoUrl: string;
   isMuted?: boolean;
+  contentTitle?: string;
 }
 
-const ContentVideo = ({ videoUrl, isMuted = true }: ContentVideoProps) => {
+const ContentVideo = ({
+  videoUrl,
+  isMuted = true,
+  contentTitle = "콘텐츠",
+}: ContentVideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -26,9 +31,15 @@ const ContentVideo = ({ videoUrl, isMuted = true }: ContentVideoProps) => {
         muted={isMuted}
         playsInline
         loop
-        controls={false}>
+        controls={false}
+        aria-label={`${contentTitle} 예고편 영상`}
+        aria-describedby="video-description">
         <track kind="captions" />
       </video>
+      <div id="video-description" className="sr-only">
+        {contentTitle}의 예고편이 재생되고 있습니다. 음소거 상태는{" "}
+        {isMuted ? "켜져" : "꺼져"} 있습니다.
+      </div>
       <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-b from-transparent via-custom-black/30 to-custom-black" />
     </div>
   );
