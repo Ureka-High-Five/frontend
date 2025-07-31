@@ -222,6 +222,7 @@ export default function ReelOverlay({
         shortsId={shortsId}
         videoRef={videoRef}
         onCommentSubmit={setLocalComment}
+        contentTitle={title}
       />
     </div>
   );

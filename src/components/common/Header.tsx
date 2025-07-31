@@ -19,7 +19,9 @@ const Header = ({ scrolled }: HeaderProps) => {
         scrolled ? "bg-custom-black/50 backdrop-blur-sm" : "bg-custom-black"
       )}>
       <div className="max-w-screen-md mx-auto flex h-14 md:h-16 items-center justify-between px-4 md:px-10 md:pt-3">
-        <img src={logoImg} alt="logo" className="h-8 md:h-12" />
+        <button type="button" onClick={() => navigate(PATH.HOME)}>
+          <img src={logoImg} alt="홈 로고" className="h-8 md:h-12" />
+        </button>
         <div className="flex items-center gap-1">
           <Button
             variant="ghost"

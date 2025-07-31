@@ -44,39 +44,54 @@ const ReviewForm = ({ contentId }: ReviewFormProps) => {
   }, [rating]);
 
   return (
-    <Card className="bg-custom-darkgray border-none min-h-36 rounded-xl flex flex-col items-center justify-center gap-2">
-      <StarRating value={rating} onChange={setRating} />
-      <div className="w-full min-h-[50px] flex items-center justify-center">
-        <AnimatePresence mode="wait">
-          {rating === 0 && (
-            <AnimatedFadeIn keyName="default">
-              <RatingMessage message="이 작품 어떠셨나요?" />
-            </AnimatedFadeIn>
-          )}
-          {rating > 0 && isMessageVisible && (
-            <AnimatedFadeIn keyName="message">
-              <RatingMessage message={RATING_MESSAGES[rating - 1]} />
-            </AnimatedFadeIn>
-          )}
-          {isInputVisible && (
-            <AnimatedFadeIn keyName="input">
-              <ReviewInput
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onSend={() => {
-                  mutatePostReview({
-                    contentId,
-                    rating,
-                    review: inputValue,
-                  });
-                }}
-                disabled={isPosting}
-              />
-            </AnimatedFadeIn>
-          )}
-        </AnimatePresence>
-      </div>
-    </Card>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (rating > 0 && inputValue.trim()) {
+          mutatePostReview({
+            contentId,
+            rating,
+            review: inputValue,
+          });
+        }
+      }}
+      aria-label="콘텐츠 리뷰 작성">
+      <Card className="bg-custom-darkgray border-none min-h-36 rounded-xl flex flex-col items-center justify-center gap-2">
+        <StarRating value={rating} onChange={setRating} />
+        <div className="w-full min-h-[50px] flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            {rating === 0 && (
+              <AnimatedFadeIn keyName="default">
+                <RatingMessage message="이 작품 어떠셨나요?" />
+              </AnimatedFadeIn>
+            )}
+            {rating > 0 && isMessageVisible && (
+              <AnimatedFadeIn keyName="message">
+                <RatingMessage message={RATING_MESSAGES[rating - 1]} />
+              </AnimatedFadeIn>
+            )}
+            {isInputVisible && (
+              <AnimatedFadeIn keyName="input">
+                <ReviewInput
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onSend={() => {
+                    if (rating > 0 && inputValue.trim()) {
+                      mutatePostReview({
+                        contentId,
+                        rating,
+                        review: inputValue,
+                      });
+                    }
+                  }}
+                  disabled={isPosting}
+                />
+              </AnimatedFadeIn>
+            )}
+          </AnimatePresence>
+        </div>
+      </Card>
+    </form>
   );
 };
 
