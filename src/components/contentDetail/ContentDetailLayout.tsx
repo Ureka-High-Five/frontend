@@ -41,7 +41,7 @@ const ContentDetailLayout = ({
   };
 
   return (
-    <article
+    <main
       className="relative w-full h-screen justify-center flex flex-col items-center"
       aria-label="콘텐츠 상세 정보">
       <ContentVideo
@@ -84,7 +84,7 @@ const ContentDetailLayout = ({
           className="h-16 w-full  min-h-[40px]"
         />
       </div>
-    </article>
+    </main>
   );
 };
 

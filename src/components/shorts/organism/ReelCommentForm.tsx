@@ -9,12 +9,14 @@ interface ReelCommentFormProps {
   shortsId: number;
   videoRef: React.RefObject<HTMLVideoElement | null>;
   onCommentSubmit?: (comment: CommentWithTime) => void;
+  contentTitle?: string;
 }
 
 export default function ReelCommentForm({
   shortsId,
   videoRef,
   onCommentSubmit,
+  contentTitle,
 }: ReelCommentFormProps) {
   const [text, setText] = useState("");
   const { mutatePostShortsComment, isPosting } = useCommentMutation();
@@ -49,7 +51,9 @@ export default function ReelCommentForm({
     <form
       onSubmit={handleSubmit}
       className="w-full"
-      aria-label="쇼츠 댓글 작성">
+      aria-label={
+        contentTitle ? `${contentTitle} 쇼츠 댓글 작성` : "쇼츠 댓글 작성"
+      }>
       <div className="relative">
         <Input
           placeholder="댓글을 입력하세요"
