@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { X } from "lucide-react";
+import { postShortsWatchLog } from "@/apis/shorts/postShortsWatchLog";
 import ReelProgressBar from "@/components/shorts/molecules/ReelProgressBar";
 import { Button } from "@/components/ui/button";
 import { PATH } from "@/constants/path";
@@ -51,6 +52,15 @@ export default function ReelCard({ reel }: ReelCardProps) {
   };
 
   const handleExitShorts = () => {
+    const watchedSec = Math.floor(currentTime);
+    if (watchedSec > 0) {
+      postShortsWatchLog({
+        id: reel.shortsId,
+        watchTime: watchedSec,
+        type: "SHORTS",
+      }).catch((e) => console.error("시청 로그 전송 실패", e));
+    }
+
     navigate(PATH.HOME);
   };
 
