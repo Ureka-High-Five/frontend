@@ -7,14 +7,16 @@ interface ProfileProps {
 
 const Profile = ({ userInformation }: ProfileProps) => {
   return (
-    <section className="flex items-center gap-4">
+    <section
+      aria-labelledby="profile-title"
+      className="flex items-center gap-4">
       <Avatar className="w-14 h-14">
         <AvatarImage src={userInformation.profileUrl} alt="프로필 이미지" />
         <AvatarFallback>{userInformation.userName[0]}</AvatarFallback>
       </Avatar>
       <div className="flex flex-col">
         <div className="flex items-center gap-2">
-          <h2 className="heading-h2-pretendard text-white">
+          <h2 id="profile-title" className="heading-h2-pretendard text-white">
             {userInformation.userName}님
           </h2>
           {userInformation.role === "EDITOR" && (

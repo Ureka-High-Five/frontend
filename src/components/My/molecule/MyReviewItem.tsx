@@ -26,7 +26,7 @@ const MyReviewItem = ({
         className="w-[100px] h-[150px] rounded-md"
       />
       <div className="flex flex-col flex-1 text-white py-1 gap-2">
-        <p className="body-lg-pretendard break-all">{title}</p>
+        <h3 className="body-lg-pretendard break-all">{title}</h3>
         <div className="flex gap-1">
           {[1, 2, 3, 4, 5].map((num) => (
             <Star
@@ -43,6 +43,7 @@ const MyReviewItem = ({
       </div>
       <button
         type="button"
+        aria-label="리뷰 삭제"
         onClick={() => onDeleteClick(reviewId)}
         className="text-white hover:text-red-500 transition-colors self-start">
         <Trash2 size={18} />

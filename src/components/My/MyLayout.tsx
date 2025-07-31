@@ -11,13 +11,13 @@ interface MyLayoutProps {
 const MyLayout = ({ userInformation }: MyLayoutProps) => {
   return (
     <div className="relative flex flex-col h-screen-mobile">
-      <div className="flex flex-col flex-1 overflow-y-auto px-8 md:px-10 pt-3 gap-8">
+      <section className="flex flex-col flex-1 overflow-y-auto px-8 md:px-10 pt-3 gap-8">
         <header>
           <img src={logoImg} alt="logo" className="h-8" />
         </header>
         <Profile userInformation={userInformation} />
         <MyPageTabs userInformation={userInformation} />
-      </div>
+      </section>
       <NavigationBar />
     </div>
   );
