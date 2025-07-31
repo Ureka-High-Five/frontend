@@ -5,11 +5,15 @@ export const useShortsByIdQuery = (
   shortsId: string,
   options?: { enabled?: boolean }
 ) => {
-  const { data: shorts } = useQuery({
+  const {
+    data: shorts,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["shortsById", shortsId],
     queryFn: () => getShortsById(shortsId),
     enabled: options?.enabled ?? !!shortsId,
   });
 
-  return shorts;
+  return { shorts, isLoading, error };
 };

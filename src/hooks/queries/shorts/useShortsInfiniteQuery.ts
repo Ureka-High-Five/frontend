@@ -7,10 +7,10 @@ export const useShortsInfiniteQuery = (options?: { enabled?: boolean }) => {
     useInfiniteQuery<GetShortsResponse>({
       queryKey: ["shorts"],
       queryFn: ({ pageParam = null }) =>
-        getShorts({ cursor: pageParam as number | undefined }), 
+        getShorts({ cursor: pageParam as number | undefined }),
       getNextPageParam: (lastPage) =>
         lastPage.hasNext ? lastPage.nextCursor : undefined,
-      initialPageParam: null, 
+      initialPageParam: null,
       staleTime: 60 * 1000,
       enabled: options?.enabled ?? true,
     });

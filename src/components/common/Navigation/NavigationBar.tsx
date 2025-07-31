@@ -11,7 +11,7 @@ const NavigationBar = () => {
   const { userInformation } = useUserInformationQuery();
 
   return (
-    <nav className="flex h-20 w-full py-4 items-center justify-around bg-custom-darkgray/80 backdrop-blur-md transition-opacity duration-300">
+    <nav className="absolute bottom-0 flex h-16 w-full py-4 items-center justify-around bg-custom-darkgray/80 backdrop-blur-sm transition-opacity duration-300">
       <NavItem
         icon={<Tv className="stroke-current w-full h-full" />}
         label="HOME"

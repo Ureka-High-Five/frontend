@@ -1,8 +1,4 @@
 import type { MutableRefObject } from "react";
-import { useNavigate } from "react-router-dom";
-import { X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { PATH } from "@/constants/path";
 import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
 import { useScrollSnap } from "@/hooks/shorts/useScrollSnap";
 import type { ShortsItem } from "@/types/shorts";
@@ -23,10 +19,17 @@ export default function ShortsLayout({
   isLoading,
   cardRefs,
 }: ShortsLayoutProps) {
-  const navigate = useNavigate();
+  const triggerIndex = Math.max(0, shorts.length - 3);
 
   const { rootRef, targetRef } = useIntersectionObserver({
-    onIntersect: fetchNextPage,
+    onIntersect: () => {
+      // DOM 업데이트를 보장하기 위한 setTimeout
+      setTimeout(() => {
+        if (hasNextPage && !isLoading) {
+          fetchNextPage();
+        }
+      }, 0);
+    },
     hasNextPage,
     enabled: !isLoading && !!hasNextPage,
   });
@@ -37,39 +40,22 @@ export default function ShortsLayout({
     cardRefs,
   });
 
-  // shorts 나가기 (홈으로 이동)
-  const handleExitShorts = () => {
-    navigate(PATH.HOME);
-  };
-
   return (
     <div
       ref={rootRef}
       className="relative w-full h-screen-mobile overflow-y-scroll">
-      <div className="absolute top-4 left-2 z-10">
-        <Button
-          variant="ghost"
-          onClick={handleExitShorts}
-          className="text-white hover:bg-white/20 hover:text-white">
-          <X className="w-6 h-6" />
-        </Button>
-      </div>
-
       {shorts.map((reel, idx) => (
         <div
-          key={reel.shortsId}
+          key={`${reel.shortsId}-${shorts.length}`} // 더 안정적인 key
           ref={(el) => {
             // eslint-disable-next-line no-param-reassign
             cardRefs.current[idx] = el;
           }}>
           <ReelCard reel={reel} />
           {/* 마지막에서 세 번째 쇼츠에서 트리거 (더 빠른 로딩) */}
-          {idx === shorts.length - 3 && <div ref={targetRef} className="h-1" />}
+          {idx === triggerIndex && <div ref={targetRef} className="h-1" />}
         </div>
       ))}
-
-      {/* 마지막 쇼츠가 3개 이하로 남았을 때를 위한 fallback */}
-      {shorts.length <= 3 && <div ref={targetRef} className="h-1" />}
     </div>
   );
 }

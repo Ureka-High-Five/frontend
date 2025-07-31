@@ -30,9 +30,11 @@ const HomeContentContainer = ({
           contents={recommendContents.personalRecommends}
         />
       )}
-      {Object.entries(recommendContents.genre).map(([genre, contents]) => (
-        <GenreRecommendSection key={genre} data={{ genre, contents }} />
-      ))}
+      {Object.entries(recommendContents.genre)
+        .filter(([, contents]) => contents.length > 0)
+        .map(([genre, contents]) => (
+          <GenreRecommendSection key={genre} data={{ genre, contents }} />
+        ))}
       {recommendContents.curation?.length > 0 && (
         <CurationRecommendSection curations={recommendContents.curation} />
       )}

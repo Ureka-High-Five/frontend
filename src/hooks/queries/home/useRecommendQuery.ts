@@ -8,6 +8,7 @@ export const useRecommendQuery = () => {
       queryKey: ["RecommendContents"],
       queryFn: getRecommendContents,
       retry: false,
+      staleTime: 30_000,
     });
 
   return { recommendContents };
