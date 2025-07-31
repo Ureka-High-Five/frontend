@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lead-me.site/sitemap.xml 
