@@ -27,7 +27,7 @@ const CurationForm = ({
   return (
     <>
       <div className="flex flex-col gap-2">
-        <p className="body-lg-pretendard text-white">제목</p>
+        <h3 className="body-lg-pretendard text-white">제목</h3>
         <Input
           ref={titleRef}
           value={title}
@@ -39,7 +39,7 @@ const CurationForm = ({
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="body-lg-pretendard text-white">설명</p>
+        <h3 className="body-lg-pretendard text-white">설명</h3>
         <Textarea
           ref={descriptionRef}
           value={description}
@@ -54,7 +54,7 @@ const CurationForm = ({
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="body-lg-pretendard text-white">콘텐츠 검색</p>
+        <h3 className="body-lg-pretendard text-white">콘텐츠 검색</h3>
         <Input
           ref={searchInputRef}
           value={searchInput}

@@ -11,13 +11,18 @@ const Name = ({ setStep, isActive }: NameProps) => {
   const name = useUserStore((state) => state.user.name);
 
   return (
-    <div className="flex flex-col gap-9 w-[90%] max-w-sm">
-      <span
+    <section
+      aria-labelledby="name-heading"
+      className="flex flex-col gap-9 w-[90%] max-w-sm">
+      <h2 id="name-heading" className="sr-only">
+        이름 확인
+      </h2>
+      <p
         className={`flex h-14 items-center justify-center bg-white heading-h1-pretendard px-4 rounded-md ${
           isActive ? "border-2 border-custom-point" : "border-none"
         }`}>
         {name}
-      </span>
+      </p>
 
       {isActive && (
         <Button
@@ -27,7 +32,7 @@ const Name = ({ setStep, isActive }: NameProps) => {
           다음으로
         </Button>
       )}
-    </div>
+    </section>
   );
 };
 

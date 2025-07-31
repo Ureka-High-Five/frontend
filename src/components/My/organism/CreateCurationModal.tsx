@@ -41,7 +41,10 @@ const CreateCurationModal = ({ onClose }: CreateCurationModalProps) => {
   } = useSearchContent(ONBOARDING_SEARCH_COUNT);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4 sm:px-6 py-10">
+    <div
+      role="dialog"
+      aria-labelledby="curation-modal-title"
+      className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4 sm:px-6 py-10">
       <div className="flex flex-col gap-4 bg-custom-darkgray w-[90%] max-w-md max-h-full overflow-y-auto no-scrollbar rounded-md p-6 relative">
         <button
           type="button"
@@ -50,7 +53,9 @@ const CreateCurationModal = ({ onClose }: CreateCurationModalProps) => {
           <X size={24} />
         </button>
 
-        <h2 className="heading-h2-pretendard font-bold text-white">
+        <h2
+          id="curation-modal-title"
+          className="heading-h2-pretendard font-bold text-white">
           큐레이션 등록
         </h2>
 

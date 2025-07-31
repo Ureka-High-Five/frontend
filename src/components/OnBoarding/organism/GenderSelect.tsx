@@ -19,7 +19,12 @@ const GenderSelect = ({ setStep }: GenderSelectProps) => {
   const setGender = useUserStore((state) => state.setGender);
 
   return (
-    <div className="flex flex-col gap-9 w-[90%] max-w-sm">
+    <section
+      aria-labelledby="gender-select-heading"
+      className="flex flex-col gap-9 w-[90%] max-w-sm">
+      <h2 id="gender-select-heading" className="sr-only">
+        성별 선택
+      </h2>
       <Select
         value={gender}
         onValueChange={(value: "MALE" | "FEMALE") => setGender(value)}>
@@ -45,7 +50,7 @@ const GenderSelect = ({ setStep }: GenderSelectProps) => {
           다음으로
         </Button>
       )}
-    </div>
+    </section>
   );
 };
 

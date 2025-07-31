@@ -27,7 +27,12 @@ const BirthYearSelect = ({ setStep }: BirthYearSelectProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-[90%] max-w-sm">
+    <section
+      aria-labelledby="birthyear-select-heading"
+      className="flex flex-col gap-6 w-[90%] max-w-sm">
+      <h2 id="birthyear-select-heading" className="sr-only">
+        출생년도 선택
+      </h2>
       <Select
         value={birthYear ? String(birthYear) : ""}
         onValueChange={handleBirthYearChange}>
@@ -47,7 +52,7 @@ const BirthYearSelect = ({ setStep }: BirthYearSelectProps) => {
           ))}
         </SelectContent>
       </Select>
-    </div>
+    </section>
   );
 };
 

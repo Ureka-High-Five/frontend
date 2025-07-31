@@ -21,17 +21,24 @@ const ReviewTab = () => {
   };
 
   return (
-    <div className="flex flex-col h-full items-center pt-8">
+    <section
+      aria-labelledby="review-tab-title"
+      className="flex flex-col h-full items-center pt-8">
+      <h2 id="review-tab-title" className="sr-only">
+        내가 작성한 리뷰
+      </h2>
       <div
         ref={rootRef}
         className="w-full flex-1 flex flex-col overflow-y-auto no-scrollbar">
         {reviews.length === 0 ? (
-          <div className="flex flex-1 flex-col items-center justify-center text-custom-gray">
-            <p className="heading-h2-pretendard">아직 작성한 리뷰가 없어요</p>
+          <section
+            aria-label="작성된 리뷰 없음"
+            className="flex flex-1 flex-col items-center justify-center text-custom-gray">
+            <h3 className="heading-h2-pretendard">아직 작성한 리뷰가 없어요</h3>
             <p className="body-lg-pretendard mt-2">
               마음에 들었던 콘텐츠를 리뷰로 남겨보세요!
             </p>
-          </div>
+          </section>
         ) : (
           <ul className="flex flex-col gap-6">
             {reviews.map((review) => (
@@ -50,12 +57,14 @@ const ReviewTab = () => {
 
         <div ref={targetRef} className="h-6" />
         {isFetchingNextPage && (
-          <div className="flex items-center w-full justify-center">
+          <div
+            role="status"
+            className="flex items-center w-full justify-center">
             <Loader2 className="h-10 w-10 animate-spin text-custom-point mb-4" />
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -19,32 +19,33 @@ const OnBoardingContentCard = ({
   toggleSelect,
 }: OnBoardingContentCardProps) => {
   return (
-    <li className="flex flex-col items-center">
-      <button
-        type="button"
-        onClick={() => toggleSelect(contentId)}
-        className="relative rounded-xl w-full aspect-[2/3] border border-[#262626]">
-        <FallbackImage
-          src={thumbnailUrl}
-          alt={title}
-          className="transition duration-300 w-full h-full object-cover rounded-xl"
-        />
-        {isSelected && (
-          <>
-            <div className="absolute inset-0 z-10 bg-custom-gray/40 backdrop-blur-[1px] rounded-xl" />
-            <div className="absolute inset-0 z-20 flex items-center justify-center">
-              <CheckCircle className="w-6 h-6 text-custom-point" />
-            </div>
-          </>
-        )}
-      </button>
+    <li>
+      <article className="flex flex-col items-center">
+        <button
+          type="button"
+          onClick={() => toggleSelect(contentId)}
+          aria-pressed={isSelected}
+          className="relative rounded-xl w-full aspect-[2/3] border border-[#262626]">
+          <FallbackImage
+            src={thumbnailUrl}
+            alt={title}
+            className="transition duration-300 w-full h-full object-cover rounded-xl"
+          />
+          {isSelected && (
+            <>
+              <div className="absolute inset-0 z-10 bg-custom-gray/40 backdrop-blur-[1px] rounded-xl" />
+              <div className="absolute inset-0 z-20 flex items-center justify-center">
+                <CheckCircle className="w-6 h-6 text-custom-point" />
+              </div>
+            </>
+          )}
+        </button>
 
-      <span className="body-md-dohyeon text-white mt-2 text-center">
-        {title}
-      </span>
-      <span className="body-xs-pretendard text-custom-gray text-center">
-        {openYear}
-      </span>
+        <h3 className="body-md-dohyeon text-white mt-2 text-center">{title}</h3>
+        <p className="body-xs-pretendard text-custom-gray text-center">
+          {openYear}
+        </p>
+      </article>
     </li>
   );
 };
