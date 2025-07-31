@@ -32,8 +32,6 @@ export default function ShortsLayout({
     },
     hasNextPage,
     enabled: !isLoading && !!hasNextPage,
-    threshold: 0.1,
-    delayMs: 100,
   });
 
   // 스크롤 스냅 훅 사용
