@@ -54,21 +54,16 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
 
   const [genreInput, setGenreInput] = useState("");
   const [actorInput, setActorInput] = useState("");
-  const [videoFile, setVideoFile] = useState<File | null>(null);
   const [posterFile, setPosterFile] = useState<File | null>(null);
+  const [shortsFile, setShortsFile] = useState<File | null>(null);
+  const [videoFile, setVideoFile] = useState<File | null>(null);
 
   const { content: contentDetail } = useContentDetailQuery(
     isEditMode && content?.contentId ? String(content.contentId) : ""
   );
   const { mutatePostContent, isPosting } = usePostContentMutation();
   const { mutatePatchContent } = usePatchContent();
-  const { uploadFile } = useFileUpload();
-
-  const previewVideoUrl = useMemo(() => {
-    if (!videoFile) return "";
-
-    return URL.createObjectURL(videoFile);
-  }, [videoFile]);
+  const { uploadContentFile } = useFileUpload();
 
   const previewPosterUrl = useMemo(() => {
     if (!posterFile) return "";
@@ -76,11 +71,29 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
     return URL.createObjectURL(posterFile);
   }, [posterFile]);
 
+  const previewShortsUrl = useMemo(() => {
+    if (!shortsFile) return "";
+
+    return URL.createObjectURL(shortsFile);
+  }, [shortsFile]);
+
+  const previewVideoUrl = useMemo(() => {
+    if (!videoFile) return "";
+
+    return URL.createObjectURL(videoFile);
+  }, [videoFile]);
+
   useEffect(() => {
     return () => {
       if (previewPosterUrl) URL.revokeObjectURL(previewPosterUrl);
     };
   }, [previewPosterUrl]);
+
+  useEffect(() => {
+    return () => {
+      if (previewShortsUrl) URL.revokeObjectURL(previewShortsUrl);
+    };
+  }, [previewShortsUrl]);
 
   useEffect(() => {
     return () => {
@@ -123,7 +136,7 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
       });
       setGenreInput("");
       setActorInput("");
-      setVideoFile(null);
+      setShortsFile(null);
       setPosterFile(null);
     }
   }, [content, contentDetail, isEditMode]);
@@ -173,17 +186,18 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
   const handleSave = async () => {
     if (isEditMode) {
       mutatePatchContent(formData);
-    } else if (videoFile && posterFile) {
-      const [videoUrl, postUrl] = await Promise.all([
-        uploadFile(videoFile, "video"),
-        uploadFile(posterFile, "image"),
-      ]);
+    } else if (videoFile && posterFile && shortsFile) {
+      const uploaded = await uploadContentFile({
+        imageFile: posterFile,
+        videoFile,
+        shortsFile,
+      });
 
-      if (videoUrl && postUrl) {
+      if (uploaded?.videoUrl && uploaded?.imageUrl) {
         mutatePostContent({
           ...formData,
-          videoUrl,
-          postUrl,
+          videoUrl: uploaded.videoUrl,
+          postUrl: uploaded.imageUrl,
         });
       }
     }
@@ -237,18 +251,17 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="videoFile">비디오</Label>
+              <Label htmlFor="shortsFile">쇼츠</Label>
               <div className="relative w-full aspect-[2/3] border-2 border-dashed rounded-md cursor-pointer hover:border-primary overflow-hidden flex items-center justify-center">
                 <label
-                  htmlFor="videoFile"
+                  htmlFor="shortsFile"
                   className="w-full h-full flex items-center justify-center">
-                  {videoFile ? (
+                  {shortsFile ? (
                     <video
-                      src={previewVideoUrl}
+                      src={previewShortsUrl}
                       className="object-cover h-full w-full"
                       onLoadedMetadata={(e) => {
                         const duration = Math.round(e.currentTarget.duration);
-
                         setFormData((prev) => ({
                           ...prev,
                           trailerTime: duration,
@@ -260,26 +273,25 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
                   ) : (
                     <div className="text-muted-foreground text-sm flex flex-col items-center">
                       <Plus className="w-6 h-6 mb-1" />
-                      비디오 파일 선택
+                      쇼츠 영상 선택
                     </div>
                   )}
                 </label>
-                {videoFile && (
+                {shortsFile && (
                   <button
                     type="button"
-                    onClick={() => setVideoFile(null)}
+                    onClick={() => setShortsFile(null)}
                     className="absolute top-1 right-1 bg-white rounded-full p-1 shadow">
                     <X className="w-4 h-4 text-black" />
                   </button>
                 )}
                 <input
-                  id="videoFile"
+                  id="shortsFile"
                   type="file"
                   accept="video/*"
                   onChange={(e) => {
                     const file = e.target.files?.[0];
-
-                    if (file) setVideoFile(file);
+                    if (file) setShortsFile(file);
                     e.target.value = "";
                   }}
                   className="hidden"
@@ -322,6 +334,47 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
                     const file = e.target.files?.[0];
 
                     if (file) setPosterFile(file);
+                    e.target.value = "";
+                  }}
+                  className="hidden"
+                />
+              </div>
+            </div>
+            <div className="space-y-2 col-span-2">
+              <Label htmlFor="videoFile">비디오</Label>
+              <div className="relative w-full aspect-[3/2] border-2 border-dashed rounded-md cursor-pointer hover:border-primary overflow-hidden flex items-center justify-center">
+                <label
+                  htmlFor="videoFile"
+                  className="w-full h-full flex items-center justify-center">
+                  {videoFile ? (
+                    <video
+                      src={previewVideoUrl}
+                      className="object-cover h-full w-full"
+                      controls>
+                      <track kind="captions" srcLang="ko" label="자막" />
+                    </video>
+                  ) : (
+                    <div className="text-muted-foreground text-sm flex flex-col items-center">
+                      <Plus className="w-6 h-6 mb-1" />
+                      비디오 영상 선택
+                    </div>
+                  )}
+                </label>
+                {videoFile && (
+                  <button
+                    type="button"
+                    onClick={() => setVideoFile(null)}
+                    className="absolute top-1 right-1 bg-white rounded-full p-1 shadow">
+                    <X className="w-4 h-4 text-black" />
+                  </button>
+                )}
+                <input
+                  id="videoFile"
+                  type="file"
+                  accept="video/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) setVideoFile(file);
                     e.target.value = "";
                   }}
                   className="hidden"

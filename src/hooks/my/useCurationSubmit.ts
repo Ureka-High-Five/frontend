@@ -24,7 +24,7 @@ const useCurationSubmit = ({
   selectedContents,
   onClose,
 }: Props) => {
-  const { uploadFile } = useFileUpload();
+  const { uploadCurationFile } = useFileUpload();
   const { mutateCreateMyCuration } = useCreateCurationMutation(onClose);
 
   const validate = (): boolean => {
@@ -65,7 +65,7 @@ const useCurationSubmit = ({
       return;
     }
 
-    const thumbnailUrl = await uploadFile(file, "image");
+    const thumbnailUrl = await uploadCurationFile(file);
     if (thumbnailUrl) {
       mutateCreateMyCuration({
         title,
