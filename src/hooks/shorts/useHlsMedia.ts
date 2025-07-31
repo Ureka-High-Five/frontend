@@ -43,6 +43,10 @@ export function useHlsMedia(
               maxBufferSize: 20000000, // 20MB 제한
               fragLoadingTimeOut: 10000, // 10초 로딩 타임아웃
               backBufferLength: 30, // 뒤쪽 30초 보관
+              // 성능 최적화: 낮은 해상도부터 시작
+              startLevel: 0, // 자동 선택이지만 낮은 해상도 선호
+              abrEwmaDefaultEstimate: 500000, // 초기 대역폭을 500kbps로 낮게 설정
+              maxStartBufferLength: 2, // 시작 버퍼링 시간 단축 (2초)
             }
           : {
               // 정착자: 안정적 재생, 끊김 방지
@@ -50,6 +54,10 @@ export function useHlsMedia(
               maxBufferSize: 60000000, // 60MB 허용
               fragLoadingTimeOut: 20000, // 20초 로딩 타임아웃
               backBufferLength: 90, // 뒤쪽 90초 보관
+              // 성능 최적화: 낮은 해상도부터 시작
+              startLevel: 0, // 자동 선택이지만 낮은 해상도 선호
+              abrEwmaDefaultEstimate: 800000, // 초기 대역폭을 800kbps로 설정
+              maxStartBufferLength: 3, // 시작 버퍼링 시간 단축 (3초)
             };
 
       // 버퍼링 최적화된 HLS 초기화
