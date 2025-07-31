@@ -41,8 +41,14 @@ const ContentDetailLayout = ({
   };
 
   return (
-    <div className="relative w-full h-screen justify-center flex flex-col items-center">
-      <ContentVideo videoUrl={content.videoUrl} isMuted={isMuted} />
+    <main
+      className="relative w-full h-screen justify-center flex flex-col items-center"
+      aria-label="콘텐츠 상세 정보">
+      <ContentVideo
+        videoUrl={content.videoUrl}
+        isMuted={isMuted}
+        contentTitle={content.contentTitle}
+      />
       <ContentDetailHeader
         onClose={handleClose}
         isMuted={isMuted}
@@ -78,7 +84,7 @@ const ContentDetailLayout = ({
           className="h-16 w-full  min-h-[40px]"
         />
       </div>
-    </div>
+    </main>
   );
 };
 
