@@ -23,10 +23,10 @@ const CurationRecommendSection = ({ curations }: Props) => {
               <AvatarFallback>{userName.at(0)}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col leading-tight">
-              <span className="body-sm-pretendard text-custom-gray">
+              <p className="body-sm-pretendard text-custom-gray">
                 {userName}님의 컬렉션
-              </span>
-              <span className="heading-h2-pretendard text-white">{title}</span>
+              </p>
+              <h2 className="heading-h2-pretendard text-white">{title}</h2>
             </div>
           </section>
         );

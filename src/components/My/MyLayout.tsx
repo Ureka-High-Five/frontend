@@ -14,7 +14,7 @@ const MyLayout = ({ userInformation }: MyLayoutProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative flex flex-col h-screen-mobile gap-6">
+    <div className="relative flex flex-col h-screen-mobile gap-6 pb-20">
       <header className="w-full flex h-14 md:h-16 px-4 md:px-10 md:pt-3">
         <button type="button" onClick={() => navigate(PATH.HOME)}>
           <img src={logoImg} alt="홈 로고" className="h-8 md:h-12" />
