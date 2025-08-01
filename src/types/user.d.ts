@@ -12,6 +12,7 @@ export interface UserReview {
   title: string;
   review: string;
   rating: number;
+  contentId: number;
 }
 
 export interface UserReviewListResponse {

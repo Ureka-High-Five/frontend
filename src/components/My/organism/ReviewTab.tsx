@@ -49,6 +49,7 @@ const ReviewTab = () => {
                 title={review.title}
                 review={review.review}
                 rating={review.rating}
+                contentId={review.contentId}
                 onDeleteClick={handleDeleteClick}
               />
             ))}
