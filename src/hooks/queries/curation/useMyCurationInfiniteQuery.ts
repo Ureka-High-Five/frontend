@@ -2,7 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import getMyCuration from "@/apis/my/curation/getMyCuration";
 import type { MyCurationResponse, Curation } from "@/types/curation";
 
-const useMyCurationInfiniteQuery = (size: number = 10) => {
+const useMyCurationInfiniteQuery = (isEditor: boolean, size: number = 10) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery<MyCurationResponse>({
       queryKey: ["myCurations"],
@@ -12,6 +12,7 @@ const useMyCurationInfiniteQuery = (size: number = 10) => {
         lastPage.hasNext ? (lastPage.nextCursor ?? "") : undefined,
       staleTime: 60 * 60 * 1000,
       gcTime: 60 * 60 * 1000,
+      enabled: isEditor,
     });
 
   const curations: Curation[] =
