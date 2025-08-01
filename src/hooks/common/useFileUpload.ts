@@ -41,6 +41,7 @@ const useFileUpload = () => {
         shortsUrl,
         videoPresignedUrl,
         videoUrl,
+        uuid,
       } = await getContentPresignedUrl();
       await Promise.all([
         mutateFileUpload({ presignedUrl: imagePresignedUrl, file: imageFile }),
@@ -55,6 +56,7 @@ const useFileUpload = () => {
         imageUrl,
         shortsUrl,
         videoUrl,
+        uuid,
       };
     } catch (error) {
       makeToast(

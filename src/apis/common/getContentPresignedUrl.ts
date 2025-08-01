@@ -8,6 +8,7 @@ interface ContentPresignedUrlResponse {
   shortsUrl: string;
   videoPresignedUrl: string;
   videoUrl: string;
+  uuid: string;
 }
 
 const getContentPresignedUrl =
