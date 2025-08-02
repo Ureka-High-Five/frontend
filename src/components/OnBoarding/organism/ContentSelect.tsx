@@ -47,7 +47,7 @@ const ContentSelect = ({
 
     const isAtBottom =
       container.scrollHeight - container.scrollTop - container.clientHeight <
-      250;
+      300;
 
     if (
       searchKeyword.length === 0 &&
