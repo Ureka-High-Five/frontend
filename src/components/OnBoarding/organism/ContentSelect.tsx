@@ -72,19 +72,28 @@ const ContentSelect = ({
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    const handleScroll = () => {
-      const scrollGap =
-        container.scrollHeight - container.scrollTop - container.clientHeight;
+    let animationFrameId: number;
 
-      if (scrollGap <= 150 && showNewContentNotice) {
-        setShowNewContentNotice(false);
-      }
+    const handleScroll = () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+      animationFrameId = requestAnimationFrame(() => {
+        const scrollGap =
+          container.scrollHeight - container.scrollTop - container.clientHeight;
+
+        if (scrollGap <= 150 && showNewContentNotice) {
+          setShowNewContentNotice(false);
+        }
+      });
     };
 
     container.addEventListener("scroll", handleScroll);
 
     // eslint-disable-next-line consistent-return
-    return () => container.removeEventListener("scroll", handleScroll);
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(animationFrameId);
+    };
   }, [showNewContentNotice]);
 
   useEffect(() => {
