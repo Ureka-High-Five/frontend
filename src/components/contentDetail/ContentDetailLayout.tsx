@@ -46,6 +46,7 @@ const ContentDetailLayout = ({
       aria-label="콘텐츠 상세 정보">
       <ContentVideo
         videoUrl={content.videoUrl}
+        posterUrl={content.posterUrl}
         isMuted={isMuted}
         contentTitle={content.contentTitle}
       />
