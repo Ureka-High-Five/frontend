@@ -14,6 +14,7 @@ export const useInfiniteContentReviewsQuery = (
       initialPageParam: "",
       getNextPageParam: (lastPage) =>
         lastPage.hasNext ? (lastPage.nextCursor ?? "") : undefined,
+      staleTime: 60 * 60 * 1000,
       enabled: !!contentId,
     });
 

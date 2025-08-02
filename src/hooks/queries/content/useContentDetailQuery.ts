@@ -10,6 +10,7 @@ export const useContentDetailQuery = (contentId: string) => {
       }
       return getContentDetail(contentId);
     },
+    staleTime: 60 * 60 * 1000,
     retry: false,
   });
 
