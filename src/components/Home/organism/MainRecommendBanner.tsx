@@ -63,13 +63,25 @@ const MainRecommendBanner = ({ content }: Props) => {
           <track kind="captions" />
         </video>
 
+        {/* {isPlaying && (
+          <div className="absolute inset-0 z-10 flex items-end justify-center">
+            <h1 className="text-white text-heading-h1 font-pretendard text-center">
+              {content.title}
+            </h1>
+          </div>
+        )} */}
         {isPlaying && (
-          <h1 className="absolute top-[2px] left-1 text-white text-body-lg md:text-heading-h1 font-bmDohyeon">
-            {content.title}
-          </h1>
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-2 text-center px-4">
+            <h1 className="text-white text-heading-h1 font-pretendard">
+              {content.title}
+            </h1>
+            <p className="text-body-xs md:text-body-sm text-custom-gray ">
+              {content.genre.join(" · ")}
+            </p>
+          </div>
         )}
 
-        <div className="absolute bottom-2 right-2 z-10">
+        <div className="absolute bottom-0 right-2 z-10">
           <Button
             variant="ghost"
             onClick={toggleMute}
@@ -82,7 +94,7 @@ const MainRecommendBanner = ({ content }: Props) => {
           </Button>
         </div>
 
-        <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-b from-transparent to-custom-black" />
+        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-b from-transparent to-custom-black" />
       </div>
 
       {!isPlaying && (
@@ -95,9 +107,6 @@ const MainRecommendBanner = ({ content }: Props) => {
               </span>
             ))}
           </h2>
-          <p className="text-body-xs md:text-body-sm text-custom-gray font-pretendard">
-            {content.genre.join(" · ")}
-          </p>
         </div>
       )}
     </section>
