@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Loader2, X } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import SelectedContentList from "@/components/My/molecule/SelectedContentList";
 import OnBoardingContentCard from "@/components/OnBoarding/molecule/OnBoardingContentCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -111,36 +112,12 @@ const ContentSelect = ({
         className="w-[90%] max-w-sm text-white placeholder:text-gray-500 bg-white text-custom-black h-10"
       />
 
-      <section
-        aria-label="선택한 콘텐츠 목록"
-        className="w-[90%] max-w-sm h-[100px] flex items-center overflow-x-auto no-scrollbar">
-        {selectedContents.length > 0 ? (
-          <ul className="flex items-center">
-            {selectedContents.map((content) => (
-              <li
-                key={content.contentId}
-                className="relative flex-shrink-0 w-16 aspect-[2/3] rounded-md overflow-hidden mr-2 list-none">
-                <img
-                  src={content.thumbnailUrl}
-                  alt={content.title}
-                  className="w-full h-full object-cover"
-                />
-                <button
-                  type="button"
-                  onClick={() => toggleSelect(content)}
-                  className="absolute top-0 right-0 text-white bg-black/50"
-                  aria-label={`${content.title} 제거`}>
-                  <X size={16} />
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div role="note" className="body-md-pretendard text-white/70 mx-auto">
-            선택한 콘텐츠가 여기에 표시됩니다.
-          </div>
-        )}
-      </section>
+      <div className="w-[90%] max-w-sm">
+        <SelectedContentList
+          selectedContents={selectedContents}
+          onRemove={toggleSelect}
+        />
+      </div>
 
       <div
         ref={(el) => {
