@@ -30,7 +30,6 @@ const SearchContentList = ({
         {searchContents.map((content) => (
           <li key={content.contentId}>
             <OnBoardingContentCard
-              contentId={content.contentId}
               title={content.title}
               thumbnailUrl={content.thumbnailUrl}
               openYear={content.openYear}

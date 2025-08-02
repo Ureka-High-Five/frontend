@@ -57,6 +57,7 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
   const [posterFile, setPosterFile] = useState<File | null>(null);
   const [shortsFile, setShortsFile] = useState<File | null>(null);
   const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [trailerTime, setTrailerTime] = useState(0);
 
   const { content: contentDetail } = useContentDetailQuery(
     isEditMode && content?.contentId ? String(content.contentId) : ""
@@ -116,7 +117,6 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
         genres: contentDetail.contentGenres ?? [],
         actors: contentDetail.actors ?? [],
         director: contentDetail.director ?? "",
-        trailerTime: contentDetail.contentRunningTime ?? 0,
       });
     } else {
       setFormData({
@@ -132,12 +132,13 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
         genres: [],
         actors: [],
         director: "",
-        trailerTime: 0,
       });
       setGenreInput("");
       setActorInput("");
+      setTrailerTime(0);
       setShortsFile(null);
       setPosterFile(null);
+      setVideoFile(null);
     }
   }, [content, contentDetail, isEditMode]);
   if (isEditMode && !content?.contentId) return null;
@@ -196,8 +197,11 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
       if (uploaded?.videoUrl && uploaded?.imageUrl) {
         mutatePostContent({
           ...formData,
+          trailerTime,
           videoUrl: uploaded.videoUrl,
           postUrl: uploaded.imageUrl,
+          shortsUrl: uploaded.shortsUrl,
+          uuid: uploaded.uuid,
         });
       }
     }
@@ -252,6 +256,9 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="shortsFile">쇼츠</Label>
+              <p className="text-xs text-muted-foreground">
+                권장 사이즈: 480x857
+              </p>
               <div className="relative w-full aspect-[2/3] border-2 border-dashed rounded-md cursor-pointer hover:border-primary overflow-hidden flex items-center justify-center">
                 <label
                   htmlFor="shortsFile"
@@ -262,10 +269,7 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
                       className="object-cover h-full w-full"
                       onLoadedMetadata={(e) => {
                         const duration = Math.round(e.currentTarget.duration);
-                        setFormData((prev) => ({
-                          ...prev,
-                          trailerTime: duration,
-                        }));
+                        setTrailerTime(duration);
                       }}
                       controls>
                       <track kind="captions" srcLang="ko" label="자막" />
@@ -301,6 +305,9 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
 
             <div className="space-y-2">
               <Label htmlFor="posterFile">포스터</Label>
+              <p className="text-xs text-muted-foreground">
+                권장 사이즈: 500x750
+              </p>
               <div className="relative w-full aspect-[2/3] border-2 border-dashed rounded-md cursor-pointer hover:border-primary overflow-hidden flex items-center justify-center">
                 <label
                   htmlFor="posterFile"
@@ -342,6 +349,7 @@ export function ContentModal({ isOpen, onClose, content }: ContentModalProps) {
             </div>
             <div className="space-y-2 col-span-2">
               <Label htmlFor="videoFile">비디오</Label>
+              <p className="text-xs text-custom-gray">권장 사이즈: 1280x720</p>
               <div className="relative w-full aspect-[3/2] border-2 border-dashed rounded-md cursor-pointer hover:border-primary overflow-hidden flex items-center justify-center">
                 <label
                   htmlFor="videoFile"

@@ -11,7 +11,8 @@ interface OnBoardingLayoutProps {
   setStep: (step: OnBoardingStep) => void;
   contents: OnBoardingContent[];
   selectedIds: number[];
-  toggleSelect: (id: number) => void;
+  selectedContents: OnBoardingContent[];
+  toggleSelect: (content: OnBoardingContent) => void;
   onSubmitOnBoarding: () => void;
 }
 
@@ -20,6 +21,7 @@ const OnBoardingLayout = ({
   setStep,
   contents,
   selectedIds,
+  selectedContents,
   toggleSelect,
   onSubmitOnBoarding,
 }: OnBoardingLayoutProps) => {
@@ -45,6 +47,7 @@ const OnBoardingLayout = ({
         <ContentSelect
           contents={contents}
           selectedIds={selectedIds}
+          selectedContents={selectedContents}
           toggleSelect={toggleSelect}
           onSubmitOnBoarding={onSubmitOnBoarding}
         />

@@ -10,6 +10,9 @@ import type { OnBoardingStep } from "@/types/onBoarding";
 const OnBoardingPage = () => {
   const [step, setStep] = useState<OnBoardingStep>("name");
   const [contents, setContents] = useState<OnBoardingContent[]>([]);
+  const [selectedContents, setSelectedContents] = useState<OnBoardingContent[]>(
+    []
+  );
 
   const selectedIds = useUserStore((state) => state.user.selectedContentIds);
   const addContentId = useUserStore((state) => state.addSelectedContentId);
@@ -28,17 +31,21 @@ const OnBoardingPage = () => {
     }
   }, [onBoardingContent]);
 
-  const toggleSelect = async (id: number) => {
-    const isSelected = selectedIds.includes(id);
+  const toggleSelect = async (content: OnBoardingContent) => {
+    const isSelected = selectedIds.includes(content.contentId);
 
     if (isSelected) {
-      removeContentId(id);
+      removeContentId(content.contentId);
+      setSelectedContents((prev) =>
+        prev.filter((c) => c.contentId !== content.contentId)
+      );
     } else {
-      addContentId(id);
+      addContentId(content.contentId);
+      setSelectedContents((prev) => [...prev, content]);
 
-      const recommendedIds = contents.map((content) => content.contentId);
+      const recommendedIds = contents.map((c) => c.contentId);
       const newContents = await mutatePostOnBoardingContent({
-        selectedContentIds: [...selectedIds, id],
+        selectedContentIds: [...selectedIds, content.contentId],
         recommendedContentIds: recommendedIds,
       });
 
@@ -56,6 +63,7 @@ const OnBoardingPage = () => {
       setStep={setStep}
       contents={contents}
       selectedIds={selectedIds}
+      selectedContents={selectedContents}
       toggleSelect={toggleSelect}
       onSubmitOnBoarding={handleSubmitOnBoarding}
     />

@@ -6,10 +6,17 @@ import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver"
 import { useOverlay } from "@/hooks/common/useOverlay";
 import useDeleteCurationMutation from "@/hooks/queries/curation/useDeleteCurationMutation";
 import useMyCurationInfiniteQuery from "@/hooks/queries/curation/useMyCurationInfiniteQuery";
+import type { UserInformation } from "@/types/user";
 
-const CurationTab = () => {
+interface CurationTabProps {
+  userInformation: UserInformation;
+}
+
+const CurationTab = ({ userInformation }: CurationTabProps) => {
+  const isEditor = userInformation.role === "EDITOR";
+
   const { curations, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useMyCurationInfiniteQuery();
+    useMyCurationInfiniteQuery(isEditor);
   const { mutateDeleteMyCuration } = useDeleteCurationMutation();
 
   const { isOpen, open, close } = useOverlay();
@@ -17,7 +24,7 @@ const CurationTab = () => {
     onIntersect: fetchNextPage,
     hasNextPage,
     delayMs: 300,
-    enabled: hasNextPage && !isFetchingNextPage,
+    enabled: isEditor && hasNextPage && !isFetchingNextPage,
   });
 
   const handleDeleteClick = (id: number) => {
@@ -31,16 +38,26 @@ const CurationTab = () => {
       <h2 id="curation-tab-title" className="sr-only">
         나의 큐레이션 목록
       </h2>
-      <Button
-        size="lg"
-        className="w-[90%] max-w-sm bg-custom-point text-custom-black body-lg-dohyeon flex items-center justify-center hover:bg-custom-point/90 hover:text-custom-black"
-        onClick={open}>
-        큐레이션 등록
-      </Button>
+      {isEditor && (
+        <Button
+          size="lg"
+          className="w-[90%] max-w-sm bg-custom-point text-custom-black body-lg-dohyeon flex items-center justify-center hover:bg-custom-point/90 hover:text-custom-black"
+          onClick={open}>
+          큐레이션 등록
+        </Button>
+      )}
       <div
         ref={rootRef}
         className="w-full flex flex-1 flex-col overflow-y-auto no-scrollbar">
-        {curations.length === 0 ? (
+        {/* eslint-disable-next-line no-nested-ternary */}
+        {!isEditor ? (
+          <div className="flex flex-col flex-1 items-center justify-center text-custom-gray px-6 text-center">
+            <h3 className="heading-h2-pretendard">이용 권한이 없습니다</h3>
+            <p className="body-lg-pretendard mt-2">
+              큐레이션은 <strong>에디터 등급 이상</strong>만 이용할 수 있어요.
+            </p>
+          </div>
+        ) : curations.length === 0 ? (
           <div className="flex flex-col flex-1 items-center justify-center text-custom-gray">
             <h3 className="heading-h2-pretendard">
               아직 생성된 큐레이션이 없어요
@@ -65,7 +82,7 @@ const CurationTab = () => {
         )}
 
         <div ref={targetRef} className="h-6" />
-        {isFetchingNextPage && (
+        {isEditor && isFetchingNextPage && (
           <div
             role="status"
             className="flex items-center w-full justify-center">
@@ -73,7 +90,8 @@ const CurationTab = () => {
           </div>
         )}
       </div>
-      {isOpen && <CreateCurationModal onClose={close} />}
+
+      {isEditor && isOpen && <CreateCurationModal onClose={close} />}
     </section>
   );
 };

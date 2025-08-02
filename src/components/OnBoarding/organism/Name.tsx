@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import useUserStore from "@/stores/useUserStore";
 import type { OnBoardingStep } from "@/types/onBoarding";
 
@@ -9,6 +10,11 @@ interface NameProps {
 
 const Name = ({ setStep, isActive }: NameProps) => {
   const name = useUserStore((state) => state.user.name);
+  const setName = useUserStore((state) => state.setName);
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value.trim());
+  };
 
   return (
     <section
@@ -17,18 +23,24 @@ const Name = ({ setStep, isActive }: NameProps) => {
       <h2 id="name-heading" className="sr-only">
         이름 확인
       </h2>
-      <p
-        className={`flex h-14 items-center justify-center bg-white heading-h1-pretendard px-4 rounded-md ${
-          isActive ? "border-2 border-custom-point" : "border-none"
-        }`}>
-        {name}
-      </p>
+      <Input
+        className={`h-14 bg-white !text-heading-h1 font-pretendard text-center leading-[5rem] px-4 rounded-md 
+          focus:border-2 focus:border-custom-point focus:border-2 focus:border-custom-point ${
+            isActive
+              ? "border-2 border-custom-point"
+              : "border border-transparent"
+          }`}
+        placeholder="이름을 작성해주세요"
+        value={name}
+        onChange={handleNameChange}
+      />
 
       {isActive && (
         <Button
           size="lg"
           className="w-full bg-custom-point text-custom-black body-lg-dohyeon flex items-center justify-center hover:bg-custom-point/90 hover:text-custom-black"
-          onClick={() => setStep("birthYear")}>
+          onClick={() => setStep("birthYear")}
+          disabled={name.length === 0}>
           다음으로
         </Button>
       )}

@@ -23,6 +23,7 @@ export interface ContentCreateRequest {
   description: string;
   videoUrl: string;
   postUrl: string;
+  shortsUrl?: string;
   countryName: string;
   openDate: string;
   runningTime: number;
@@ -31,7 +32,8 @@ export interface ContentCreateRequest {
   genres: string[];
   actors: string[];
   director: string;
-  trailerTime: number;
+  trailerTime?: number;
+  uuid?: string;
 }
 
 export interface Review {

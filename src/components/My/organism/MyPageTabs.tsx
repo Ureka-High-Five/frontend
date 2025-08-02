@@ -16,20 +16,19 @@ const MyPageTabs = ({ userInformation }: MyPageTabsProps) => {
           className="flex-1 text-white border-b-4 border-transparent px-1 pb-2 bg-transparent data-[state=active]:shadow-[inset_0_-1px_0_0_white]">
           나의 리뷰
         </TabsTrigger>
-        {userInformation?.role === "EDITOR" && (
-          <TabsTrigger
-            value="curation"
-            className="flex-1 text-white border-b-4 border-transparent px-1 pb-2 bg-transparent data-[state=active]:shadow-[inset_0_-1px_0_0_white]">
-            큐레이션
-          </TabsTrigger>
-        )}
+
+        <TabsTrigger
+          value="curation"
+          className="flex-1 text-white border-b-4 border-transparent px-1 pb-2 bg-transparent data-[state=active]:shadow-[inset_0_-1px_0_0_white]">
+          큐레이션
+        </TabsTrigger>
       </TabsList>
 
       <TabsContent value="review" className="flex-1 min-h-0">
         <ReviewTab />
       </TabsContent>
       <TabsContent value="curation" className="flex-1 min-h-0">
-        <CurationTab />
+        <CurationTab userInformation={userInformation} />
       </TabsContent>
     </Tabs>
   );
