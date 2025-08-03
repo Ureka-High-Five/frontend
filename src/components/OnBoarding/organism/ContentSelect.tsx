@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
+import SelectedContentList from "@/components/My/molecule/SelectedContentList";
 import OnBoardingContentCard from "@/components/OnBoarding/molecule/OnBoardingContentCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,13 +14,15 @@ import type { OnBoardingContent } from "@/types/content";
 interface ContentSelectProps {
   contents: OnBoardingContent[];
   selectedIds: number[];
-  toggleSelect: (id: number) => void;
+  selectedContents: OnBoardingContent[];
+  toggleSelect: (content: OnBoardingContent) => void;
   onSubmitOnBoarding: () => void;
 }
 
 const ContentSelect = ({
   contents,
   selectedIds,
+  selectedContents,
   toggleSelect,
   onSubmitOnBoarding,
 }: ContentSelectProps) => {
@@ -44,7 +47,7 @@ const ContentSelect = ({
 
     const isAtBottom =
       container.scrollHeight - container.scrollTop - container.clientHeight <
-      250;
+      300;
 
     if (
       searchKeyword.length === 0 &&
@@ -69,19 +72,28 @@ const ContentSelect = ({
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    const handleScroll = () => {
-      const scrollGap =
-        container.scrollHeight - container.scrollTop - container.clientHeight;
+    let animationFrameId: number;
 
-      if (scrollGap <= 150 && showNewContentNotice) {
-        setShowNewContentNotice(false);
-      }
+    const handleScroll = () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+      animationFrameId = requestAnimationFrame(() => {
+        const scrollGap =
+          container.scrollHeight - container.scrollTop - container.clientHeight;
+
+        if (scrollGap <= 150 && showNewContentNotice) {
+          setShowNewContentNotice(false);
+        }
+      });
     };
 
     container.addEventListener("scroll", handleScroll);
 
     // eslint-disable-next-line consistent-return
-    return () => container.removeEventListener("scroll", handleScroll);
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(animationFrameId);
+    };
   }, [showNewContentNotice]);
 
   useEffect(() => {
@@ -108,6 +120,14 @@ const ContentSelect = ({
         onChange={(e) => setSearchInput(e.target.value)}
         className="w-[90%] max-w-sm text-white placeholder:text-gray-500 bg-white text-custom-black h-10"
       />
+
+      <div className="w-[90%] max-w-sm">
+        <SelectedContentList
+          selectedContents={selectedContents}
+          onRemove={toggleSelect}
+        />
+      </div>
+
       <div
         ref={(el) => {
           rootRef.current = el;
@@ -118,12 +138,11 @@ const ContentSelect = ({
           {displayContents.map((content) => (
             <OnBoardingContentCard
               key={content.contentId}
-              contentId={content.contentId}
               title={content.title}
               thumbnailUrl={content.thumbnailUrl}
               openYear={content.openYear}
               isSelected={selectedIds.includes(content.contentId)}
-              toggleSelect={toggleSelect}
+              toggleSelect={() => toggleSelect(content)}
             />
           ))}
         </ul>

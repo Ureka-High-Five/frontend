@@ -16,6 +16,8 @@ interface GenderSelectProps {
 
 const GenderSelect = ({ setStep }: GenderSelectProps) => {
   const gender = useUserStore((state) => state.user.gender);
+  const name = useUserStore((state) => state.user.name);
+  const birthYear = useUserStore((state) => state.user.birthYear);
   const setGender = useUserStore((state) => state.setGender);
 
   return (
@@ -42,14 +44,13 @@ const GenderSelect = ({ setStep }: GenderSelectProps) => {
         </SelectContent>
       </Select>
 
-      {!!gender && (
-        <Button
-          size="lg"
-          className="w-full bg-custom-point text-custom-black body-lg-dohyeon hover:bg-custom-point/90 hover:text-custom-black"
-          onClick={() => setStep("content")}>
-          다음으로
-        </Button>
-      )}
+      <Button
+        size="lg"
+        className="w-full bg-custom-point text-custom-black body-lg-dohyeon hover:bg-custom-point/90 hover:text-custom-black disabled:opacity-50 disabled:cursor-not-allowed"
+        onClick={() => setStep("content")}
+        disabled={!(gender && name && birthYear)}>
+        다음으로
+      </Button>
     </section>
   );
 };

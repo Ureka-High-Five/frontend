@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Search } from "lucide-react";
 import logoImg from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
@@ -19,9 +19,9 @@ const Header = ({ scrolled }: HeaderProps) => {
         scrolled ? "bg-custom-black/50 backdrop-blur-sm" : "bg-custom-black"
       )}>
       <div className="max-w-screen-md mx-auto flex h-14 md:h-16 items-center justify-between px-4 md:px-10 md:pt-3">
-        <button type="button" onClick={() => navigate(PATH.HOME)}>
+        <Link to={PATH.HOME} aria-label="홈으로 이동">
           <img src={logoImg} alt="홈 로고" className="h-8 md:h-12" />
-        </button>
+        </Link>
         <div className="flex items-center gap-1">
           <Button
             variant="ghost"
