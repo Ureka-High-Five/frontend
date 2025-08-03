@@ -2,16 +2,14 @@ import { CheckCircle } from "lucide-react";
 import FallbackImage from "@/components/common/atom/FallbackImage";
 
 interface OnBoardingContentCardProps {
-  contentId: number;
   title: string;
   thumbnailUrl: string;
   openYear: number;
   isSelected: boolean;
-  toggleSelect: (id: number) => void;
+  toggleSelect: () => void;
 }
 
 const OnBoardingContentCard = ({
-  contentId,
   title,
   thumbnailUrl,
   openYear,
@@ -23,7 +21,7 @@ const OnBoardingContentCard = ({
       <article className="flex flex-col items-center">
         <button
           type="button"
-          onClick={() => toggleSelect(contentId)}
+          onClick={toggleSelect}
           aria-pressed={isSelected}
           className="relative rounded-xl w-full aspect-[2/3] border border-[#262626]">
           <FallbackImage

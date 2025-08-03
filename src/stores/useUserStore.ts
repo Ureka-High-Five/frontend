@@ -17,6 +17,7 @@ interface UserState {
   setBirthYear: (birthYear: number) => void;
   setGender: (gender: "MALE" | "FEMALE") => void;
   setName: (name: string) => void;
+  resetUser: () => void;
 }
 
 const initialUser: UserData = {
@@ -77,6 +78,11 @@ const useUserStore = create<UserState>((set) => ({
   setName: (name) =>
     set((state) => ({
       user: { ...state.user, name },
+    })),
+
+  resetUser: () =>
+    set(() => ({
+      user: initialUser,
     })),
 }));
 
