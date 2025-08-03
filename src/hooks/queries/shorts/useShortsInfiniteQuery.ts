@@ -1,10 +1,10 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { getShorts } from "@/apis/shorts/getShorts";
 import type { GetShortsResponse } from "@/types/shorts";
 
-export const useShortsInfiniteQuery = (options?: { enabled?: boolean }) => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useInfiniteQuery<GetShortsResponse>({
+export const useShortsInfiniteQuery = () => {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useSuspenseInfiniteQuery<GetShortsResponse>({
       queryKey: ["shorts"],
       queryFn: ({ pageParam = null }) =>
         getShorts({ cursor: pageParam as number | undefined }),
@@ -12,7 +12,6 @@ export const useShortsInfiniteQuery = (options?: { enabled?: boolean }) => {
         lastPage.hasNext ? lastPage.nextCursor : undefined,
       initialPageParam: null,
       staleTime: 60 * 1000,
-      enabled: options?.enabled ?? true,
     });
 
   const shorts = data?.pages.flatMap((page) => page.items) ?? [];
@@ -22,6 +21,5 @@ export const useShortsInfiniteQuery = (options?: { enabled?: boolean }) => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    isLoading,
   };
 };
