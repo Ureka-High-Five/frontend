@@ -1,15 +1,16 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "@/App";
 import { PATH } from "@/constants/path";
+import AdminPage from "@/pages/AdminPage";
 import ContentDetailPage from "@/pages/ContentDetailPage";
 import HomePage from "@/pages/HomePage";
 import LandingPage from "@/pages/LandingPage";
 import MyPage from "@/pages/MyPage";
+import NotFoundPage from "@/pages/NotFoundPage";
 import OnBoardingPage from "@/pages/OnBoardingPage";
 import RedirectPage from "@/pages/RedirectPage";
-import AdminPage from "./pages/AdminPage";
-import SearchPage from "./pages/SearchPage";
-import ShortsPage from "./pages/ShortsPage";
+import SearchPage from "@/pages/SearchPage";
+import ShortsPage from "@/pages/ShortsPage";
 
 const AppRouter = () => {
   const router = createBrowserRouter([
@@ -46,6 +47,10 @@ const AppRouter = () => {
           element: <MyPage />,
         },
         { path: PATH.SEARCH, element: <SearchPage /> },
+        {
+          path: "*",
+          element: <NotFoundPage />,
+        },
       ],
     },
     {

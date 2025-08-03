@@ -46,7 +46,7 @@ export const AUTH_ERROR_CODE = {
 } as const;
 
 export const HTTP_ERROR_MESSAGES = {
-  404: "찾으시는 콘텐츠가 존재하지 않아요.\n주소가 정확한지 확인해 주세요.",
+  404: "찾으시는 콘텐츠가 존재하지 않아요.",
   500: "서버에 문제가 발생했어요.\n조금 뒤에 다시 시도해 주세요.",
   DEFAULT: (status: number) => `문제가 발생했어요. (에러 코드: ${status})`,
   UNKNOWN: "알 수 없는 오류가 발생했어요.\n앱을 다시 실행해 보시겠어요?",
