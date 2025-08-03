@@ -40,7 +40,7 @@ const Name = ({ setStep, isActive }: NameProps) => {
           size="lg"
           className="w-full bg-custom-point text-custom-black body-lg-dohyeon flex items-center justify-center hover:bg-custom-point/90 hover:text-custom-black"
           onClick={() => setStep("birthYear")}
-          disabled={name.trim().length === 0}>
+          disabled={name.length === 0}>
           다음으로
         </Button>
       )}
