@@ -31,7 +31,10 @@ const RecommendationSection = ({
             <Link
               to={PATH.CONTENT_DETAIL.replace(":id", String(content.contentId))}
               className="block focus:outline-none focus-visible:ring-2 ring-offset-2 ring-custom-point">
-              <ContentCard thumbnailUrl={content.thumbnailUrl} />
+              <ContentCard
+                thumbnailUrl={content.thumbnailUrl}
+                contentId={String(content.contentId)}
+              />
             </Link>
           </li>
         ))}
