@@ -65,7 +65,7 @@ const MainRecommendBanner = ({ content }: Props) => {
 
         {isPlaying && (
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-2 text-center px-4">
-            <h1 className="text-white text-heading-h1 font-pretendard">
+            <h1 className="text-white text-heading-h2 font-pretendard">
               {content.title}
             </h1>
             <p className="text-body-xs md:text-body-sm text-custom-gray ">
@@ -100,6 +100,9 @@ const MainRecommendBanner = ({ content }: Props) => {
               </span>
             ))}
           </h2>
+          <p className="text-body-xs md:text-body-sm text-custom-gray ">
+            {content.genre.join(" · ")}
+          </p>
         </div>
       )}
     </section>
