@@ -63,13 +63,6 @@ const MainRecommendBanner = ({ content }: Props) => {
           <track kind="captions" />
         </video>
 
-        {/* {isPlaying && (
-          <div className="absolute inset-0 z-10 flex items-end justify-center">
-            <h1 className="text-white text-heading-h1 font-pretendard text-center">
-              {content.title}
-            </h1>
-          </div>
-        )} */}
         {isPlaying && (
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-2 text-center px-4">
             <h1 className="text-white text-heading-h1 font-pretendard">
