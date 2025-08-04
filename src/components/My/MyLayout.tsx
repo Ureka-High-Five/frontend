@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logoImg from "@/assets/logo.png";
+import logoImg from "@/assets/logo.webp";
 import NavigationBar from "@/components/common/Navigation/NavigationBar";
 import { PATH } from "@/constants/path";
 import type { UserInformation } from "@/types/user";

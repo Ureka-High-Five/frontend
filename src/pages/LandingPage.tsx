@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logoImg from "@/assets/logo.png";
+import logoImg from "@/assets/logo.webp";
 import LandingLayout from "@/components/landing/LandingLayout";
 import AnimatedLogo from "@/components/landing/organism/AnimatedLogo";
 import AnimatedSubText from "@/components/landing/organism/AnimatedSubText";

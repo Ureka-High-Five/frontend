@@ -1,6 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import { Search } from "lucide-react";
-import logoImg from "@/assets/logo.png";
+import logoImg from "@/assets/logo.webp";
 import { Button } from "@/components/ui/button";
 import { PATH } from "@/constants/path";
 import { cn } from "@/utils/cn";
