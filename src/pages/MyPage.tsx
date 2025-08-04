@@ -1,12 +1,19 @@
+import AsyncBoundary from "@/components/common/AsyncBoundary";
 import MyLayout from "@/components/My/MyLayout";
 import useUserInformationQuery from "@/hooks/queries/user/useUserInformationQuery";
 
-const MyPage = () => {
+const MyPageContent = () => {
   const { userInformation } = useUserInformationQuery();
 
-  if (!userInformation) return null;
-
   return <MyLayout userInformation={userInformation} />;
+};
+
+const MyPage = () => {
+  return (
+    <AsyncBoundary>
+      <MyPageContent />
+    </AsyncBoundary>
+  );
 };
 
 export default MyPage;
