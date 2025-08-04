@@ -60,7 +60,7 @@ export default {
         },
         custom: {
           black: "#141516",
-          point: "#40FEA4",
+          point: "#2FC88F",
           gray: "#A1A1A1",
           darkgray: "#4A4949",
         },
