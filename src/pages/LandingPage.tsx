@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logoImg from "@/assets/logo.webp";
+import { Logo } from "@/assets/svg";
 import LandingLayout from "@/components/landing/LandingLayout";
 import AnimatedLogo from "@/components/landing/organism/AnimatedLogo";
 import AnimatedSubText from "@/components/landing/organism/AnimatedSubText";
@@ -31,7 +31,7 @@ const LandingPage = () => {
 
   return (
     <LandingLayout
-      logo={<AnimatedLogo isVisible={isLogoVisible} src={logoImg} alt="로고" />}
+      logo={<AnimatedLogo isVisible={isLogoVisible} src={Logo} alt="로고" />}
       subText={
         <AnimatedSubText
           isVisible={isSubTextVisible}
