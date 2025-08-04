@@ -4,18 +4,24 @@ import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
+const isAnalyze = process.env.ANALYZE === "true";
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     tsconfigPaths(),
-    visualizer({
-      filename: "bundle-report.html",
-      open: true,
-      template: "treemap",
-      gzipSize: true,
-      brotliSize: true,
-    }),
+    ...(isAnalyze
+      ? [
+          visualizer({
+            filename: "bundle-report.html",
+            open: true,
+            template: "treemap",
+            gzipSize: true,
+            brotliSize: true,
+          }),
+        ]
+      : []),
   ],
   build: {
     rollupOptions: {
