@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
-import { PATH } from "@/constants/path";
 import type { Content, Review, MyReview } from "@/types/content";
 import ContentDetailHeader from "./molecules/ContentDetailHeader";
 import ContentDescription from "./organism/ContentDescription";
@@ -33,7 +32,7 @@ const ContentDetailLayout = ({
   const [isMuted, setIsMuted] = useState(true);
 
   const handleClose = () => {
-    navigate(PATH.HOME);
+    navigate(-1);
   };
 
   const toggleMute = () => {
