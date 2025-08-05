@@ -9,11 +9,7 @@ import type { ReviewListResponse } from "@/types/content";
 export const usePrefetchContentOnView = (contentId: string) => {
   const queryClient = useQueryClient();
 
-  const { ref, isIntersecting } = useLazyIntersectionObserver({
-    threshold: 0.1,
-    rootMargin: "100px",
-    triggerOnce: true,
-  });
+  const { ref, isIntersecting } = useLazyIntersectionObserver();
 
   useEffect(() => {
     if (!isIntersecting) return;
