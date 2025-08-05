@@ -47,7 +47,7 @@ export default function ShortsLayout({
   return (
     <section
       ref={rootRef}
-      className="relative w-full h-screen-mobile overflow-y-scroll"
+      className="relative w-full h-screen-mobile overflow-y-scroll no-scrollbar"
       style={{
         scrollSnapType: isLoading ? "none" : "y mandatory", // 로딩 중에는 스냅 비활성화
         overscrollBehavior: "contain",
