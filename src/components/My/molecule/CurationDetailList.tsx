@@ -18,7 +18,6 @@ const CurationDetailList = ({ curationId }: CurationDetailListProps) => {
           />
           <div className="flex flex-col flex-1 text-white py-1 gap-2 text-left">
             <p className="body-lg-pretendard break-words">{item.title}</p>
-            <p className="body-md-pretendard break-words">{item.description}</p>
           </div>
         </li>
       ))}
