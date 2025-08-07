@@ -21,11 +21,15 @@
 
 ## 🛠️ 기술 스택
 
-- **Frontend:** React 18, TypeScript, Vite, React Query, TailwindCSS, Framer Motion
-- **State Management:** React Query
-- **API 통신:** Axios, RESTful API
-- **인증:** JWT, Social Login (Kakao)
-- **기타:** ESLint, Prettier, Husky, Lucide Icons
+| 분야                    | 기술 스택                                                                                                                                                                                                                                  |
+|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Frontend**          | ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=black) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=Vite&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=flat&logo=TailwindCSS&logoColor=white) ![Framer Motion](https://img.shields.io/badge/Framer_Motion-EF4EAF?style=flat&logo=framer&logoColor=white) |
+| **State Management**  | ![React Query](https://img.shields.io/badge/React_Query-FF4154?style=flat&logo=ReactQuery&logoColor=white)                                                                                                                               |
+| **API 통신**           | ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat) ![RESTful API](https://img.shields.io/badge/RESTful_API-000000?style=flat&logo=OpenAPI-Initiative&logoColor=white)                                                        |
+| **인증**              | ![JWT](https://img.shields.io/badge/JWT-000000?style=flat&logo=jsonwebtokens&logoColor=white) ![Kakao](https://img.shields.io/badge/Kakao_Login-FFCD00?style=flat&logo=KakaoTalk&logoColor=black)                                          |
+| **Code Quality**      | ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=flat&logo=ESLint&logoColor=white) ![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=flat&logo=Prettier&logoColor=black) ![Husky](https://img.shields.io/badge/Husky-000000?style=flat) |
+| **기타**              | ![Lucide](https://img.shields.io/badge/Lucide_Icons-000000?style=flat)                                                                                                                                                                     |
+
 
 
 ## 📦 폴더 구조
@@ -53,4 +57,13 @@ src/
    ```bash
    npm run dev
    ```
+
+
+## 👥 팀원 소개
+|<img src="https://avatars.githubusercontent.com/u/108103346?v=4" width="150" height="150"/>|<img src="https://github.com/user-attachments/assets/faa045a0-4938-43d4-9d86-b046b49d8170" width="150" height="150"/>|<img src="https://github.com/user-attachments/assets/f60b865e-6dd8-4758-8393-e1174eb5c75f" width="150" height="150"/>|
+|:-:|:-:|:-:|
+|이은비<br/>[@silverain02](https://github.com/silverain02)|박재민<br/>[@0Jaemin0](https://github.com/0Jaemin0)|이예슬<br/>[@neungdong](https://github.com/neungdong)|
+|- 팀장, 기획 및 디자인 총괄<br/>- 콘텐츠 상세 페이지<br/>- 쇼츠 영상 스트리밍 <br/>- 레이팅 로직 도입 |- FE 기술 담당<br/>- 사용자 인증<br/>- 온보딩 페이지<br/>- 마이페이지<br/>- 백오피스 |- 홈 페이지 개발<br/>- 쇼츠 인터랙션 <br/> - 프리패칭 적용 |
+
+
 
