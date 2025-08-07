@@ -28,6 +28,7 @@ export const END_POINTS = {
   WATCH_LOG: "content/watch-log",
   USER_REVIEW: "user/reviews",
   SLANG_FILTER: "slang/filter",
+  CONTENT_CLICK: "content/click",
 } as const;
 
 export const NETWORK_TIMEOUT = 30000;

@@ -11,6 +11,9 @@ export const useCommentMutation = () => {
         queryClient.invalidateQueries({
           queryKey: ["shortsComment", shortsId, time],
         });
+        queryClient.refetchQueries({
+          queryKey: ["shortsCommentTimeline", shortsId],
+        });
       },
     }
   );
