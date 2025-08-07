@@ -14,6 +14,9 @@ interface OnBoardingLayoutProps {
   selectedContents: OnBoardingContent[];
   toggleSelect: (content: OnBoardingContent) => void;
   onSubmitOnBoarding: () => void;
+  nameInputRef: React.RefObject<HTMLInputElement | null>;
+  hasNameError: boolean;
+  setHasNameError: (hasError: boolean) => void;
 }
 
 const OnBoardingLayout = ({
@@ -24,6 +27,9 @@ const OnBoardingLayout = ({
   selectedContents,
   toggleSelect,
   onSubmitOnBoarding,
+  nameInputRef,
+  hasNameError,
+  setHasNameError,
 }: OnBoardingLayoutProps) => {
   const selectedCount = selectedIds.length;
 
@@ -53,11 +59,22 @@ const OnBoardingLayout = ({
         />
       ) : (
         <>
-          <Name setStep={setStep} isActive={step === "name"} />
+          <Name
+            setStep={setStep}
+            isActive={step === "name"}
+            nameInputRef={nameInputRef}
+            hasNameError={hasNameError}
+          />
           {(step === "birthYear" || step === "gender") && (
             <BirthYearSelect setStep={setStep} />
           )}
-          {step === "gender" && <GenderSelect setStep={setStep} />}
+          {step === "gender" && (
+            <GenderSelect
+              setStep={setStep}
+              nameInputRef={nameInputRef}
+              setHasNameError={setHasNameError}
+            />
+          )}
         </>
       )}
     </section>

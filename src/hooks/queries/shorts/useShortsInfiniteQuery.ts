@@ -7,9 +7,10 @@ export const useShortsInfiniteQuery = () => {
     useSuspenseInfiniteQuery<GetShortsResponse>({
       queryKey: ["shorts"],
       queryFn: ({ pageParam = null }) =>
-        getShorts({ cursor: pageParam as number | undefined }),
-      getNextPageParam: (lastPage) =>
-        lastPage.hasNext ? lastPage.nextCursor : undefined,
+        getShorts({ cursor: pageParam as number }),
+      getNextPageParam: (lastPage) => {
+        return lastPage.nextCursor === null ? 0 : lastPage.nextCursor;
+      },
       initialPageParam: null,
       staleTime: 60 * 1000,
     });

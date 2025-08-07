@@ -5,6 +5,7 @@ import SearchContentList from "@/components/My/molecule/SearchContentList";
 import SelectedContentList from "@/components/My/molecule/SelectedContentList";
 import { Button } from "@/components/ui/button";
 import { ONBOARDING_SEARCH_COUNT } from "@/constants/onBoarding";
+import useOutsideClick from "@/hooks/common/useOutsideClick";
 import useContentSelector from "@/hooks/my/useContentSelector";
 import useCurationSubmit from "@/hooks/my/useCurationSubmit";
 import { useSearchContent } from "@/hooks/onboarding/useSearchContent";
@@ -19,6 +20,7 @@ const CreateCurationModal = ({ onClose }: CreateCurationModalProps) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const outsideRef = useOutsideClick({ onClickOutside: onClose });
 
   const { contentId, selectedContents, toggleSelect } = useContentSelector();
   const { handleSubmit } = useCurationSubmit({
@@ -45,7 +47,9 @@ const CreateCurationModal = ({ onClose }: CreateCurationModalProps) => {
       role="dialog"
       aria-labelledby="curation-modal-title"
       className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4 sm:px-6 py-10">
-      <div className="flex flex-col gap-4 bg-custom-darkgray w-[90%] max-w-md max-h-full overflow-y-auto no-scrollbar rounded-md p-6 relative">
+      <div
+        ref={outsideRef}
+        className="flex flex-col gap-4 bg-custom-darkgray w-[90%] max-w-md max-h-full overflow-y-auto no-scrollbar rounded-md p-6 relative">
         <button
           type="button"
           onClick={onClose}
