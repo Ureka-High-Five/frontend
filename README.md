@@ -44,7 +44,19 @@ src/
   constants/      # 상수/엔드포인트
 ```
 
+## 💡 아토믹 디자인 패턴
 
+
+| 구조 적용 예시 | 구성 설명 |
+|----------------|-----------|
+| <img width="480" alt="atomic" src="https://github.com/user-attachments/assets/27764edc-e57d-425e-98df-b26d5b5871d4" />  | UI 컴포넌트를 Atom, Molecule, Organism 단위로 계층화하여 역할을 명확히 분리하고, 일관된 UI 설계를 구축 </br> Template 컴포넌트는 시각적 레이아웃과 구성에 집중하고, Page 컴포넌트는 데이터 주입과 비즈니스 로직을 담당하도록 구조화 |
+
+## 💡 HLS 기반 영상 스트리밍 구조
+
+
+| 구조 적용 예시 | 구성 설명 |
+|----------------|-----------|
+| <img width="512" height="512" alt="image" src="https://github.com/user-attachments/assets/74cfc404-14ac-42da-8bd7-745065226a9e" /> | 계층적 스트림 관리: 하나의 마스터 playlist(m3u8)가 여러 해상도별 playlist(m3u8)로 분기되며, 각 해상도 playlist는 초 단위로 분할된 세그먼트(ts) 파일로 구성<br>적응형 스트리밍(ABR): 클라이언트는 재생 중 네트워크 속도, 디바이스 성능 등의 환경 정보를 실시간으로 감지하여, 최적의 해상도 playlist와 segment 조각을 선택·다운로드<br>네트워크가 느려지면 더 낮은 해상도의 segment로, 빨라지면 고해상도 segment로 자동 전환되어 끊김 없는 재생 |
 ## 🖥️ 로컬 개발 환경
 
 1. **의존성 설치**
