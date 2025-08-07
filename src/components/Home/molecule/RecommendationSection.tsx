@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import ContentCard from "@/components/Home/atom/ContentCard";
 import { PATH } from "@/constants/path";
+import useContentClickMutation from "@/hooks/queries/content/useContentClickMutation";
 import type { RecommendContent } from "@/types/RecommendContentsResponse";
 
 interface RecommendationSectionProps {
@@ -14,6 +15,8 @@ const RecommendationSection = ({
   customHeader,
   contents,
 }: RecommendationSectionProps) => {
+  const { mutatePostContentClick } = useContentClickMutation();
+
   return (
     <section className="mt-6">
       {customHeader ? (
@@ -30,6 +33,9 @@ const RecommendationSection = ({
             style={{ width: "clamp(100px, 22vw, 160px)" }}>
             <Link
               to={PATH.CONTENT_DETAIL.replace(":id", String(content.contentId))}
+              onClick={() =>
+                mutatePostContentClick({ contentId: content.contentId })
+              }
               className="block focus:outline-none focus-visible:ring-2 ring-offset-2 ring-custom-point">
               <ContentCard
                 thumbnailUrl={content.thumbnailUrl}
