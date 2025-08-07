@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import OnBoardingLayout from "@/components/OnBoarding/OnBoardingLayout";
 import useOnBoardingContentMutation from "@/hooks/queries/onboarding/useOnBoardingContentMutation";
 import useOnBoardingContentQuery from "@/hooks/queries/onboarding/useOnBoardingContentQuery";
@@ -13,6 +13,8 @@ const OnBoardingPage = () => {
   const [selectedContents, setSelectedContents] = useState<OnBoardingContent[]>(
     []
   );
+  const [hasNameError, setHasNameError] = useState(false);
+  const nameInputRef = useRef<HTMLInputElement>(null);
 
   const selectedIds = useUserStore((state) => state.user.selectedContentIds);
   const addContentId = useUserStore((state) => state.addSelectedContentId);
@@ -66,6 +68,9 @@ const OnBoardingPage = () => {
       selectedContents={selectedContents}
       toggleSelect={toggleSelect}
       onSubmitOnBoarding={handleSubmitOnBoarding}
+      nameInputRef={nameInputRef}
+      hasNameError={hasNameError}
+      setHasNameError={setHasNameError}
     />
   );
 };
