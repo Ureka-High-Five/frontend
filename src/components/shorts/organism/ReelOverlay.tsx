@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/drawer";
 import { END_POINTS } from "@/constants/api";
 import { useIntersectionObserver } from "@/hooks/common/useIntersectionObserver";
+import useContentClickMutation from "@/hooks/queries/content/useContentClickMutation";
 import { useCommentInfiniteQuery } from "@/hooks/queries/shorts/useCommentInfiniteQuery";
 import { useDislikeMutation } from "@/hooks/queries/shorts/useDislikeMutation";
 import { useLikeMutation } from "@/hooks/queries/shorts/useLikeMutation";
@@ -46,6 +47,7 @@ export default function ReelOverlay({
   contentId,
 }: ReelOverlayProps) {
   const navigate = useNavigate();
+  const { mutatePostContentClick } = useContentClickMutation();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [activeComment, setActiveComment] = useState<CommentWithTime | null>(
     null
@@ -102,6 +104,7 @@ export default function ReelOverlay({
   });
 
   const handleTitleClick = () => {
+    mutatePostContentClick({ contentId });
     navigate(END_POINTS.CONTENT_DETAIL(contentId));
   };
 

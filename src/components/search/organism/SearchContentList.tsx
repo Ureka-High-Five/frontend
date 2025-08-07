@@ -4,6 +4,7 @@ import SearchContentItem from "@/components/search/molecules/SearchContentItem";
 import { Input } from "@/components/ui/input";
 import { PATH } from "@/constants/path";
 import { useSearchContent } from "@/hooks/onboarding/useSearchContent";
+import useContentClickMutation from "@/hooks/queries/content/useContentClickMutation";
 
 const SEARCH_LIMIT = 10;
 
@@ -19,7 +20,10 @@ export default function SearchContentList() {
     targetRef,
   } = useSearchContent(SEARCH_LIMIT);
 
+  const { mutatePostContentClick } = useContentClickMutation();
+
   const handleItemClick = (contentId: number) => {
+    mutatePostContentClick({ contentId });
     navigate(PATH.CONTENT_DETAIL.replace(":id", String(contentId)));
   };
 
