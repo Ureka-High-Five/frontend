@@ -1,3 +1,14 @@
+const path = require("node:path");
+
+const tsconfigProjects = [
+  path.join(__dirname, "apps/service/tsconfig.app.json"),
+  path.join(__dirname, "apps/admin/tsconfig.app.json"),
+  path.join(__dirname, "packages/api/tsconfig.json"),
+  path.join(__dirname, "packages/data-access/tsconfig.json"),
+  path.join(__dirname, "packages/types/tsconfig.json"),
+  path.join(__dirname, "packages/ui/tsconfig.json"),
+];
+
 module.exports = {
   root: true,
   env: {
@@ -16,6 +27,11 @@ module.exports = {
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
+    tsconfigRootDir: __dirname,
+  },
   plugins: ["react-refresh", "@typescript-eslint", "import", "prettier"],
   rules: {
     "react-refresh/only-export-components": [
@@ -23,6 +39,8 @@ module.exports = {
       { allowConstantExport: true },
     ],
     "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "no-console": ["warn", { allow: ["warn", "error"] }],
     "react/jsx-filename-extension": [
       "error",
       { extensions: [".js", ".jsx", ".ts", ".tsx"] },
@@ -110,11 +128,20 @@ module.exports = {
   settings: {
     "import/resolver": {
       typescript: {
-        project: "./tsconfig.json",
+        noWarnOnMultipleProjects: true,
+        project: tsconfigProjects,
       },
       node: {
         extensions: [".js", ".jsx", ".ts", ".tsx"],
       },
     },
   },
+  overrides: [
+    {
+      files: ["packages/ui/src/**/*.tsx"],
+      rules: {
+        "react-refresh/only-export-components": "off",
+      },
+    },
+  ],
 };

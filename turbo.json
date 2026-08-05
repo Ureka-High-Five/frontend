@@ -1,0 +1,48 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    ".eslintrc.cjs",
+    ".prettierrc.json",
+    "tsconfig.base.json"
+  ],
+  "globalEnv": [
+    "VITE_BASE_URL",
+    "VITE_KAKAO_CLIENT_ID",
+    "VITE_KAKAO_REDIRECT_URL"
+  ],
+  "tasks": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "@lead-me/api#build": {
+      "outputs": []
+    },
+    "@lead-me/config#build": {
+      "outputs": []
+    },
+    "@lead-me/data-access#build": {
+      "outputs": []
+    },
+    "@lead-me/types#build": {
+      "outputs": []
+    },
+    "@lead-me/ui#build": {
+      "outputs": []
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "outputs": []
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

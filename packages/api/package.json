@@ -1,0 +1,20 @@
+{
+  "name": "@lead-me/api",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.ts",
+    "./admin/*": "./src/admin/*.ts"
+  },
+  "scripts": {
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit --pretty false",
+    "build": "tsc --noEmit --pretty false",
+    "clean": "node -e \"process.exit(0)\""
+  },
+  "dependencies": {
+    "@lead-me/types": "*",
+    "axios": "^1.10.0"
+  }
+}

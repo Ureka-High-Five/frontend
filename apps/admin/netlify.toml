@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build:admin"
+  publish = "apps/admin/dist"
+  ignore = "node scripts/netlify-ignore.cjs @lead-me/admin"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

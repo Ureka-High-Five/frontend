@@ -1,0 +1,33 @@
+{
+  "name": "@lead-me/service",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5173",
+    "build": "tsc -b && vite build",
+    "lint": "eslint src --ext .ts,.tsx",
+    "typecheck": "tsc -b --pretty false",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@lead-me/api": "*",
+    "@lead-me/config": "*",
+    "@lead-me/data-access": "*",
+    "@lead-me/types": "*",
+    "@lead-me/ui": "*",
+    "@tanstack/react-query": "^5.81.5",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.0",
+    "hls.js": "^1.6.7",
+    "lodash.debounce": "^4.0.8",
+    "lucide-react": "^0.525.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-error-boundary": "^6.0.0",
+    "react-router-dom": "^7.6.3",
+    "sonner": "^2.0.6",
+    "zustand": "^5.0.6"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@lead-me/data-access",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.ts",
+    "./admin/*": "./src/admin/*.ts",
+    "./home/*": "./src/home/*.ts",
+    "./content/*": "./src/content/*.ts",
+    "./user/*": "./src/user/*.ts",
+    "./common/*": "./src/common/*.ts"
+  },
+  "scripts": {
+    "lint": "eslint src --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit --pretty false",
+    "build": "tsc --noEmit --pretty false",
+    "clean": "node -e \"process.exit(0)\""
+  },
+  "dependencies": {
+    "@lead-me/api": "*",
+    "@lead-me/types": "*",
+    "@tanstack/react-query": "^5.81.5"
+  },
+  "peerDependencies": {
+    "react": "^19.1.0"
+  }
+}

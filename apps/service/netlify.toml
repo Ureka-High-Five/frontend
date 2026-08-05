@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build:service"
+  publish = "apps/service/dist"
+  ignore = "node scripts/netlify-ignore.cjs @lead-me/service"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
